@@ -289,10 +289,14 @@ micro_tidy <- micro_tidy %>%
   relocate(.before = species )
 
 #Works with exception to columns I summed/changed. I guess I can just manually re-add here.
-
-
+micro_tidy <- micro_tidy %>% 
+  mutate(group = case_when(species == "Biddulphiales" ~ "Bacillariophyta",
+                            species == "Pennales" ~ "Bacillariophyta",
+                            species == "Skeletonema marinoi" ~ "Bacillariophyta",
+                            species == "Chaetoceros tenuissimus" ~ "Bacillariophyta",
+                            species == "Oligotrichea" ~ "Ciliophora", 
+                            TRUE ~ as.character (group)))
 ```
-
 
 
 ```{r}
@@ -418,6 +422,16 @@ identificationRemark_check <- micro_tidy %>%
 micro_distinct <- micro_tidy %>%
   distinct(species, lifeStage, identificationQualifier, identificationRemark, 
            .keep_all = TRUE)
+
+
+#For an example of what should be looked for, below is a list of errors I found in the species list of the micro_distinct datasheet. They were not captured by the string/regex work. Every new upload will likely have new errors like this that will need to be added to the string expression searches, which is annoying, but how can you standardize this if things keep changing? Eventually the regex searches will become more extensive.
+
+#List of things not being captured and removed from the species names:
+#Phaeocystis poucheteii non-motile stg (would likely go in identificationRemark)
+#Guinardia delicatula auxospore (due to lower case - should try remove case sensitive)
+#Rhizosolenia setigera .
+#Ditylum brightwellii .
+
 ```
 
 
