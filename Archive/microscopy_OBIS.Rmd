@@ -1,0 +1,381 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(hutils)
+library(obistools)
+library(fuzzyjoin)
+library(devtools)
+library(remotes)
+library(XML)
+library(worrms)
+#library('taxizesoap') #not working. Try again tomorrow.
+```
+
+```{r}
+#Testing area to upload minimally formatted data sheet.
+#Manual excel manipulation (could probably be done in R, but the sheets never come completely the same, so not sure if there is much point fully automating this):
+#   1. Input hakai_id as first row (not provided in data sheet so need to add anyways)
+#   2. Remove date and station name (hakai_id and depth top two rows - makes upload messy if kept)
+#   3. Remove empty three rows between depth and data rows
+#   4. Remove "m" after depth (can probably do this in R, but need to figure out regex language)
+#   5. Remove empty columns between species name and abundance counts
+#   6. Remove notes rows at bottom (always messy and split over multiple rows, makes my columns characters)
+#Ideally I could just put a bunch of csv files into a folder, upload together all at once and spit out formatted combined sheet, but is it possible with how the data arrives?
+
+
+# micro_qu39_test <- read.csv("238_Hakai_data_format.csv")
+# 
+# micro_qu39_test <- setNames(data.frame(t(micro_qu39_test [ , -1]))
+#                             , micro_qu39_test [ , 1])
+# 
+# micro_qu39_test <- drop_empty_cols(micro_qu39_test)
+# 
+# micro_qu39_test <- rownames_to_column(micro_qu39_test, "hakai_id")
+
+#This worked to get the data in a comparable format as the more intensively groomed dataset below. The issue will be naming the unknown species columns consistently as they don't line up between dataset. 
+```
+
+```{r}
+
+#Uploading and wrangling
+
+#This may all change if I find a more efficient way to upload the raw data from analyst. I am still doing quite a bit of manual wrangling in Excel to standardize formatting, but some of this could likely be automated.
+
+#What if I removed rows with no abundances before I pivot longer? That way when I get new data I wouldn't need to make sure all the rows match etc...
+
+#Uploads data and formats it into a tibble ensuring species count columns are numeric.
+micro_qu39 <- read.csv("QU39_v1.2.csv", skip = 2)
+
+micro_qu39 <- micro_qu39[,-1]
+
+micro_qu39 <- setNames(data.frame(t(micro_qu39[ , -1])), micro_qu39 [ , 1])
+
+micro_qu39 <- rownames_to_column(micro_qu39, "hakai_id")
+
+micro_qu39 <- as_tibble(micro_qu39)
+
+#Saving columns with no counts/observations. 
+micro_qu39_dropped <- micro_qu39 %>%
+  select_if(~(all(is.na(.)) | all(. == ""))) 
+  
+#dropping columns with no counts/observations.
+micro_qu39 <- drop_empty_cols(micro_qu39)
+
+#Renaming unknown species to class/genus level where possible. #Ask Louis - class level or Genus? I don't like how I am renaming Unknown species. This leaves a lot up to chance for further sheets. I wonder if there is anyway to include the phylum they are associated with. I remove this column in the initial step as it makes it difficult to format the data. I may need to do this manually to the excel sheet before importing into R.
+micro_qu39 <- micro_qu39 %>% 
+  rename(Biddulphiales = `Unidentified centric forms`,
+         `Biddulphiales (small)` = `Unidentified very small centric forms`,
+         Bacillariophyceae  = `Unknown forms`,
+         Pennales = `Unidentified pennate forms`,
+         `Pennales (small)` = `Unidentified very small pennate forms`,
+         `Skeletonema marinoi (small)` = `S. marinoi (small cells)`,
+         `Skeletonema marinoi (large)` = `S. marinoi (large cells)`, 
+         Chlorophyta = `Unknown species`, #Phylum level
+         Choanozoa = `Unknown species.1`, #What level is this?
+         Chrysophyceae = `Unknown species.2`, #This is Class level - Phylum is Ochrophyta
+         `Dinophyceae (resting stages)` = `Resting stages`,
+         Dinophyceae = `Unknown species.3`, #Class level
+         Euglenozoa = `Unknown species.4`,  #This is phylum level for euglenophytes - can go deeper?
+         Kinetoplastea = `Unknown species.5`, #Class level - Euglenozoa is phylum.
+         Protozoa = `Unknown flagellae-bearing cells`, #Ask Louis - can he confirm these are all protozoa
+         `copepoda (copepodites)` = Copepodids, #copepodites NVS lifestage #S115
+         `copepoda (nauplii/ekdysis)` = `Copepod nauplii/ekdysis`,
+         `Thalassiosira nordenskioeldii` = `Thalassiosira nordenskioldii`,
+         `ciliophora (elongate form)` = `Elongate form`, 
+         `Oligotrichea (large)` = `Oligotricious forms (large)`, #Is there another name for these?
+         `Oligotrichea (medium)` = `Oligotricious forms (medium)`, #Maybe Oligotrichea (class)
+         `Oligotrichea (small)` = `Oligotricious forms (small)`,
+         Tintinnina = `Tintinnid forms`) #This is not a qualifier - suborder of ciliophora
+
+#
+#Finding remaining unknown - species classifications that I couldn't resolve. Ask Louis about these.
+find_unknown <- micro_qu39 %>% 
+  select(starts_with("v") |
+           starts_with("unk") |
+           starts_with("uni") |
+           starts_with("tot"))  
+  
+#Removes all columns that don't have taxonomic information. 
+micro_qu39 <- micro_qu39 %>% 
+  select(!(starts_with("v") |
+             starts_with("unk") |
+             starts_with("uni") |
+             starts_with("tot"))) 
+
+#Upload portal metadata to get location and times.
+metadata <- read.csv("metadata_phyto.csv")
+
+#Join based on hakai_id - when I did this previously I used date AND Hakai ID for the join and it resulted in three samples where there was no metadata because the dates didn't match due to errors in the sample data sheet. When I only join on Hakai ID, these disappear. This is because it assigns the metadata date for the Hakai ID. This is likely preferable as it is expected that the portal metadata is correct. Caution required as the analyst doesn't provide Hakai ID in data sheets (only station and date), so I need to investigate data sheet errors and ensure I assign them the correct Hakai ID.  
+micro_qu39_join <- micro_qu39 %>% 
+  left_join(metadata)
+
+#reorganizing and eliminating unused columns
+micro_qu39_join <- micro_qu39_join %>% 
+  select(date, hakai_id, depth = Depth, line_out_depth, work_area, site_id,
+         lat, long, volume,lugols, collected,
+         `Achnanthes spp.`:`Protozoa`)
+
+#Find rows where there was no metadata match - leaving this in here as a test for future uploads/issues. I could also try to add the data sheet date back in for the join and see where the data sheet date does not equal the meta date. This would be a QC check for the data sheet.
+meta_missing <- micro_qu39_join %>%
+  filter(is.na(collected))
+
+#test to see if meta line-out-depth matches data sheet depth.
+compare_depth <- micro_qu39_join %>% 
+  mutate(depth_check = if_else(line_out_depth == depth, 1, 0)) %>% 
+  select(depth_check) %>% 
+  filter(depth_check == 0)
+
+#Making data Tidy 
+micro_qu39_tidy <- micro_qu39_join %>% 
+  pivot_longer(c(`Achnanthes spp.`: `Protozoa`),
+               names_to = "species", values_to = "counts")
+
+#With this data, NA's represent zeros - species not observed. Removing as only want observed species
+micro_qu39_tidy <- micro_qu39_tidy %>%
+  drop_na(counts)
+```
+
+```{r}
+#starting to do some wrangling with actual sheet - need to rename and clean these up.
+tidy_rem <- micro_qu39_tidy %>%
+  filter(!(str_detect(species, "Eggs") |
+           str_detect(species, "pieces") |
+           str_detect(species, "Fecal") |
+           str_detect(species, "ejecta")))
+
+tidy_rem_list <- micro_qu39_tidy %>%
+  filter(str_detect(species, "Eggs") |
+         str_detect(species, "pieces") |
+         str_detect(species, "Fecal") |
+         str_detect(species, "ejecta"))
+
+tidy_sep <- tidy_rem %>% 
+  mutate(lifeStage = str_extract(species, "resting stages|resting stage|
+                                          nauplii/ekdysis|\\bspore|Auxospore|
+                                          copepodites")) %>%
+  mutate(taxonRemark = str_extract(species, "small|medium|large|elongate|cinctus/radicans")) %>% 
+  mutate(identificationQualifier = str_extract(species, "spp\\.|sp\\."))  
+
+# tidy_sep <- tidy_sep %>% 
+#   mutate(species = str_replace(species, "\\(resting stages\\)|\\(elongate form\\)|
+#                                         \\(small\\)|\\(medium\\)|\\(large\\)", ""))
+
+tidy_sep <- tidy_sep %>% 
+  mutate(species = str_replace(species, "\\(small\\)", "")) %>% 
+  mutate(species = str_replace(species, "\\(small cells\\)", "")) %>% 
+  mutate(species = str_replace(species, "very small", "")) %>% 
+  mutate(species = str_replace(species, "\\(medium\\)", "")) %>% 
+  mutate(species = str_replace(species, "medium cells", "")) %>% 
+  mutate(species = str_replace(species, "\\(medium cells\\)", "")) %>%
+  mutate(species = str_replace(species, "\\(large\\)", "")) %>% 
+  mutate(species = str_replace(species, "\\(large cells\\)", "")) %>% 
+  mutate(species = str_replace(species, "\\(resting stages\\)", "")) %>% 
+  mutate(species = str_replace(species, "resting stage", "")) %>%
+  mutate(species = str_replace(species, "resting stages", "")) %>%
+  mutate(species = str_replace(species, "Auxospore", "")) %>%
+  mutate(species = str_replace(species, "\\(copepodites\\)", "")) %>%
+  mutate(species = str_replace(species, "\\(nauplii/ekdysis\\)", "")) %>%
+  mutate(species = str_replace(species, "spp\\.", "")) %>%
+  mutate(species = str_replace(species, "\\bspp", "")) %>%
+  mutate(species = str_replace(species, "sp\\.", "")) %>%
+  mutate(species = str_replace(species, "spore forms", "")) %>% 
+  mutate(species = str_replace(species, "cinctus/radicans", "")) %>%
+  mutate(species = str_replace(species, "\\(elongate form\\)", ""))
+
+unique_check <- tidy_sep %>% 
+  distinct(species) %>% 
+  arrange(species) %>% 
+  mutate(id = row_number())
+
+size_check <- tidy_sep %>% 
+  filter(taxonRemark %in% c("small", "medium", "large")) %>% 
+  distinct(across(c(species, taxonRemark)))
+
+matches <- unique_check$species %>% 
+  match_taxa() %>% 
+  mutate(id = row_number())
+
+match_unique <- matches %>% 
+  full_join(unique_check) %>% 
+  rename(orig_name = species)
+
+match_check_species <- match_unique %>% 
+  filter(match_type %in% c("near_2", "near_3", na.rm = "FALSE"))
+
+match_check_NA <- match_unique %>% 
+  filter(is.na(match_type))
+
+test <- match_unique$scientificName %>% 
+  wm_records_names()
+
+test2 <- test %>% 
+  bind_rows()
+```
+
+```{r}
+#trialing taxize for taxonomic hierarchy. Using unique sheet for simplicity. This takes forever if there are NAs because it searches the entire database!
+
+# match_hierarchy <- match_unique$scientificName %>% 
+#   classification(db = "worms", downto = "species")
+
+```
+
+
+
+```{r}
+#Testing OBIS taxon match on full data-set. Worked, but doesn't retain original columns, so need to create ID # column and merge in a similar way that I did above with the unique list. Woohoo, it worked!
+
+species_add <- tidy_sep$species %>% 
+  match_taxa() %>% 
+  mutate(id = row_number())
+
+tidy_sep <- tidy_sep %>% 
+  mutate(id = row_number())
+
+tidy_merge <- tidy_sep %>% 
+  full_join(species_add)
+```
+
+
+
+```{r}
+#Testing - trying to find species etc. that doen't match using simplified unique_name list
+#Creating list of unique species names to parse out names with non-taxonomic information.
+unique_names <- micro_qu39_tidy %>% 
+  distinct(species) %>% 
+  arrange(species) %>% 
+  mutate(id = row_number())
+
+#Identifying species names with additional information other than taxonomic name (Information that would go in identificationQualifier or taxonRemark). How do I resolve these as when removed it sometimes results in duplicate names. Can I have duplicate names with different information in identificationQualifier or taxonRemark? For example, S.marinoi (large) and S.marinoi (small) - when the qualifiers are removed, they are the same. When I downloaded the SHARK dataset from OBIS (http://ipt.vliz.be/eurobis/resource?r=shark_phytoplankton), there were multiple instances with duplicate species. I couldn't determine from the EMoF if there were quantitive differences. Alternatively, could I combine these and add a dataGeneralization ("action taken to make data less specific or complete, but higher quality data may be available")
+#Is this an example of copy and pasting? Could I make a function for this?
+unique_qualifiers <- unique_names %>% 
+  filter(str_detect(species, "[?]") | 
+           str_detect(species, "small") |
+           str_detect(species, "medium") |
+           str_detect(species, "large") |
+           str_detect(species, "resting") |
+           str_detect(species, "Resting") |
+           str_detect(species, "uxospore") |
+           str_detect(species, "Eggs") |
+           str_detect(species, "naup") |
+           str_detect(species, "Fecal")) 
+
+#sp. or spp. abbreviation. When the species name has this, the SHARK dataset (http://ipt.vliz.be/eurobis/resource?r=shark_phytoplankton) parsed it out into another column: occuranceRemarks, which may have been superseded by taxonRemarks.
+abbev_spp <- unique_names %>% 
+  filter(str_detect(species, "sp\\.") |
+         str_detect(species, "spp\\.") |
+         str_detect(species, "spp"))
+  
+#Might not need to do this as the taxon matching tool finds them. Might not need to be removed here, but, I still think they need to be isolated (done above) so that we can decide what to do with them. The match taxa tool appears to work when sp. or spp. are present, it just removed the abbreviations, so they will need to be parsed out into a separate column in the final datasheet, so this information is retained. The tool throws NAs when non-species names are included, so may actually be good to leave these in so I can identify them.
+  # taxon_only <- unique_names %>%
+  #   filter(!(str_detect(species, "[?]") |
+  #            str_detect(species, "small") |
+  #            str_detect(species, "medium") |
+  #            str_detect(species, "large") |
+  #            str_detect(species, "resting") |
+  #            str_detect(species, "Resting") |
+  #            str_detect(species, "uxospore") |
+  #            str_detect(species, "naup") |
+  #            str_detect(species, "Eggs")))
+
+unique_names <- unique_names %>%
+  filter(!(str_detect(species, "Eggs") |
+           str_detect(species, "pieces") |
+           str_detect(species, "Fecal") |
+           str_detect(species, "ejecta")))
+           
+#OBIS matching tool to QC names and assign WoRMS scientificNameID. Match types are as follows (http://www.marinespecies.org/tutorial_taxonmatch.php):
+#'*1. exact - all characters match exactly*
+#'*2. exact_subgenus - an exact match, but including the subgenus*
+#'*3. phonetic - sounds similar as, despite minor differences in spelling (soundex algorithm)*
+#'*4. near_1 - perfect match, except for one character. This is a quite reliable match*
+#'*5. near_2 - good match, except for two characters. This needs an extra check*
+#'*6. near_3 - good match, except for three characters. This definitely needs an extra check*
+#'*7. match_quarantine - match with a name that is currently in quarantine. Any name that has been used in the literature should in principle not be quarantined. So best to contact the WoRMS DMT about this*
+#'*8. match_deleted - this is a match with a name that has been deleted and no alternative is available. Please contact the WoRMS DMT when you come across this.*
+#When placed in-line does not show options for multiple matched. Must be done in console and once known, number can be used with in-line code. Right now appendicularia comes up with two options - one to class level (option 1) and the other to genus (option 2). Same with Euglenozoa (option 2) Need to confirm with analyst. Right now selecting option 2.
+match_speciesID <- unique_names$species %>% 
+  match_taxa() %>% 
+  mutate(id = row_number())
+
+#Would like to rejoin with original unique-names so I can assess what the NAs and misspellings are. No key so will need to make one and join on that - could just add a number column. 
+match_speciesID <- match_speciesID %>% 
+  full_join(unique_names) %>% 
+  rename(orig_name = species)
+
+#Determine number of each type of flag to assess which need to be further assessed.
+match_flags <- match_speciesID %>% 
+  group_by(match_type) %>% 
+  summarise(n = n())
+
+
+#'*Match for Pleurostomum gracile is incorrect - the match is very close in terms of syntax, but is for a mullosk. The data sheet name is for a species of Kinetoplastidea - Ask Louis* The other two matches are correct. 
+match_check_species <- match_speciesID %>% 
+  filter(match_type %in% c("near_2", "near_3", na.rm = "FALSE"))
+
+#'*Filter for no match - most are qualifiers. One species, Meringosphaerae tenerrima (Chrysophyte), could not find a match. Investigate and ask Louis*
+match_check_NA <- match_speciesID %>% 
+  filter(is.na(match_type))
+
+#This works but is not very intuitive... what if new sheets have spelling errors or different names (i.e. resting stg. versus resting stage)?
+match_NA_fix <- match_check_NA %>% 
+  mutate(lifeStage = str_extract(orig_name, "resting stage|nauplii/ekdysis|spore")) %>% 
+  mutate(size = str_extract(orig_name, "small|medium|large")) %>% 
+  mutate(abbr = str_extract(orig_name, "spp\\.")) 
+  
+```
+
+# %>% 
+#   mutate(orig_name = str_replace(orig_name, "resting stage", ""))
+
+
+
+
+
+
+#1) Try to separate qualifiers and life-stage into separate columns. Eventually need to actually do this on the datasheet, but can practice here. 2) Rename unknown species to Phylum or class level - ask Louis.  
+
+
+#Separating scientific names that need QC cross-check and joining with original spelling from data sheet. I'm not sure how well this will work with variable number of flags/misspellings as fuzzy join distance could throw errors. Use with caution. I like this method, but I think it is better to join before and then filter out.
+# match_check <- match_speciesID %>% 
+#   filter(match_type %in% c("near_2", "near_3")) %>% 
+#   stringdist_inner_join(taxon_only,
+#                         by = c(scientificName = "species"),
+#                         max_dist = 3) %>% 
+#   rename(orig_name = "species") %>% 
+#   mutate(accept = str_replace(orig_name, "Pleurostomum gracile", "N"))
+  
+
+
+
+
+
+
+
+
+
+
+
+#Now need to figure out what columns and formats I actually need - time format, location format, depth format
+#also need to remove additional species that have things like small, ?, Auxospore etc.
+#Decide what to do with these and unknown/unidentified. 
+```
+
+
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
