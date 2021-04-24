@@ -1,0 +1,161 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+library(tidyverse)
+library(here) 
+```
+
+```{r}
+#Uploaded data that has been cleaned and has worms matches
+format_flat <- read_csv(here("output_worms_matching", "qu39_2020.csv"))
+```
+
+```{r}
+#In this chunk I work to get the data into the OBIS-DWC format and split it into the event-core and the occurrence and extended measurement of fact (EMoF) extensions. 
+
+#Setting up a large flat table that I will split the Event, Occurrence and EMoF extensions from afterwards.
+
+#Switched from portal date to collected, which includes hours/minutes/seconds in UTC. The portal format looks to be in the correct format for OBIS-DwC. I kept the date (format Year-month-day) for the creation of the eventID, because I thought it was too complex to add the hours/minutes/seconds to the ID
+format_obis <- format_flat %>% 
+  select(date, eventDate = collected, minimumDepthInMeters = line_out_depth,
+         maximumDepthInMeters = line_out_depth, lat, long,
+         scientificName = valid_name, scientificNameID, valid_AphiaID, 
+         taxonRank = rank, lifeStage, identificationRemark, 
+         identificationQualifier, measurementValue = counts)
+
+#The worrms::wm_records_names tool does not output the correct scientificNameID format (not a url), but it does give the correct aphiaID number. The obistools::match_taxa format is correct, but with the unaccepted species aphiaIDs at the end. In this step, I remove the ID numbers at the end of the obistools scientificNameID url and then concatenate the correct ID number from the worrms tool at the end of the url. 
+format_obis <- format_obis %>% 
+  mutate(scientificNameID_2 = str_replace_all(scientificNameID, "[:digit:]", "")) %>% 
+  unite("ScientificNameID_corr", scientificNameID_2, valid_AphiaID, 
+        sep = "", remove = FALSE) %>% 
+  select(-scientificNameID_2, - scientificNameID, -valid_AphiaID,
+         scientificnameID = ScientificNameID_corr)
+
+#Adding required columns (these pertain to the Occurrence table)
+format_obis <- format_obis %>% 
+  mutate(occuranceStatus = "Present",
+         basisOfRecord = "HumanObservation",
+         identifiedBy = "Louis Hobson",
+         method = "Morphology")
+
+##https://tools.gbif.org/dwca-validator/extension.do?id=dwc:Event
+#Creating eventID - An identifier for the set of information associated with an Event (something that occurs at a place and time). May be a global unique identifier or an identifier specific to the data set.
+format_obis <- format_obis %>% 
+  mutate(eventID = "Hakai_phyto_QU39") %>% 
+  mutate(depth_unit = "m") %>% # creating depth unit to added to depth measurement 
+  unite("depth_unit", minimumDepthInMeters, depth_unit, #merging depth with depth unit
+        sep = "", remove = FALSE) %>%
+  unite("eventID", eventID, date, depth_unit, #merging event event ID prefix, date and depth
+        sep = "_", remove = FALSE) %>% 
+  select(!depth_unit) #removing depth unit column created for ID
+
+#Creating and adding occurrence ID
+format_obis <- format_obis %>% 
+  group_by(eventID) %>% 
+  mutate(occurrence_num = row_number()) %>% #creating sequential # that restarts each new date
+  ungroup() %>% 
+  unite("occurrenceID", eventID, occurrence_num, #merging event ID with new number 
+        sep = "_", remove = FALSE) %>% 
+  relocate(occurrenceID, .after = eventID) %>% 
+  select(!occurrence_num) #removing sequential # used to build occurrenceID
+
+#Removing cyanobacteria because observation/count highly speculative - could do earlier in process, but nice to have for other work.
+format_obis <- format_obis %>% 
+  filter(!scientificName == "Cyanobacteria")
+
+#Creating eventCore - pulling columns from flat format_obis table
+event <- format_obis %>% 
+  select(eventID, eventDate, minimumDepthInMeters,maximumDepthInMeters,
+         decimalLongitude = long, decimalLatitude = lat) %>% 
+  distinct(eventID, .keep_all = TRUE)
+  
+#Creating occurrence table pulling columns from flat format_obis table 
+occurrence <- format_obis %>%
+  select(eventID, occurrenceID, scientificName, 
+         scientificnameID, taxonRank, lifeStage, identificationRemark,
+         identificationQualifier, occuranceStatus, basisOfRecord,
+         identifiedBy, 
+         method)
+
+#Creating extended measurement of fact sheet without lifeStage.
+emof_no_lifeStage <- format_obis %>%
+  select(occurrenceID, measurementValue, lifeStage) %>%
+  mutate(measurementType = "Abundance of phytoplankton",
+         measurementTypeID = "http://vocab.nerc.ac.uk/collection/P01/current/PU00M00Z/",
+         measurementUnit = "cells per litre",
+         measurementUnitID = "http://vocab.nerc.ac.uk/collection/P06/current/UCPL/")
+
+#Creating EMoF with lifestage included in long (tidy) format.
+emof_lifeStage <- format_obis %>% 
+  select(occurrenceID, measurementValue, lifeStage) %>% 
+  mutate(measurementValue = as.character(measurementValue)) %>% 
+  pivot_longer(c(measurementValue:lifeStage),
+               names_to = "measurementType", values_to = "measurementValue")
+
+#Removing rows where there is no lifeStage - Don't need NAs
+emof_lifeStage <- emof_lifeStage %>% 
+  filter(!is.na(measurementValue))
+
+#Creating measurement ID since lifeStage addition creates duplicate occurrenceIDs
+emof_lifeStage <- emof_lifeStage %>% 
+  group_by(occurrenceID) %>% 
+  mutate(meas_num = row_number()) %>% #creating sequential # that restarts each new occID
+  ungroup() %>% 
+  unite("measurementID", occurrenceID, meas_num, #merging  occID with new numbers 
+        sep = "_", remove = FALSE) %>% 
+  relocate(measurementID, .after = occurrenceID) %>% 
+  select(!meas_num) #removing sequential # used to build measID
+
+#Adding measurementType and MeasurementTypeID to emof_lifestage. 
+emof_lifeStage <- emof_lifeStage %>% 
+  mutate(measurementType = str_replace(measurementType,
+                                 "measurementValue", 
+                                 "Abundance of phytoplankton")) %>%
+  mutate(measurementTypeID = 
+           case_when(measurementType == "Abundance of phytoplankton" ~ 
+                       "http://vocab.nerc.ac.uk/collection/P01/current/PU00M00Z/",
+                     measurementType == "lifeStage" ~
+                       "http://vocab.nerc.ac.uk/collection/P01/current/LSTAGE01/")) %>% 
+  mutate(measurementValueID = 
+           case_when(measurementValue == "Auxospores" ~
+                       "http://vocab.nerc.ac.uk/collection/S11/current/S1117/",
+                     measurementValue == "copepodites" ~
+                       "http://vocab.nerc.ac.uk/collection/S11/current/S115/",
+                     measurementValue == "nauplii" ~
+                       "http://vocab.nerc.ac.uk/collection/S11/current/S1130/",
+                     measurementValue == "resting spores" ~ #update to "spores"
+                       "http://vocab.nerc.ac.uk/collection/S11/current/S1134/",
+                     measurementValue == "spores" ~
+                       "http://vocab.nerc.ac.uk/collection/S11/current/S1135/")) %>% 
+  select(occurrenceID, measurementID, measurementType, measurementTypeID,
+         measurementValue, measurementValueID)
+
+#Adding measurement unit for abundance counts and measurementUnitID for measurementUnit
+emof_lifeStage <- emof_lifeStage %>% 
+  mutate(measurementUnit = 
+           case_when(measurementType == "Abundance of phytoplankton" ~
+                       "Number per litre")) %>% 
+  mutate(measurementUnitID = 
+           case_when(measurementType == "Abundance of phytoplankton" ~
+                       "http://vocab.nerc.ac.uk/collection/P06/current/UCPL/"))
+```
+
+```{r}
+#Make sure to alter file names so they are reflective of the dataset being used
+write_csv(format_obis, here("output_obis_format", "OBIS_format_flat_qu39_2020.csv"))
+write_csv(event, here("output_obis_format", "Hakai_phytoplankton_event.csv"))
+write_csv(occurrence, here("output_obis_format", "Hakai_phytoplankton_occurrence_idRemark_qu39_2020.csv"))
+write_csv(emof_no_lifeStage, here("output_obis_format", "Hakai_phytoplankton_emof_no_lifeStage_qu39_2020.csv"))
+write_csv(emof_lifeStage, here("output_obis_format", "Hakai_phytoplankton_emof_lifeStage_qu39_2020.csv"))
+
+```
+
+
+

@@ -1,0 +1,21 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Plot the time-series to check for errors and show results.
+
+```{r}
+#Load packages
+library(tidyverse)
+library(patchwork)
+library(here)
+
+```
+
+```{r}
+#Upload output from OBIS taxonomy matching/formatting
+tax_obis <- read_csv(here("output_worms_matching", "out_QU39_V1.2_NA_remove.csv"))
+                     
+```
+

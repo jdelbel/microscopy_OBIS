@@ -18,15 +18,18 @@ library(here)
 ```
 
 ```{r}
-#Uploading data with no headers as header information spread over multiple rows - goal is go get date as header
-micro20 <- read.csv(here("upload_2020.csv"), na.strings = c("","NA"))
+#Uploading data with no headers as header information spread over multiple rows - goal is go get date as header. Better to use read_csv, but doesn't work for transpose stage later as I have it set for a data frame, bot a tibble. Will fix, but works as it is for now.
+micro <- read.csv(here("files", "upload_2020.csv"), na.strings = c("","NA"))
+
+#Thinks this works - replaces read.csv commented out above. Caused errors in Notes DF
+#micro <- read_csv(here("upload_2020.csv"), na = "")
 
 #removing empty rows and columns 
-micro20 <- micro20 %>% 
+micro <- micro %>% 
   janitor::remove_empty()
 
 #Rename first column as species as contains species information
-micro20 <- micro20 %>% 
+micro <- micro %>%
   rename(species = ï..species)
 
 #List of Louis group names to associate with each species (right now group names at top of row of species)
@@ -41,18 +44,18 @@ group_name <- c("Bacillariophyta", "Chlorophyta-Prasinophyta" ,
   str_c(collapse = "|")
 
 #Searching group names and adding to new column to the left of species
-micro20 <- micro20 %>% 
+micro <- micro %>% 
   mutate(group = str_match(species, group_name)) %>% 
   relocate(group, .after = species)
 
 #Filling down the group names so each species is associated with group - problem is I need to get rid of the original group name above the species within the group
-micro20 <- micro20 %>% 
+micro <- micro %>% 
   fill(group)
 
 #Needs to separate and deal with notes before I can remove group names from species
 
 #Separating notes for re-introduction later - if needed.
-notes <- micro20 %>% 
+notes <- micro %>% 
   filter(group == "Notes") %>%
   janitor::remove_empty() %>% 
   mutate(id = row_number()) %>% 
@@ -67,17 +70,16 @@ notes <- notes %>%
 
 
 #Removing notes and then any rows that only have NAs for abundance counts - This gets rid of the group row that I placed into its own column. I'm not 100% sure if this is working properly. I could also remove these later after I have transformed to species being columns. Go with it for now. Could also just explicity filter out the names - safer, but less adaptable.
-micro20 <- micro20 %>% 
+micro <- micro %>% 
   filter(!group == "Notes") %>% 
   filter_at(vars(QPHY1328:QPHY1369), any_vars(!is.na(.)))
 
 #Need to unite the random qualifiers in the X.1 column with the species column
-micro20 <- micro20 %>% 
+micro <- micro %>% 
   unite("species", species, X.1, sep = " ", na.rm = TRUE)
 
-
 #Finding taxonomic informatio containing unknown and unidentified. When uploading new data, check that this captures all rows without taxonomic designations. If not add new terms to code below.
-unknown <- micro20 %>% 
+unknown <- micro %>% 
   filter(str_detect(species, "Unknown") |
          str_detect(species, "Unidentified") |
          str_detect(species, "Resting"))
@@ -118,7 +120,7 @@ unknown <- unknown %>%
                              
 #Now that we know that all unknown taxonomic designations have been accounted for, we can apply the above code to the full data-set. 
 
-micro20 <- micro20 %>% 
+micro <- micro %>% 
   mutate(species = case_when(species == "Unknown forms" &
                              group == "Bacillariophyta" ~
                                "Bacillariophyceae",
@@ -151,7 +153,7 @@ micro20 <- micro20 %>%
 #Was thinking of doing qualifier/lifestage separations here, but really makes it tough to transpose and convert to long/tidy format, so leaving it until after converted to tidy.
 
 #Remove total cells (diatoms), unknown cells (can't use these as not possible to assign taxonomy) and non-taxonomic information here? Previously I did this beforehand, but it's sort of easier to see them in list form here. With new data, be sure to check for new designations.
-non_tax_list <- micro20 %>%
+non_tax_list <- micro %>%
   filter(str_detect(species, "Eggs") |
          str_detect(species, "pieces") |
          str_detect(species, "Fecal") |
@@ -161,7 +163,7 @@ non_tax_list <- micro20 %>%
          str_detect(species, "Unknown cells"))
 
 #Remove non-taxonomic rows/designations.
-micro20 <- micro20 %>%
+micro <- micro %>%
   filter(!(str_detect(species, "Eggs") |
          str_detect(species, "pieces") |
          str_detect(species, "Fecal") |
@@ -171,38 +173,48 @@ micro20 <- micro20 %>%
          str_detect(species, "Unknown cells")))
 
 #Make additional fixes to species names -  don't want to go too crazy here, but things need to be able to be found by the WoRMs database searches. Ignoring small/large designations as they will be summed once data is transposed. 
-micro20 <- micro20 %>% 
+micro <- micro %>% 
   mutate(species = str_replace(species, "Copepodids", "Copepoda (copepodites)"))
 
-micro20 <- micro20 %>% 
+ micro <- micro %>% 
+   mutate(species = str_replace(species, "Copepod nauplii/ekdysis", "Copepoda (nauplii/ekdysis)"))
+
+micro <- micro %>% 
   mutate(species = str_replace(species, "S. marinoi auxospores", "Skeletonema marinoi auxospores"))
+
+#Won't fuzzy match Louis name for this species - need to fix here.
+micro <- micro %>% 
+  mutate(species = str_replace(species, "Thalassiosira nordenskioldii", "Thalassiosira nordenskioeldii"))
+
+micro <- micro %>% 
+  mutate(species = str_replace(species, "Tintinnid forms", "Tintinnina"))
 
 
 #Separate Louis group/species for tidy/long reintroduction
-groups <- micro20 %>% 
+groups <- micro %>% 
   select(group, species)
 
 #So when I do this, already I can see the problem with the unknown species - Not lining up with my last script, so need a better way to do this. Might be better to use case when (done above)
-micro20_tp <- micro20 %>% 
+micro_tp <- micro %>% 
   select(!group)
 
-micro20_tp <- setNames(data.frame(t(micro20_tp[ , -1])), micro20_tp[ , 1])
+micro_tp <- setNames(data.frame(t(micro_tp[ , -1])), micro_tp[ , 1])
 
 #For some reason, my abundance counts are characters - converting to numeric
-micro20_tp <- micro20_tp %>% 
+micro_tp <- micro_tp %>% 
   mutate_if(is.character, as.numeric)
 
 #Pushes rownames to thier own column
 #Pushes the hakaiID rownames into a column with a header.
-micro20_tp <- rownames_to_column(micro20_tp, "hakai_id")
+micro_tp <- rownames_to_column(micro_tp, "hakai_id")
 
 #Working to sum size class abundance counts into single groups. This is tricky, because not consistent between data outputs. Here, I had to comment out Chaetoceros spp_sum because the small designation did not occur. Not really sure how to get around this. Should have a list from the non-tranformed datasheet of anything with small/medium/large
-size_list <- micro20 %>%
+size_list <- micro %>%
   filter(str_detect(species, "small") |
          str_detect(species, "medium") |
          str_detect(species, "large"))
          
-micro20_tp <- micro20_tp %>% 
+micro_tp <- micro_tp %>% 
   rowwise() %>% 
   mutate(Biddulphiales = sum(`Unidentified centric forms`, 
                    `Unidentified very small centric forms`, na.rm = TRUE),
@@ -220,7 +232,7 @@ micro20_tp <- micro20_tp %>%
                             `Oligotricious forms (small)`, na.rm = TRUE))
 
 #Checking that the sums worked.
-sum_check <- micro20_tp %>% 
+sum_check <- micro_tp %>% 
   select(Biddulphiales, `Unidentified centric forms`, 
          `Unidentified very small centric forms`, Pennales, 
          `Unidentified pennate forms`, `Unidentified very small pennate forms`,
@@ -232,7 +244,7 @@ sum_check <- micro20_tp %>%
          `Oligotricious forms (medium)`, `Oligotricious forms (small)`)
 
 #Removing size separated columns that were summed into a single column.
-micro20_tp <- micro20_tp %>% 
+micro_tp <- micro_tp %>% 
   select(-`Unidentified centric forms`, -`Unidentified very small centric forms`,
          -`Unidentified pennate forms`, -`Unidentified very small pennate forms`,
          -`S. marinoi (small cells)`, -`S. marinoi (large cells)`,
@@ -242,7 +254,7 @@ micro20_tp <- micro20_tp %>%
          -`Oligotricious forms (medium)`, -`Oligotricious forms (small)`)
 
 #Changing zeros from sum math back to NA's
-micro20_tp  <- micro20_tp  %>% 
+micro_tp  <- micro_tp  %>% 
   mutate(Biddulphiales = na_if(Biddulphiales, 0),
          Pennales = na_if(Pennales, 0),
          `Skeletonema marinoi` = na_if(`Skeletonema marinoi`, 0),
@@ -258,17 +270,17 @@ micro20_tp  <- micro20_tp  %>%
 metadata <- read_csv(here("meta_phyto_2021_04_14.csv"))
 
 #Join with microscopy data metadata
-micro20_tp <- micro20_tp %>% 
+micro_tp <- micro_tp %>% 
   left_join(metadata)
 
 #reorganizing and eliminating unused columns
-micro20_tp <- micro20_tp %>% 
+micro_tp <- micro_tp %>% 
   select(date, collected, hakai_id, line_out_depth, work_area, site_id,
          lat, long, volume, lugols, collected,
          `Achnanthes spp.`:Oligotrichea)
 
 #Find rows where there was no metadata match - Check to ensure out is 0, which means all of the data was merged.
-meta_missing <- micro20_tp %>%
+meta_missing <- micro_tp %>%
   filter(is.na(collected))
 ```
 
@@ -276,7 +288,7 @@ meta_missing <- micro20_tp %>%
 #Convert data to tidy
 
 #Making data Tidy 
-micro_tidy <- micro20_tp %>% 
+micro_tidy <- micro_tp %>% 
   pivot_longer(c(`Achnanthes spp.`: Oligotrichea),
                names_to = "species", values_to = "counts")
 
@@ -300,8 +312,6 @@ micro_tidy <- micro_tidy %>%
                             species == "Oligotrichea" ~ "Ciliophora", 
                             TRUE ~ as.character (group)))
 ```
-
-
 ```{r}
 #Further cleaning of data not done before making the data tidy - was too complicated with having to transpose the data for merging with metadata.
 
@@ -381,6 +391,7 @@ micro_tidy <- micro_tidy %>%
                                              TRUE ~ as.character
                                              (identificationQualifier)))
 
+
 #This step is time consuming to run, but removes any white-space before/after strings created through regex work.
 micro_tidy <- micro_tidy %>% 
   mutate(species = stringr::str_trim(species, side = "right"))
@@ -437,7 +448,11 @@ identificationRemark_check <- micro_tidy %>%
 micro_distinct <- micro_tidy %>%
   distinct(species, lifeStage, identificationQualifier, identificationRemark, 
            .keep_all = TRUE)
+```
 
+
+```{r}
+#Errors from string matching - kept as an example of errors that should be checked in future files
 
 #For an example of what should be looked for, below is a list of errors I found in the species list of the micro_distinct datasheet. They were not captured by the string/regex work. Every new upload will likely have new errors like this that will need to be added to the string expression searches, which is annoying, but how can you standardize this if things keep changing? Eventually the regex searches will become more extensive.
 
@@ -451,9 +466,27 @@ micro_distinct <- micro_tidy %>%
 #Where would this be incorporated
 
 #Another issue
-#S. marinoi Auxospores (where do I go back to to fix this...)
+#S. marinoi Auxospores (fixed)
 ```
 
+```{r}
+#errors from worms matching - returned from next step/workbook
+
+#didn't find:
+#copepod - fixed
+#Phyllomitus yorkeensis - decided to just remove because very infrequent and low abundance - but will keep this in the next phase.
+#Thalassiosira nordenskioldii - had to fix in earlier work. (fixed)
+
+```
+
+
+
+```{r}
+#Write output to open in matching workbook
+write_csv(micro_tidy, here("cleaned_csv", "microscopy_QU39_2020.csv"))
+
+
+```
 
 
 
