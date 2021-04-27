@@ -3,7 +3,7 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-Testing upload methods for new data
+Testing upload methods for new data - Unfortunately, changes need to be made for each new data sheet. I'm conflicted as to whether some of these changes could be done more quickly manually within excel.
 
 ```{r}
 #Load packages - Ran script with some packages turned off and it work, but need to try with more
@@ -260,6 +260,7 @@ size_list <- micro %>%
          str_detect(species, "medium") |
          str_detect(species, "large"))
          
+#Summing columns with size designation - needs to be updated to size list above - not adaptable (i.e. will fail if not reflective of datasheet), which is why certain things are commetented out
 micro_tp <- micro_tp %>% 
   rowwise() %>% 
   mutate(Biddulphiales = sum(`Unidentified centric forms`, 
@@ -268,33 +269,37 @@ micro_tp <- micro_tp %>%
                         `Unidentified very small pennate forms`, na.rm = TRUE),
          `Skeletonema marinoi` = sum(`S. marinoi (small cells)`,
                                     `S. marinoi (large cells)`, na.rm = TRUE),
-         `Chaetoceros tenuissimus` = sum(`Chaetoceros tenuissimus (large)`,
-                                         `Chaetoceros tenuissimus (small)`, 
-                                         na.rm = TRUE),
+         # `Chaetoceros tenuissimus` = sum(`Chaetoceros tenuissimus (large)`,
+         #                                 `Chaetoceros tenuissimus (small)`, 
+         #                                 na.rm = TRUE),
          #`Chaetoceros spp_sum.` = sum(`Chaetoceros spp.`,
          #                        `Chaetoeros spp. very small`, na.rm = TRUE ),
          Oligotrichea = sum(`Elongate form`, `Oligotricious forms (large)`,
                             `Oligotricious forms (medium)`, 
                             `Oligotricious forms (small)`, na.rm = TRUE))
 
-#Checking that the sums worked.
+#In this instance, there was only a large of a specific species, so using rename here.
+micro_tp <- micro_tp %>% 
+  rename(`Chaetoceros tenuissimus` = `Chaetoceros tenuissimus (large)`)
+
+#Checking that the sums worked. Needs to be updated to reflect sums done above.
 sum_check <- micro_tp %>% 
   select(Biddulphiales, `Unidentified centric forms`, 
          `Unidentified very small centric forms`, Pennales, 
          `Unidentified pennate forms`, `Unidentified very small pennate forms`,
          `Skeletonema marinoi`, `S. marinoi (small cells)`,
          `S. marinoi (large cells)`, `Chaetoceros tenuissimus`, 
-         `Chaetoceros tenuissimus (large)`, `Chaetoceros tenuissimus (small)`,
+         #`Chaetoceros tenuissimus (large)`, `Chaetoceros tenuissimus (small)`,
          #`Chaetoceros spp_sum.`, `Chaetoceros spp.`, `Chaetoeros spp. very small`,
          Oligotrichea, `Elongate form`, `Oligotricious forms (large)`,
          `Oligotricious forms (medium)`, `Oligotricious forms (small)`)
 
-#Removing size separated columns that were summed into a single column.
+#Removing size separated columns that were summed into a single column. Needs to be updated to reflect sums done above.
 micro_tp <- micro_tp %>% 
   select(-`Unidentified centric forms`, -`Unidentified very small centric forms`,
          -`Unidentified pennate forms`, -`Unidentified very small pennate forms`,
          -`S. marinoi (small cells)`, -`S. marinoi (large cells)`,
-         -`Chaetoceros tenuissimus (large)`, -`Chaetoceros tenuissimus (small)`,
+         #-`Chaetoceros tenuissimus (large)`, -`Chaetoceros tenuissimus (small)`,
          #-`Chaetoceros spp.`, -`Chaetoeros spp. very small`, 
          -`Elongate form`, -`Oligotricious forms (large)`, 
          -`Oligotricious forms (medium)`, -`Oligotricious forms (small)`)
@@ -345,6 +350,8 @@ micro_tidy <- micro_tidy %>%
 
 ```{r}
 #Trying to re-add Louis' group designations
+
+#Joining groups dataframe by species
 micro_tidy <- micro_tidy %>% 
   left_join(groups) %>% 
   relocate(.before = species )
@@ -358,23 +365,26 @@ micro_tidy <- micro_tidy %>%
                             species == "Oligotrichea" ~ "Ciliophora", 
                             TRUE ~ as.character (group)))
 ```
+
 ```{r}
 #Further cleaning of data not done before making the data tidy - was too complicated with having to transpose the data for merging with metadata.
 
 
-#For the below regex string search lists, make sure to look at the original data to ensure all qualifiers/lifestages have been accounted for.
+#For the below regex string search lists, make sure to look at the original data (micro dataframe) to ensure all qualifiers/lifestages have been accounted for.
 
 #This creates regex list that will be used to add these terms to lifeStage column.
-lifeStage_regex <- c("resting stages", "resting stage", "r\\.s", 
+lifeStage_regex <- c("resting stages", "resting stage", "r\\.s", "resting stg", 
                      "nauplii/ekdysis", "\\bspore", "Auxospore",
-                     "auxospore", "Auxospores", "auxospores", "copepodites") %>% 
+                     "auxospore", "Auxospores", "auxospores",
+                     "copepodites") %>% 
   str_c(collapse = "|")
 
 #This creates regex list that will be used to add these terms to the identificationRemark column. 
 identificationRemark_regex <- c("alpha-starch, Chlorophyta\\?",
                                 "equatorial groove, Dinophyceae\\?",
                                 "cinctus/radicans",
-                                "non-motile stg") %>% 
+                                "non-motile stg",
+                                "pouchetii non motile") %>% 
   str_c(collapse = "|")
 
 #This creates regex list that will be used to add these terms to the identificationQualifier column. I could likely make the search easier and eliminate [:blank:]spp$ by using stringr::str_trim to remove whitespace before or after.
@@ -398,7 +408,8 @@ micro_tidy <- micro_tidy %>%
 micro_tidy <- micro_tidy %>% 
   mutate(lifeStage = str_replace(lifeStage, "spore", "spores")) %>%
   mutate(lifeStage = str_replace(lifeStage, "resting stages", "resting spores")) %>% 
-  mutate(lifeStage = str_replace(lifeStage, "resting stage", "resting spores")) %>%  
+  mutate(lifeStage = str_replace(lifeStage, "resting stage", "resting spores")) %>% 
+  mutate(lifeStage = str_replace(lifeStage, "resting stg", "resting spores")) %>% 
   mutate(lifeStage = str_replace(lifeStage, "r\\.s", "resting spores")) %>% 
   mutate(lifeStage = str_replace(lifeStage, "nauplii/ekdysis", "nauplii")) %>% 
   mutate(identificationQualifier = str_replace(identificationQualifier,
@@ -444,7 +455,7 @@ micro_tidy <- micro_tidy %>%
 ```
 
 ```{r}
-#Remove any identifiers from the species designations in the species column - make sure to update if the data has new identifiers/qualifiers/lifestages etc. Unfortunately, order matters when there are similar words with slight variations. For instance, the plural auxospores need to be before singular. If singular is first, it leaves the s behind and then this is hard to remove on it's own. Having plural first removes only the plural and then the singular after removes only the singular. How can this be better done?
+#Remove any identifiers/information from the species designations in the species column - make sure to update if the data has new identifiers/qualifiers/lifestages etc. Unfortunately, order matters when there are similar words with slight variations. For instance, the plural auxospores need to be before singular. If singular is first, it leaves the s behind and then this is hard to remove on it's own. Having plural first removes only the plural and then the singular after removes only the singular. 
 micro_tidy <- micro_tidy %>% 
   mutate(species = str_replace(species, "\\(resting stages\\)", "")) %>% 
   mutate(species = str_replace(species, "resting stage", "")) %>%
@@ -507,6 +518,12 @@ micro_distinct <- micro_tidy %>%
 #Guinardia delicatula auxospore (fixed)
 #Rhizosolenia setigera . (fixed)
 #Ditylum brightwellii . (fixed)
+
+#Chaetocers debilis resting stg
+#Chaetoceros  resting stg
+#Ditylum brightwellii spore
+#Phaeocystis pouchetii  pouchetii non motile
+
 
 #This is interesting for p.p non-motile - http://vocab.nerc.ac.uk/collection/S13/current/
 #Where would this be incorporated
