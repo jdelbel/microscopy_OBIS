@@ -19,7 +19,7 @@ library(here)
 
 ```{r}
 #Uploading data with no headers as header information spread over multiple rows - goal is go get HakaiID as header. Better to use read_csv, but doesn't work for transpose stage later as I have it set for a data frame, not tibble. Will fix, but works as it is for now.
-micro <- read.csv(here("files", "upload_qu39_2019_2021_04_26.csv"), na.strings = c("","NA"))
+micro <- read.csv(here("files", "upload_qu39_2020.csv"), na.strings = c("","NA"))
 
 #Thinks this works - replaces read.csv commented out above. Caused errors in Notes DF
 #micro <- read_csv(here("upload_2020.csv"), na = "")
@@ -76,7 +76,7 @@ notes <- setNames(data.frame(t(notes[ , -1])), notes [ , 1])
 #With different sheets this will fail as they have different numbers of notes - will need to look at notes datasheet and see how many Notes_1, Notes_2 columns there are.
 notes <- notes %>% 
   rownames_to_column("id") %>% 
-  unite("analyst_note", Notes_1:Notes_3, sep = " ", na.rm = TRUE)
+  unite("analyst_note", Notes_1:Notes_5, sep = " ", na.rm = TRUE)
 ```
 
 
@@ -84,11 +84,11 @@ notes <- notes %>%
 #Removing notes and then any rows that only have NAs for abundance counts - Needs to be changed to reflect Hakai IDs (columns) - Update with new data.
 micro <- micro %>% 
   filter(!group == "Notes") %>% 
-  filter_at(vars(QPHY1299:QPHY1327), any_vars(!is.na(.)))
+  filter_at(vars(QPHY1328:QPHY1369), any_vars(!is.na(.)))
 
 #Unite the random qualifiers (eg. sp., non motile) that are placed in the X and X.1 columns. Again, these columns need to be checked with each new upload to be reflective of data.
 micro <- micro %>% 
-  unite("species", species, X, X.1, sep = " ", na.rm = TRUE)
+  unite("species", species, X.1, sep = " ", na.rm = TRUE)
 ```
 
 
@@ -426,7 +426,7 @@ micro_tidy <- micro_tidy %>%
 micro_tidy <- micro_tidy %>% 
   mutate(identificationRemark = str_replace(identificationRemark,
                                             "non-motile stg", 
-                                            "non-motile"))
+                                            "Non-motile"))
 
 #Adding reason why classification was stopped at sp., spp according to Horten et al. In theory, shouldn't this Qualifier be put on any occurrence that stops before species level? Based on figure 1 in Horten et al., I think that the qualifier should be added even when there is no sp. or spp. I will add this after the taxonomic hierarchy has been applied so that I can filter for it.
 micro_tidy <- micro_tidy %>% 
