@@ -365,6 +365,9 @@ micro_tidy <- micro_tidy %>%
                             species == "Oligotrichea" ~ "Ciliophora", 
                             TRUE ~ as.character (group)))
 ```
+```{r}
+#At this point, the different sheets should be in the same format - must of the custom work should be done. The below steps are more adaptable in that as my search lists grow, they should apply to more and more sheets. Considering this, it might be worth binding data from different sheets here to minimize further sheet specific customization of code. 
+```
 
 ```{r}
 #Further cleaning of data not done before making the data tidy - was too complicated with having to transpose the data for merging with metadata.
@@ -437,6 +440,9 @@ micro_tidy <- micro_tidy %>%
 micro_tidy <- micro_tidy %>% 
   mutate(identificationRemark = str_replace(identificationRemark,
                                             "non-motile stg", 
+                                            "non-motile"),
+         identificationRemark = str_replace(identificationRemark,
+                                            "pouchetii non motile", 
                                             "non-motile"))
 
 #Adding reason why classification was stopped at sp., spp according to Horten et al. In theory, shouldn't this Qualifier be put on any occurrence that stops before species level? Based on figure 1 in Horten et al., I think that the qualifier should be added even when there is no sp. or spp. I will add this after the taxonomic hierarchy has been applied so that I can filter for it.
@@ -460,11 +466,15 @@ micro_tidy <- micro_tidy %>%
   mutate(species = str_replace(species, "\\(resting stages\\)", "")) %>% 
   mutate(species = str_replace(species, "resting stage", "")) %>%
   mutate(species = str_replace(species, "resting stages", "")) %>%
+  mutate(species = str_replace(species, "resting stg", "")) %>%
   mutate(species = str_replace(species, "r\\.s", "")) %>%
   mutate(species = str_replace(species, "Auxospores", "")) %>%
   mutate(species = str_replace(species, "auxospores", "")) %>%
   mutate(species = str_replace(species, "Auxospore", "")) %>%
   mutate(species = str_replace(species, "auxospore", "")) %>%
+  mutate(species = str_replace(species, "spore forms", "")) %>%
+  mutate(species = str_replace(species, "spore", "")) %>%
+  mutate(species = str_replace(species, "pouchetii non motile", "")) %>%
   mutate(species = str_replace(species, "non-motile stg", "")) %>%
   mutate(species = str_replace(species, "\\(copepodites\\)", "")) %>%
   mutate(species = str_replace(species, "\\(nauplii/ekdysis\\)", "")) %>%
@@ -472,7 +482,6 @@ micro_tidy <- micro_tidy %>%
   mutate(species = str_replace(species, "spp\\.", "")) %>%
   mutate(species = str_replace(species, "\\bspp", "")) %>%
   mutate(species = str_replace(species, "sp\\.", "")) %>%
-  mutate(species = str_replace(species, "spore forms", "")) %>% 
   mutate(species = str_replace(species, "cinctus/radicans", "")) %>%
   mutate(species = str_replace(species, "\\(elongate form\\)", "")) %>% 
   mutate(species = str_replace(species, "Pterosperma  s", "Pterosperma")) %>% 
@@ -519,9 +528,9 @@ micro_distinct <- micro_tidy %>%
 #Rhizosolenia setigera . (fixed)
 #Ditylum brightwellii . (fixed)
 
-#Chaetocers debilis resting stg
-#Chaetoceros  resting stg
-#Ditylum brightwellii spore
+#Chaetocers debilis resting stg (being picked up but needs to be removed from species name) (fixed)
+#Chaetoceros  resting stg (above) (fixed)
+#Ditylum brightwellii spore (needs to be removed from species name) (fixed)
 #Phaeocystis pouchetii  pouchetii non motile
 
 
@@ -547,7 +556,6 @@ micro_distinct <- micro_tidy %>%
 ```{r}
 #Write output to open in matching workbook
 write_csv(micro_tidy, here("cleaned_csv", "microscopy_qu39_2019_2021_04_26.csv"))
-
 
 ```
 
