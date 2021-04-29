@@ -15,7 +15,12 @@ library(here)
 
 ```{r}
 #Upload output from OBIS taxonomy matching/formatting
-tax_obis <- read_csv(here("output_worms_matching", "out_QU39_V1.2_NA_remove.csv"))
-                     
+tax_obis_1 <- read_csv(here("output_worms_matching", "qu39_2016_half2019.csv"))
+
+tax_obis_2 <- read_csv(here("output_worms_matching", "qu39_2019new_2020.csv"))
+
+#Not working because columns aren't the same... 
+#micro <- rbind(tax_obis_1, tax_obis_2)
+                   
 ```
 

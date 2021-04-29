@@ -150,6 +150,10 @@ worm_hierarchy_clean <- worm_hierarchy %>%
 complete_join <- complete %>% 
   left_join(worm_hierarchy_clean, by = "scientificName")
 
+#Arrange by date as I combined multiple files from different dates
+complete_join <- complete_join %>% 
+  arrange(date)
+
 ```
 
 ```{r}
