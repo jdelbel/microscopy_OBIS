@@ -10,17 +10,192 @@ Plot the time-series to check for errors and show results.
 library(tidyverse)
 library(patchwork)
 library(here)
-
+library(readr)
 ```
 
 ```{r}
 #Upload output from OBIS taxonomy matching/formatting
-tax_obis_1 <- read_csv(here("output_worms_matching", "qu39_2016_half2019.csv"))
+micro <- read_csv(here("output_worms_matching", "qu39_2016_2020.csv"))
 
-tax_obis_2 <- read_csv(here("output_worms_matching", "qu39_2019new_2020.csv"))
+micro$date <- as.Date(micro$date, "%Y-%m-%d")
 
-#Not working because columns aren't the same... 
-#micro <- rbind(tax_obis_1, tax_obis_2)
-                   
+```
+
+
+```{r}
+#Selecting pertinent columns.
+micro <- micro %>% 
+  select(date, group, scientificName, AphiaID, scientificName_accepted = valid_name, 
+         rank, kingdom:genus, lifeStage:identificationRemark,
+        count = counts)
+```
+
+```{r}
+#Chaetoceros is missing Louis group - adding here but need to go back and fix in original file
+
+micro <- micro %>% 
+  mutate(group = case_when(scientificName == "Chaetoceros" ~
+                             "Bacillariophyta",
+                           TRUE ~ as.character(group)))
+
+#Checking distinct group/species
+micro_distinct <- micro %>% 
+  distinct(group, scientificName) %>% 
+  arrange(group)
+
+#Interesting - unknown flagallete bearing and unknown very small flagellate should probably be summed/grouped in original sheets. I wonder if this is a difference between sheets or if both existed, and I didn't account for this. Only the 2020 qu39 data had any counts for this - so they would have been removed from the other sheets, but kept here. I need to fix this - although it might not be an issue, as I class it as protozoa, so wouldn't it just be grouped in the obis matching stage? Hmm need to think about this.
+
+
+#making group for protozoa chlorophyta as unknown
+micro_distinct_fix <- micro_distinct %>%
+  mutate(group = case_when(scientificName == "Protozoa" & 
+                             group == "Unknown flagellae-bearing cells" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Unknown very small flagellated species" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Dinoflagellata" ~
+                             "Unknown_Dinophyceae?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta" ~
+                             "Unknown_Chlorophyta?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta-Prasinophyta" ~
+                             "Unknown_Chlorophyta?",
+                           TRUE ~ as.character(group)))
+
+micro <- micro %>%
+  mutate(group = case_when(scientificName == "Protozoa" & 
+                             group == "Unknown flagellae-bearing cells" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Unknown very small flagellated species" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Dinoflagellata" ~
+                             "Unknown_Dinophyceae?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta" ~
+                             "Unknown_Chlorophyta?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta-Prasinophyta" ~
+                             "Unknown_Chlorophyta?",
+                           TRUE ~ as.character(group)))
+
+micro <- micro %>%
+  mutate(group = case_when(group == "Chlorophyta" ~ "Chlorophyta-Prasinophyta",
+                           group == "Dictyophyta" ~ "Dictyochophyta",
+                           group == "Haptophyta" ~ "Prymnesiophyta-Haptophyta",
+                           TRUE ~ as.character(group)))
+
+```
+
+```{r}
+#Designating photosynthetic species - Dictyochophyta was different in one sheet and needed to be added also:
+  #Prymnesiophyta-Haptophyta
+  #Chlorophyta-Prasinophyta
+
+#Actually, need to fix these things earlier as I sum groups and these differences will not let thier counts be summed.
+
+micro <- micro %>% 
+  mutate(trophicStatus = case_when(group == "Bacillariophyta" ~ "auto",
+                                   group == "Chlorophyta" ~ "auto",
+                                   group == "Chlorophyta-Prasinophyta" ~ "auto",
+                                   group == "Choanoflagellata" ~ "hetero",
+                                   group == "Chrysophyta" ~ "auto",
+                                   group == "Ciliophora" ~ "hetero",
+                                   group == "Cryptophyta" ~ "auto",
+                                   group == "Cyanobacteria" ~ "auto",
+                                   group == "Dictyophyta" ~ "auto",
+                                   group == "Dictyochophyta" ~ "auto",
+                                   group == "Dinoflagellata" ~ "auto",
+                                   group == "Ebriidea" ~ "hetero",
+                                   group == "Euglenophyta" ~ "auto",
+                                   group == "Haptophyta" ~ "auto",
+                                   group == "Prymnesiophyta-Haptophyta" ~ "auto",
+                                   group == "Kinetoplastidea" ~ "hetero",
+                                   group == "Metazoa" ~ "hetero",
+                                   group == "Raphidiophyta" ~ "auto",
+                                   group == "Unknown_flagellate" ~ "auto",
+                                   group == "Unknown_Chlorophyta?" ~ "auto",
+                                   group == "Unknown_Dinophyceae?" ~ "auto")) %>% 
+  select(date, trophicStatus, group, scientificName, 
+         AphiaID, scientificName_accepted:count)
+
+trophic_check <- micro %>% 
+  distinct(group, trophicStatus) %>% 
+  arrange(trophicStatus)
+```
+
+```{r}
+#Selecting autotrophic groups from class level specifications above. Too coarse for dinos.
+micro_sum <- micro %>%
+  filter(trophicStatus == "auto") %>% #select autotrophic species
+  complete(date, group) %>% # make each day have all species, even if not observed (for joining)
+  group_by(date, group) %>% 
+  summarise(sum = sum(count)) %>% #sum counts for each grouping/class
+  arrange(date, group) %>% 
+  mutate(sum = replace_na(sum, 0)) #replace NAs, created by complete, with 0s
+```
+```{r}
+#Set order or groups for plotting
+
+
+micro_sum$group <- factor(micro_sum$group,
+                         levels = c("Bacillariophyta", #Y
+                                    "Chrysophyta", #Y
+                                    "Dictyochophyta", #Y
+                                    "Raphidiophyta", #Y
+                                    "Dinoflagellata", #Y
+                                    "Cryptophyta",#Y
+                                    "Chlorophyta-Prasinophyta", #Y 
+                                    "Euglenophyta", #Y
+                                    "Prymnesiophyta-Haptophyta", #Y 
+                                    "Cyanobacteria", #Y
+                                    "Unknown_Chlorophyta?", #Y
+                                    "Unknown_Dinophyceae?", #Y
+                                    "Unknown_flagellate" #Y
+                                    ))
+```
+
+```{r}
+#Setting colour pallete for microscopy data - roughly comparable to chemtax data
+color_palette_micro <- c("#ff8000", #Diatoms 
+                   "#ff99c7", #Chrysophytes
+                   "#ff99c7", #Dicto (same color as chryso as same pig. group)
+                   "#4d6600", #Raph
+                   "#ff0000", #Dino
+                   "#ffff00", #Crypto
+                   "#00ff00", #Chloro (chloro and eugleno same colour, same pig. group)
+                   "#00ff00", #Eugleno
+                   "#7d4dcc", #Hapto
+                   "#000000"  #Cyano
+                   )
+
+#Set month labels for plot
+month_labels_5 <- rep(c('J','F','M','A','M','J','J','A','S','O','N','D'), 5)
+
+month_labels <- c('J','F','M','A','M','J','J','A','S','O','N','D')
+```
+
+```{r}
+micro_sum %>% 
+  filter(!group == "Unknown_Chlorophyta?" &
+         !group == "Unknown_Dinophyceae?" &
+         !group == "Unknown_flagellate") %>% 
+  ggplot(aes(x = date, y = sum, group = group, fill = group)) +
+  geom_area(position = "stack", alpha = 0.8, size = 0.5, colour = "black") +
+  scale_fill_manual(values = color_palette_micro) +
+  # scale_x_date(breaks = c(seq(from=as.Date("2016-01-01"),
+  #                             to=as.Date("2020-12-31"),by="month")),
+  #              labels = month_labels_5) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(x = "Month",
+           y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+
 ```
 

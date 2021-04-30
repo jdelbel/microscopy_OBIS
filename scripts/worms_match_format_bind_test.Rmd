@@ -34,8 +34,9 @@ micro_1 <- read_csv(here("cleaned_csv", "microscopy_QU39_2020.csv"))
 
 micro_2 <- read_csv(here("cleaned_csv", "microscopy_qu39_2019_2021_04_26.csv"))
 
+micro_3 <- read_csv(here("cleaned_csv", "microscopy_qu39_2016_2019_2021_04_29.csv"))
 
-micro <- rbind(micro_1, micro_2)
+micro <- rbind(micro_1, micro_2, micro_3)
 ```
 
 
@@ -170,7 +171,7 @@ complete_join <- complete_join %>%
 
 ```{r}
 
-write_csv(complete_join, here("output_worms_matching", "qu39_2019new_2020.csv"))
+write_csv(complete_join, here("output_worms_matching", "qu39_2016_2020.csv"))
 ```
 
 

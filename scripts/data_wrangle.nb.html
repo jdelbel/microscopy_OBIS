@@ -1790,73 +1790,186 @@ micro &lt;- micro %&gt;%
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuYGBgclxuI0Z1cnRoZXIgY2xlYW5pbmcgb2YgZGF0YSBub3QgZG9uZSBiZWZvcmUgbWFraW5nIHRoZSBkYXRhIHRpZHkgLSB3YXMgdG9vIGNvbXBsaWNhdGVkIHdpdGggaGF2aW5nIHRvIHRyYW5zcG9zZSB0aGUgZGF0YSBmb3IgbWVyZ2luZyB3aXRoIG1ldGFkYXRhLlxuXG5cbiNGb3IgdGhlIGJlbG93IHJlZ2V4IHN0cmluZyBzZWFyY2ggbGlzdHMsIG1ha2Ugc3VyZSB0byBsb29rIGF0IHRoZSBvcmlnaW5hbCBkYXRhIHRvIGVuc3VyZSBhbGwgcXVhbGlmaWVycy9saWZlc3RhZ2VzIGhhdmUgYmVlbiBhY2NvdW50ZWQgZm9yLlxuXG4jVGhpcyBjcmVhdGVzIHJlZ2V4IGxpc3QgdGhhdCB3aWxsIGJlIHVzZWQgdG8gYWRkIHRoZXNlIHRlcm1zIHRvIGxpZmVTdGFnZSBjb2x1bW4uXG5saWZlU3RhZ2VfcmVnZXggPC0gYyhcXHJlc3Rpbmcgc3RhZ2VzXFwsIFxccmVzdGluZyBzdGFnZVxcLCBcXHJcXFxcLnNcXCwgXG4gICAgICAgICAgICAgICAgICAgICBcXG5hdXBsaWkvZWtkeXNpc1xcLCBcXFxcXFxic3BvcmVcXCwgXFxBdXhvc3BvcmVcXCxcbiAgICAgICAgICAgICAgICAgICAgIFxcYXV4b3Nwb3JlXFwsIFxcQXV4b3Nwb3Jlc1xcLCBcXGF1eG9zcG9yZXNcXCwgXFxjb3BlcG9kaXRlc1xcKSAlPiUgXG4gIHN0cl9jKGNvbGxhcHNlID0gXFx8XFwpXG5cbiNUaGlzIGNyZWF0ZXMgcmVnZXggbGlzdCB0aGF0IHdpbGwgYmUgdXNlZCB0byBhZGQgdGhlc2UgdGVybXMgdG8gdGhlIGlkZW50aWZpY2F0aW9uUmVtYXJrIGNvbHVtbi4gXG5pZGVudGlmaWNhdGlvblJlbWFya19yZWdleCA8LSBjKFxcYWxwaGEtc3RhcmNoXG5gYGBcbmBgYCJ9 -->
-<pre class="r"><code>```r
-```r
-#Further cleaning of data not done before making the data tidy - was too complicated with having to transpose the data for merging with metadata.
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0xpc3Qgb2YgTG91aXMgZ3JvdXAgbmFtZXMgdG8gYXNzb2NpYXRlIHdpdGggZWFjaCBzcGVjaWVzIChyaWdodCBub3cgZ3JvdXAgbmFtZXMgaW4gc3BlY2llcyBsaXN0IGFib3ZlIHNwZWNpZXMgbmFtZXMgd2l0aCB0aG9zZSBncm91cHMpIC0gbGlzdCBuZWVkcyB0byBiZSB1cGRhdGVkIGlmIHRoZXJlIGFyZSBkaWZmZXJlbmNlcyBvciBuZXcgZ3JvdXBzIGFkZGVkIC0gaG9wZWZ1bGx5IGVuY29tcGFzc2luZyBldmVudHVhbGx5LCBidXQgdXNlIGNhdXRpb24gYXMgTG91aXMgbWFrZXMgc21hbGwgY2hhbmdlcyByZWd1bGFyaWx5LlxuZ3JvdXBfbmFtZSA8LSBjKFwiQmFjaWxsYXJpb3BoeXRhXCIsIFwiQ2hsb3JvcGh5dGEtUHJhc2lub3BoeXRhXCIgLCBcIkNobG9yb3BoeXRhXCIsIFxuICAgICAgICAgICAgICAgIFwiQ2hvYW5vZmxhZ2VsbGF0YVwiLCBcIkNocnlzb3BoeXRhXCIsIFwiQ2lsaW9waG9yYVwiLCBcIkNyeXB0b3BoeXRhXCIsIFxuICAgICAgICAgICAgICAgIFwiQ3lhbm9iYWN0ZXJpYVwiLCBcIkRpY3R5b2Nob3BoeXRhXCIsIFwiRGlub2ZsYWdlbGxhdGFcIiwgXCJFYnJpaWRlYVwiLFxuICAgICAgICAgICAgICAgIFwiRXVnbGVub3BoeXRhXCIsIFwiS2luZXRvcGxhc3RpZGVhXCIsIFwiTWV0YXpvYVwiLCBcIlByb3Rvem9hXCIsXG4gICAgICAgICAgICAgICAgXCJQcnltbmVzaW9waHl0YS1IYXB0b3BoeXRhXCIsIFwiUmFwaGlkaW9waHl0YVwiLCBcbiAgICAgICAgICAgICAgICBcIlVua25vd24gdmVyeSBzbWFsbCBmbGFnZWxsYXRlZCBzcGVjaWVzXCIsXG4gICAgICAgICAgICAgICAgXCJVbmtub3duIHZlcnkgc21hbGwgbm9uLWZsYWdlbGxhdGVkIGNlbGxzXCIsIFwiVW5rbm93biBjZWxsc1wiLFxuICAgICAgICAgICAgICAgIFwiVW5rbm93biBmbGFnZWxsYWUtYmVhcmluZyBjZWxsc1wiLFxuICAgICAgICAgICAgICAgIFwiTm90ZXNcIikgJT4lIFxuICBzdHJfYyhjb2xsYXBzZSA9IFwifFwiKVxuXG4jU2VhcmNoaW5nIGdyb3VwIG5hbWVzIGFuZCBhZGRpbmcgdG8gbmV3IGNvbHVtbiB0byB0aGUgbGVmdCBvZiBzcGVjaWVzIC0gYWZ0ZXIgdGhpcyBzdGVwLCBjaGVjayB0byBzZWUgdGhhdCBuZXcgY29sdW1uIHdpdGggZ3JvdXAgbmFtZXMgbWF0Y2ggd2l0aCB0aG9zZSBpbiB0aGUgc3BlY2llcyBjb2x1bW5cbm1pY3JvIDwtIG1pY3JvICU+JSBcbiAgbXV0YXRlKGdyb3VwID0gc3RyX21hdGNoKHNwZWNpZXMsIGdyb3VwX25hbWUpKSAlPiUgXG4gIHJlbG9jYXRlKGdyb3VwLCAuYWZ0ZXIgPSBzcGVjaWVzKVxuXG4jRmlsbGluZyBkb3duIHRoZSBncm91cCBuYW1lcyBzbyBlYWNoIHNwZWNpZXMgaXMgYXNzb2NpYXRlZCB3aXRoIGEgZ3JvdXAgXG5taWNybyA8LSBtaWNybyAlPiUgXG4gIGZpbGwoZ3JvdXApXG5gYGAifQ== -->
+<pre class="r"><code>#List of Louis group names to associate with each species (right now group names in species list above species names with those groups) - list needs to be updated if there are differences or new groups added - hopefully encompassing eventually, but use caution as Louis makes small changes regularily.
+group_name &lt;- c(&quot;Bacillariophyta&quot;, &quot;Chlorophyta-Prasinophyta&quot; , &quot;Chlorophyta&quot;, 
+                &quot;Choanoflagellata&quot;, &quot;Chrysophyta&quot;, &quot;Ciliophora&quot;, &quot;Cryptophyta&quot;, 
+                &quot;Cyanobacteria&quot;, &quot;Dictyochophyta&quot;, &quot;Dinoflagellata&quot;, &quot;Ebriidea&quot;,
+                &quot;Euglenophyta&quot;, &quot;Kinetoplastidea&quot;, &quot;Metazoa&quot;, &quot;Protozoa&quot;,
+                &quot;Prymnesiophyta-Haptophyta&quot;, &quot;Raphidiophyta&quot;, 
+                &quot;Unknown very small flagellated species&quot;,
+                &quot;Unknown very small non-flagellated cells&quot;, &quot;Unknown cells&quot;,
+                &quot;Unknown flagellae-bearing cells&quot;,
+                &quot;Notes&quot;) %&gt;% 
+  str_c(collapse = &quot;|&quot;)
 
+#Searching group names and adding to new column to the left of species - after this step, check to see that new column with group names match with those in the species column
+micro &lt;- micro %&gt;% 
+  mutate(group = str_match(species, group_name)) %&gt;% 
+  relocate(group, .after = species)
 
-#For the below regex string search lists, make sure to look at the original data to ensure all qualifiers/lifestages have been accounted for.
+#Filling down the group names so each species is associated with a group 
+micro &lt;- micro %&gt;% 
+  fill(group)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0RlYWxpbmcgd2l0aCBhbmFseXN0IG5vdGVzXG5cbiNOZWVkIHRvIHNlcGFyYXRlIGFuZCBkZWFsIHdpdGggbm90ZXMgYmVmb3JlIGZ1cnRoZXIgd29yayBjYW4gYmUgZG9uZSAtIHdhbnQgdG8gc2F2ZSBhbmQgcG9zc2libHkgcmVpbmNvcnBvcmF0ZSBub3Rlcy5cblxuI1NlcGFyYXRpbmcgbm90ZXMgZm9yIHJlLWludHJvZHVjdGlvbiBsYXRlciAtIGlmIG5lZWRlZC5cbm5vdGVzIDwtIG1pY3JvICU+JSBcbiAgZmlsdGVyKGdyb3VwID09IFwiTm90ZXNcIikgJT4lXG4gIGphbml0b3I6OnJlbW92ZV9lbXB0eSgpICU+JSBcbiAgbXV0YXRlKGlkID0gcm93X251bWJlcigpKSAlPiUgXG4gIHVuaXRlKFwibm90ZV9udW1cIiwgZ3JvdXAsIGlkLCBzZXAgPSBcIl9cIikgJT4lIFxuICBzZWxlY3QoIXNwZWNpZXMpIFxuYGBgIn0= -->
+<pre class="r"><code>#Dealing with analyst notes
 
-#This creates regex list that will be used to add these terms to lifeStage column.
-lifeStage_regex &lt;- c(\resting stages\, \resting stage\, \r\\.s\, 
-                     \nauplii/ekdysis\, \\\bspore\, \Auxospore\,
-                     \auxospore\, \Auxospores\, \auxospores\, \copepodites\) %&gt;% 
-  str_c(collapse = \|\)
+#Need to separate and deal with notes before further work can be done - want to save and possibly reincorporate notes.
 
-#This creates regex list that will be used to add these terms to the identificationRemark column. 
-identificationRemark_regex &lt;- c(\alpha-starch</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1NlcGFyYXRpbmcgbm90ZXMgZm9yIHJlLWludHJvZHVjdGlvbiBsYXRlciAtIGlmIG5lZWRlZC5cbm5vdGVzIDwtIG1pY3JvICU+JSBcbiAgZmlsdGVyKGdyb3VwID09IFwiTm90ZXNcIikgJT4lXG4gIGphbml0b3I6OnJlbW92ZV9lbXB0eSgpICU+JSBcbiAgbXV0YXRlKGlkID0gcm93X251bWJlcigpKSAlPiUgXG4gIHVuaXRlKFwibm90ZV9udW1cIiwgZ3JvdXAsIGlkLCBzZXAgPSBcIl9cIikgJT4lIFxuICBzZWxlY3QoIXNwZWNpZXMpIFxuXG5gYGAifQ== --&gt;
-
-```r
 #Separating notes for re-introduction later - if needed.
 notes &lt;- micro %&gt;% 
   filter(group == &quot;Notes&quot;) %&gt;%
   janitor::remove_empty() %&gt;% 
   mutate(id = row_number()) %&gt;% 
   unite(&quot;note_num&quot;, group, id, sep = &quot;_&quot;) %&gt;% 
-  select(!species) 
-</code></pre>
+  select(!species) </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoidmFsdWUgZm9yIFwid2hpY2hcIiBub3Qgc3BlY2lmaWVkLCBkZWZhdWx0aW5nIHRvIGMoXCJyb3dzXCIsIFwiY29sc1wiKVxuIn0= -->
 <pre><code>value for &quot;which&quot; not specified, defaulting to c(&quot;rows&quot;, &quot;cols&quot;)</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1VuaXRlIHRoZSByYW5kb20gcXVhbGlmaWVycyAoZWcuIHNwLiwgbm9uIG1vdGlsZSkgdGhhdCBhcmUgcGxhY2VkIGluIHRoZSBYIGFuZCBYLjEgY29sdW1ucy4gQWdhaW4sIHRoZXNlIGNvbHVtbnMgbmVlZCB0byBiZSBjaGVja2VkIHdpdGggZWFjaCBuZXcgdXBsb2FkIHRvIGJlIHJlZmxlY3RpdmUgb2YgZGF0YS5cbm1pY3JvIDwtIG1pY3JvICU+JSBcbiAgdW5pdGUoXCJzcGVjaWVzXCIsIHNwZWNpZXMsIFgsIFguMSwgc2VwID0gXCIgXCIsIG5hLnJtID0gVFJVRSlcblxuYGBgIn0= -->
-<pre class="r"><code>#Unite the random qualifiers (eg. sp., non motile) that are placed in the X and X.1 columns. Again, these columns need to be checked with each new upload to be reflective of data.
-micro &lt;- micro %&gt;% 
-  unite(&quot;species&quot;, species, X, X.1, sep = &quot; &quot;, na.rm = TRUE)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm90ZXMgPC0gc2V0TmFtZXMoZGF0YS5mcmFtZSh0KG5vdGVzWyAsIC0xXSkpLCBub3RlcyBbICwgMV0pXG5cbiNXaXRoIGRpZmZlcmVudCBzaGVldHMgdGhpcyB3aWxsIGZhaWwgYXMgdGhleSBoYXZlIGRpZmZlcmVudCBudW1iZXJzIG9mIG5vdGVzIC0gd2lsbCBuZWVkIHRvIGxvb2sgYXQgbm90ZXMgZGF0YXNoZWV0IGFuZCBzZWUgaG93IG1hbnkgTm90ZXNfMSwgTm90ZXNfMiBjb2x1bW5zIHRoZXJlIGFyZS5cbm5vdGVzIDwtIG5vdGVzICU+JSBcbiAgcm93bmFtZXNfdG9fY29sdW1uKFwiaWRcIikgJT4lIFxuICB1bml0ZShcImFuYWx5c3Rfbm90ZVwiLCBOb3Rlc18xOk5vdGVzXzUsIHNlcCA9IFwiIFwiLCBuYS5ybSA9IFRSVUUpXG5gYGAifQ== -->
+<pre class="r"><code>notes &lt;- setNames(data.frame(t(notes[ , -1])), notes [ , 1])
+
+#With different sheets this will fail as they have different numbers of notes - will need to look at notes datasheet and see how many Notes_1, Notes_2 columns there are.
+notes &lt;- notes %&gt;% 
+  rownames_to_column(&quot;id&quot;) %&gt;% 
+  unite(&quot;analyst_note&quot;, Notes_1:Notes_5, sep = &quot; &quot;, na.rm = TRUE)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IENhbid0IHN1YnNldCBjb2x1bW5zIHRoYXQgZG9uJ3QgZXhpc3QuXG54IENvbHVtbiBgWGAgZG9lc24ndCBleGlzdC5cblJ1biBgcmxhbmc6Omxhc3RfZXJyb3IoKWAgdG8gc2VlIHdoZXJlIHRoZSBlcnJvciBvY2N1cnJlZC5cbiJ9 -->
-<pre><code>Error: Can&#39;t subset columns that don&#39;t exist.
-x Column `X` doesn&#39;t exist.
-Run `rlang::last_error()` to see where the error occurred.</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1JlbW92aW5nIG5vdGVzIGFuZCB0aGVuIGFueSByb3dzIHRoYXQgb25seSBoYXZlIE5BcyBmb3IgYWJ1bmRhbmNlIGNvdW50cyAtIE5lZWRzIHRvIGJlIGNoYW5nZWQgdG8gcmVmbGVjdCBIYWthaSBJRHMgKGNvbHVtbnMpIC0gVXBkYXRlIHdpdGggbmV3IGRhdGEuXG5taWNybyA8LSBtaWNybyAlPiUgXG4gIGZpbHRlcighZ3JvdXAgPT0gXCJOb3Rlc1wiKSAlPiUgXG4gIGZpbHRlcl9hdCh2YXJzKFFQSFkxMzI4OlFQSFkxMzY5KSwgYW55X3ZhcnMoIWlzLm5hKC4pKSlcblxuI1VuaXRlIHRoZSByYW5kb20gcXVhbGlmaWVycyAoZWcuIHNwLiwgbm9uIG1vdGlsZSkgdGhhdCBhcmUgcGxhY2VkIGluIHRoZSBYIGFuZCBYLjEgY29sdW1ucy4gQWdhaW4sIHRoZXNlIGNvbHVtbnMgbmVlZCB0byBiZSBjaGVja2VkIHdpdGggZWFjaCBuZXcgdXBsb2FkIHRvIGJlIHJlZmxlY3RpdmUgb2YgZGF0YS5cbm1pY3JvIDwtIG1pY3JvICU+JSBcbiAgdW5pdGUoXCJzcGVjaWVzXCIsIHNwZWNpZXMsIFguMSwgc2VwID0gXCIgXCIsIG5hLnJtID0gVFJVRSlcbmBgYCJ9 -->
+<pre class="r"><code>#Removing notes and then any rows that only have NAs for abundance counts - Needs to be changed to reflect Hakai IDs (columns) - Update with new data.
+micro &lt;- micro %&gt;% 
+  filter(!group == &quot;Notes&quot;) %&gt;% 
+  filter_at(vars(QPHY1328:QPHY1369), any_vars(!is.na(.)))
+
+#Unite the random qualifiers (eg. sp., non motile) that are placed in the X and X.1 columns. Again, these columns need to be checked with each new upload to be reflective of data.
+micro &lt;- micro %&gt;% 
+  unite(&quot;species&quot;, species, X.1, sep = &quot; &quot;, na.rm = TRUE)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1JlbmFtaW5nIGFuZC9vciByZW1vdmluZyB1bmtub3duIHNwZWNpZXMuXG5cbiNGaW5kaW5nIHRheG9ub21pYyBpbmZvcm1hdGlvbiBjdXJyZW50bHkgY29tYmluZWQgd2l0aCB0aGUgc3BlY2llcyBuYW1lcyBjb250YWluaW5nIHVua25vd24gYW5kIHVuaWRlbnRpZmllZC4gV2hlbiB1cGxvYWRpbmcgbmV3IGRhdGEsIGNoZWNrIHRoYXQgdGhpcyBjYXB0dXJlcyBhbGwgcm93cyB3aXRob3V0IHRheG9ub21pYyBkZXNpZ25hdGlvbnMuIElmIG5vdCBhZGQgbmV3IHRlcm1zIHRvIGNvZGUgaW4gbmV4dCBzdGVwLlxudW5rbm93biA8LSBtaWNybyAlPiUgXG4gIGZpbHRlcihzdHJfZGV0ZWN0KHNwZWNpZXMsIFwiVW5rbm93blwiKSB8XG4gICAgICAgICBzdHJfZGV0ZWN0KHNwZWNpZXMsIFwiVW5pZGVudGlmaWVkXCIpIHxcbiAgICAgICAgIHN0cl9kZXRlY3Qoc3BlY2llcywgXCJSZXN0aW5nXCIpKVxuXG4jUmVuYW1pbmcgdW5rbm93biBhbmQgdW5pZGVudGlmaWVkIHRheG9ub21pYyBkZXNpZ25hdGlvbnMuIFdoZW4gdXBsb2FkaW5nIG5ldyBkYXRhLCBjaGVjayB0aGF0IGFsbCByb3dzIHdpdGggdW5rbm93biBkZXNpZ25hdGlvbnMgaGF2ZSBiZWVuIGNhcHR1cmVkIGFuZCBmaXhlZC4gIElmIG5vdCwgYWRkIHRlcm1zIHRvIHRoZSBjb2RlIGJlbG93LiBJIGRvIHRoaXMgd29yayBoZXJlLCBiZWNhdXNlIEkgY2FuIHVzZSBMb3VpcycgZ3JvdXBpbmdzIHRvIGhlbHAgZ3VpZGUgdGhlIG5ldyBuYW1lcy4gTm90ZSwgdW5pZGVudGlmaWVkIGRpYXRvbXMgd2l0aCBzaXplIGRlc2lnbmF0aW9ucyBhcmUgbm90IGRlYWx0IHdpdGggaGVyLCBzbyBzcGVjaWVzX2ZpeCB3aWxsIHNob3cgTkFzLiAgRml4ZWQgbGF0ZXIgd2hlbiBkYXRhIHRyYW5zcG9zZWQgYW5kIHRoZW4gc2l6ZSBncm91cHMgYXJlIHN1bW1lZCBhbmQgdGhlIG5ldyBjb2x1bW4gaXMgcmVuYW1lZC4gVW5rbm93biBjZWxscyBhbHNvIG5vdCBkZWFsdCB3aXRoIGFzIGRhdGEgYXJlIG5vdCBjYXJyaWVkIGZvcndhcmQgKHNwZWNpZXNfZml4IHdpbGwgc2hvdyBOQSwgdGhlc2UgZGF0YSByZW1vdmVkIGxhdGVyKS4gVGhpcyBsaXN0L2ZpeGVzIGNhbiBncm93IGFuZCBpbmNsdWRlIHRlcm1zIG5vdCBpbmNsdWRlZCBpbiB0aGUgZGF0YXNoZWV0IGFuZCB3aWxsIHN0aWxsIHdvcmsgLSBiZWNvbWUgbW9yZSBlbmNvbXBhc3NpbmcsIGJ1dCBiZSBzdXJlIHRvIGNyb3NzLWNoZWNrXG51bmtub3duIDwtIHVua25vd24gJT4lIFxuICBtdXRhdGUoc3BlY2llc19maXggPSBjYXNlX3doZW4oc3BlY2llcyA9PSBcIlVua25vd24gZm9ybXNcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwiQmFjaWxsYXJpb3BoeXRhXCIgflxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiQmFjaWxsYXJpb3BoeWNlYWVcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIlVua25vd24gc3BlY2llc1wiICZcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgPT0gXCJDaGxvcm9waHl0YS1QcmFzaW5vcGh5dGFcIiB+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJQcm90b3pvYSAoYWxwaGEtc3RhcmNoLCBDaGxvcm9waHl0YT8pXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJVbmtub3duIHNwZWNpZXNcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwiQ2hsb3JvcGh5dGFcIiB+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJQcm90b3pvYSAoYWxwaGEtc3RhcmNoLCBDaGxvcm9waHl0YT8pXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJVbmtub3duIHNwZWNpZXNcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwiQ2hvYW5vZmxhZ2VsbGF0YVwiIH5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJDaG9hbm96b2FcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIlVua25vd24gc3BlY2llc1wiICZcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgPT0gXCJEaW5vZmxhZ2VsbGF0YVwiIH5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIkRpbm9waHljZWFlXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJSZXN0aW5nIHN0YWdlc1wiICZcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgPT0gXCJEaW5vZmxhZ2VsbGF0YVwiIH5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIkRpbm9waHljZWFlIChyZXN0aW5nIHN0YWdlcylcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIlVua25vd24gdmVyeSBzbWFsbCBzcGVjaWVzIChkaW5vPz8pXCIgJlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBncm91cCA9PSBcIkRpbm9mbGFnZWxsYXRhXCIgflxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiUHJvdG96b2EgKGVxdWF0b3JpYWwgZ3Jvb3ZlLCBEaW5vcGh5Y2VhZT8pXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJVbmtub3duIHNwZWNpZXNcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwiRXVnbGVub3BoeXRhXCIgflxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiRXVnbGVub3pvYVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzcGVjaWVzID09IFwiVW5rbm93biBzcGVjaWVzXCIgJlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBncm91cCA9PSBcIktpbmV0b3BsYXN0aWRlYVwiIH5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIktpbmV0b3BsYXN0ZWFcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIlVua25vd24gdmVyeSBzbWFsbCBmbGFnZWxsYXRlZCBzcGVjaWVzXCIgJlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBncm91cCA9PSBcIlVua25vd24gdmVyeSBzbWFsbCBmbGFnZWxsYXRlZCBzcGVjaWVzXCIgflxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiUHJvdG96b2FcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIlVua25vd24gZmxhZ2VsbGFlLWJlYXJpbmcgY2VsbHNcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwiVW5rbm93biBmbGFnZWxsYWUtYmVhcmluZyBjZWxsc1wiIH5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlByb3Rvem9hXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJiYW5hbmFcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwicGluZWFwcGxlXCIgflxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiUHJvdG96b2FcIikpICU+JSBcbiAgcmVsb2NhdGUoc3BlY2llc19maXgsIC5hZnRlciA9IHNwZWNpZXMpXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuI05vdyB0aGF0IHdlIGtub3cgdGhhdCBhbGwgdW5rbm93biB0YXhvbm9taWMgZGVzaWduYXRpb25zIGhhdmUgYmVlbiBhY2NvdW50ZWQgZm9yLCB3ZSBjYW4gYXBwbHkgdGhlIGFib3ZlIGNvZGUgdG8gdGhlIGZ1bGwgZGF0YS1zZXQuIElmIHRoZXJlIGFyZSBjaGFuZ2VzLCBtYWtlIHN1cmUgdG8gYnJpbmcgdGhlIGFib3ZlIGxpc3QgZG93biB0byBiZSBhcHBsaWVkIHRvIHRoZSBmdWxsIGRhdGFzZXQuXG5cbm1pY3JvIDwtIG1pY3JvICU+JSBcbiAgbXV0YXRlKHNwZWNpZXMgPSBjYXNlX3doZW4oc3BlY2llcyA9PSBcIlVua25vd24gZm9ybXNcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwiQmFjaWxsYXJpb3BoeXRhXCIgflxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiQmFjaWxsYXJpb3BoeWNlYWVcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIlVua25vd24gc3BlY2llc1wiICZcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgPT0gXCJDaGxvcm9waHl0YS1QcmFzaW5vcGh5dGFcIiB+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJQcm90b3pvYSAoYWxwaGEtc3RhcmNoLCBDaGxvcm9waHl0YT8pXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJVbmtub3duIHNwZWNpZXNcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwiQ2hsb3JvcGh5dGFcIiB+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJQcm90b3pvYSAoYWxwaGEtc3RhcmNoLCBDaGxvcm9waHl0YT8pXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJVbmtub3duIHNwZWNpZXNcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwiQ2hvYW5vZmxhZ2VsbGF0YVwiIH5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJDaG9hbm96b2FcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIlVua25vd24gc3BlY2llc1wiICZcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgPT0gXCJEaW5vZmxhZ2VsbGF0YVwiIH5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIkRpbm9waHljZWFlXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJSZXN0aW5nIHN0YWdlc1wiICZcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgPT0gXCJEaW5vZmxhZ2VsbGF0YVwiIH5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIkRpbm9waHljZWFlIChyZXN0aW5nIHN0YWdlcylcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIlVua25vd24gdmVyeSBzbWFsbCBzcGVjaWVzIChkaW5vPz8pXCIgJlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBncm91cCA9PSBcIkRpbm9mbGFnZWxsYXRhXCIgflxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiUHJvdG96b2EgKGVxdWF0b3JpYWwgZ3Jvb3ZlLCBEaW5vcGh5Y2VhZT8pXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJVbmtub3duIHNwZWNpZXNcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwiRXVnbGVub3BoeXRhXCIgflxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiRXVnbGVub3pvYVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzcGVjaWVzID09IFwiVW5rbm93biBzcGVjaWVzXCIgJlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBncm91cCA9PSBcIktpbmV0b3BsYXN0aWRlYVwiIH5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIktpbmV0b3BsYXN0ZWFcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIlVua25vd24gdmVyeSBzbWFsbCBmbGFnZWxsYXRlZCBzcGVjaWVzXCIgJlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBncm91cCA9PSBcIlVua25vd24gdmVyeSBzbWFsbCBmbGFnZWxsYXRlZCBzcGVjaWVzXCIgflxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiUHJvdG96b2FcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIlVua25vd24gZmxhZ2VsbGFlLWJlYXJpbmcgY2VsbHNcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwiVW5rbm93biBmbGFnZWxsYWUtYmVhcmluZyBjZWxsc1wiIH5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlByb3Rvem9hXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJiYW5hbmFcIiAmXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdyb3VwID09IFwicGluZWFwcGxlXCIgflxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiUHJvdG96b2FcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVFJVRSB+IGFzLmNoYXJhY3RlciAoc3BlY2llcykpKVxuXG4jV2FzIHRoaW5raW5nIG9mIGRvaW5nIHF1YWxpZmllci9saWZlc3RhZ2Ugc2VwYXJhdGlvbnMgaGVyZSwgYnV0IHJlYWxseSBtYWtlcyBpdCB0b3VnaCB0byB0cmFuc3Bvc2UgYW5kIGNvbnZlcnQgdG8gbG9uZy90aWR5IGZvcm1hdCwgc28gbGVhdmluZyBpdCB1bnRpbCBhZnRlciBjb252ZXJ0ZWQgdG8gdGlkeS5cblxuI1JlbW92ZSB0b3RhbCBjZWxscyAoZGlhdG9tcyksIHVua25vd24gY2VsbHMgKGNhbid0IHVzZSB0aGVzZSBhcyBub3QgcG9zc2libGUgdG8gYXNzaWduIHRheG9ub215KSBhbmQgbm9uLXRheG9ub21pYyBpbmZvcm1hdGlvbi5XaXRoIG5ldyBkYXRhLCBiZSBzdXJlIHRvIGxvb2sgZG93biBzcGVjaWVzIGxpc3QgYW5kIGNoZWNrIGZvciBuZXcgdGVybXMuXG5ub25fdGF4X2xpc3QgPC0gbWljcm8gJT4lXG4gIGZpbHRlcihzdHJfZGV0ZWN0KHNwZWNpZXMsIFwiRWdnc1wiKSB8XG4gICAgICAgICBzdHJfZGV0ZWN0KHNwZWNpZXMsIFwicGllY2VzXCIpIHxcbiAgICAgICAgIHN0cl9kZXRlY3Qoc3BlY2llcywgXCJGZWNhbFwiKSB8XG4gICAgICAgICBzdHJfZGV0ZWN0KHNwZWNpZXMsIFwiZWplY3RhXCIpIHxcbiAgICAgICAgIHN0cl9kZXRlY3Qoc3BlY2llcywgXCJDcmFiIHpvZWFcIikgfFxuICAgICAgICAgc3RyX2RldGVjdChzcGVjaWVzLCBcIlRvdGFsIENlbGxzL0xcIikgfFxuICAgICAgICAgc3RyX2RldGVjdChzcGVjaWVzLCBcIlVua25vd24gY2VsbHNcIikpXG5cbiNSZW1vdmUgbm9uLXRheG9ub21pYyByb3dzL2Rlc2lnbmF0aW9ucy5cbm1pY3JvIDwtIG1pY3JvICU+JVxuICBmaWx0ZXIoIShzdHJfZGV0ZWN0KHNwZWNpZXMsIFwiRWdnc1wiKSB8XG4gICAgICAgICBzdHJfZGV0ZWN0KHNwZWNpZXMsIFwicGllY2VzXCIpIHxcbiAgICAgICAgIHN0cl9kZXRlY3Qoc3BlY2llcywgXCJGZWNhbFwiKSB8XG4gICAgICAgICBzdHJfZGV0ZWN0KHNwZWNpZXMsIFwiZWplY3RhXCIpIHxcbiAgICAgICAgIHN0cl9kZXRlY3Qoc3BlY2llcywgXCJDcmFiIHpvZWFcIikgfFxuICAgICAgICAgc3RyX2RldGVjdChzcGVjaWVzLCBcIlRvdGFsIENlbGxzL0xcIikgfFxuICAgICAgICAgc3RyX2RldGVjdChzcGVjaWVzLCBcIlVua25vd24gY2VsbHNcIikpKVxuYGBgIn0= -->
+<pre class="r"><code>#Renaming and/or removing unknown species.
+
+#Finding taxonomic information currently combined with the species names containing unknown and unidentified. When uploading new data, check that this captures all rows without taxonomic designations. If not add new terms to code in next step.
+unknown &lt;- micro %&gt;% 
+  filter(str_detect(species, &quot;Unknown&quot;) |
+         str_detect(species, &quot;Unidentified&quot;) |
+         str_detect(species, &quot;Resting&quot;))
+
+#Renaming unknown and unidentified taxonomic designations. When uploading new data, check that all rows with unknown designations have been captured and fixed.  If not, add terms to the code below. I do this work here, because I can use Louis&#39; groupings to help guide the new names. Note, unidentified diatoms with size designations are not dealt with her, so species_fix will show NAs.  Fixed later when data transposed and then size groups are summed and the new column is renamed. Unknown cells also not dealt with as data are not carried forward (species_fix will show NA, these data removed later). This list/fixes can grow and include terms not included in the datasheet and will still work - become more encompassing, but be sure to cross-check
+unknown &lt;- unknown %&gt;% 
+  mutate(species_fix = case_when(species == &quot;Unknown forms&quot; &amp;
+                             group == &quot;Bacillariophyta&quot; ~
+                               &quot;Bacillariophyceae&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Chlorophyta-Prasinophyta&quot; ~
+                               &quot;Protozoa (alpha-starch, Chlorophyta?)&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Chlorophyta&quot; ~
+                               &quot;Protozoa (alpha-starch, Chlorophyta?)&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Choanoflagellata&quot; ~
+                                &quot;Choanozoa&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Dinoflagellata&quot; ~
+                               &quot;Dinophyceae&quot;,
+                             species == &quot;Resting stages&quot; &amp;
+                             group == &quot;Dinoflagellata&quot; ~
+                               &quot;Dinophyceae (resting stages)&quot;,
+                             species == &quot;Unknown very small species (dino??)&quot; &amp;
+                             group == &quot;Dinoflagellata&quot; ~
+                               &quot;Protozoa (equatorial groove, Dinophyceae?)&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Euglenophyta&quot; ~
+                               &quot;Euglenozoa&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Kinetoplastidea&quot; ~
+                               &quot;Kinetoplastea&quot;,
+                             species == &quot;Unknown very small flagellated species&quot; &amp;
+                             group == &quot;Unknown very small flagellated species&quot; ~
+                               &quot;Protozoa&quot;,
+                             species == &quot;Unknown flagellae-bearing cells&quot; &amp;
+                             group == &quot;Unknown flagellae-bearing cells&quot; ~
+                               &quot;Protozoa&quot;,
+                             species == &quot;banana&quot; &amp;
+                             group == &quot;pineapple&quot; ~
+                               &quot;Protozoa&quot;)) %&gt;% 
+  relocate(species_fix, .after = species)
+                             
+#Now that we know that all unknown taxonomic designations have been accounted for, we can apply the above code to the full data-set. If there are changes, make sure to bring the above list down to be applied to the full dataset.
+
+micro &lt;- micro %&gt;% 
+  mutate(species = case_when(species == &quot;Unknown forms&quot; &amp;
+                             group == &quot;Bacillariophyta&quot; ~
+                               &quot;Bacillariophyceae&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Chlorophyta-Prasinophyta&quot; ~
+                               &quot;Protozoa (alpha-starch, Chlorophyta?)&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Chlorophyta&quot; ~
+                               &quot;Protozoa (alpha-starch, Chlorophyta?)&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Choanoflagellata&quot; ~
+                                &quot;Choanozoa&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Dinoflagellata&quot; ~
+                               &quot;Dinophyceae&quot;,
+                             species == &quot;Resting stages&quot; &amp;
+                             group == &quot;Dinoflagellata&quot; ~
+                               &quot;Dinophyceae (resting stages)&quot;,
+                             species == &quot;Unknown very small species (dino??)&quot; &amp;
+                             group == &quot;Dinoflagellata&quot; ~
+                               &quot;Protozoa (equatorial groove, Dinophyceae?)&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Euglenophyta&quot; ~
+                               &quot;Euglenozoa&quot;,
+                             species == &quot;Unknown species&quot; &amp;
+                             group == &quot;Kinetoplastidea&quot; ~
+                               &quot;Kinetoplastea&quot;,
+                             species == &quot;Unknown very small flagellated species&quot; &amp;
+                             group == &quot;Unknown very small flagellated species&quot; ~
+                               &quot;Protozoa&quot;,
+                             species == &quot;Unknown flagellae-bearing cells&quot; &amp;
+                             group == &quot;Unknown flagellae-bearing cells&quot; ~
+                               &quot;Protozoa&quot;,
+                             species == &quot;banana&quot; &amp;
+                             group == &quot;pineapple&quot; ~
+                               &quot;Protozoa&quot;,
+                             TRUE ~ as.character (species)))
+
+#Was thinking of doing qualifier/lifestage separations here, but really makes it tough to transpose and convert to long/tidy format, so leaving it until after converted to tidy.
+
+#Remove total cells (diatoms), unknown cells (can&#39;t use these as not possible to assign taxonomy) and non-taxonomic information.With new data, be sure to look down species list and check for new terms.
+non_tax_list &lt;- micro %&gt;%
+  filter(str_detect(species, &quot;Eggs&quot;) |
+         str_detect(species, &quot;pieces&quot;) |
+         str_detect(species, &quot;Fecal&quot;) |
+         str_detect(species, &quot;ejecta&quot;) |
+         str_detect(species, &quot;Crab zoea&quot;) |
+         str_detect(species, &quot;Total Cells/L&quot;) |
+         str_detect(species, &quot;Unknown cells&quot;))
+
+#Remove non-taxonomic rows/designations.
+micro &lt;- micro %&gt;%
+  filter(!(str_detect(species, &quot;Eggs&quot;) |
+         str_detect(species, &quot;pieces&quot;) |
+         str_detect(species, &quot;Fecal&quot;) |
+         str_detect(species, &quot;ejecta&quot;) |
+         str_detect(species, &quot;Crab zoea&quot;) |
+         str_detect(species, &quot;Total Cells/L&quot;) |
+         str_detect(species, &quot;Unknown cells&quot;)))</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -1971,17 +2084,61 @@ micro_tp  &lt;- micro_tp  %&gt;%
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI01lcmdpbmcgd2l0aCBtZXRhZGF0YVxuXG4jVXBsb2FkIG1ldGFkYXRhIC0gdXBkYXRlIHRvIEFQSSB3aGVuIHBvc3NpYmxlXG5tZXRhZGF0YSA8LSByZWFkX2NzdihoZXJlKFwibWV0YV9waHl0b18yMDIxXzA0XzE0LmNzdlwiKSlcblxuI0pvaW4gd2l0aCBtaWNyb3Njb3B5IGRhdGEgbWV0YWRhdGFcbm1pY3JvX3RwIDwtIG1pY3JvX3RwICU+JSBcbiAgbGVmdF9qb2luKG1ldGFkYXRhKVxuXG4jcmVvcmdhbml6aW5nIGFuZCBlbGltaW5hdGluZyB1bnVzZWQgY29sdW1uc1xubWljcm9fdHAgPC0gbWljcm9fdHAgJT4lIFxuICBzZWxlY3QoZGF0ZSwgY29sbGVjdGVkLCBoYWthaV9pZCwgbGluZV9vdXRfZGVwdGgsIHdvcmtfYXJlYSwgc2l0ZV9pZCxcbiAgICAgICAgIGxhdCwgbG9uZywgdm9sdW1lLCBsdWdvbHMsIGNvbGxlY3RlZCxcbiAgICAgICAgIGBBY2huYW50aGVzIHNwcC5gOk9saWdvdHJpY2hlYSlcblxuI0ZpbmQgcm93cyB3aGVyZSB0aGVyZSB3YXMgbm8gbWV0YWRhdGEgbWF0Y2ggLSBDaGVjayB0byBlbnN1cmUgb3V0IGlzIDAsIHdoaWNoIG1lYW5zIGFsbCBvZiB0aGUgZGF0YSB3YXMgbWVyZ2VkLlxubWV0YV9taXNzaW5nIDwtIG1pY3JvX3RwICU+JVxuICBmaWx0ZXIoaXMubmEoY29sbGVjdGVkKSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI01lcmdpbmcgd2l0aCBtZXRhZGF0YVxuXG4jVXBsb2FkIG1ldGFkYXRhIC0gdXBkYXRlIHRvIEFQSSB3aGVuIHBvc3NpYmxlXG5tZXRhZGF0YSA8LSByZWFkX2NzdihoZXJlKFwibWV0YV9waHl0b18yMDIxXzA0XzE0LmNzdlwiKSlcbmBgYCJ9 -->
 <pre class="r"><code>#Merging with metadata
 
 #Upload metadata - update to API when possible
-metadata &lt;- read_csv(here(&quot;meta_phyto_2021_04_14.csv&quot;))
+metadata &lt;- read_csv(here(&quot;meta_phyto_2021_04_14.csv&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4tLSBDb2x1bW4gc3BlY2lmaWNhdGlvbiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbmNvbHMoXG4gIC5kZWZhdWx0ID0gY29sX2NoYXJhY3RlcigpLFxuICBldmVudF9wayA9IGNvbF9kb3VibGUoKSxcbiAgcm4gPSBjb2xfZG91YmxlKCksXG4gIGRhdGUgPSBjb2xfZGF0ZShmb3JtYXQgPSBcIlwiKSxcbiAgc2FtcGxpbmdfYm91dCA9IGNvbF9kb3VibGUoKSxcbiAgcHJvamVjdF9zcGVjaWZpY19pZCA9IGNvbF9sb2dpY2FsKCksXG4gIGxhdCA9IGNvbF9kb3VibGUoKSxcbiAgbG9uZyA9IGNvbF9kb3VibGUoKSxcbiAgZ2F0aGVyX2xhdCA9IGNvbF9kb3VibGUoKSxcbiAgZ2F0aGVyX2xvbmcgPSBjb2xfZG91YmxlKCksXG4gIG1lc2hfc2l6ZV9fdW1fID0gY29sX2RvdWJsZSgpLFxuICBuZXRfZGltX19fY21fID0gY29sX2RvdWJsZSgpLFxuICBuZXRfbGVuZ3RoX19jbV8gPSBjb2xfZG91YmxlKCksXG4gIGxpbmVfb3V0X2RlcHRoID0gY29sX2RvdWJsZSgpLFxuICBwcmVzc3VyZV90cmFuc2R1Y2VyX2RlcHRoID0gY29sX2xvZ2ljYWwoKSxcbiAgdm9sdW1lID0gY29sX2RvdWJsZSgpLFxuICBsdWdvbHMgPSBjb2xfbG9naWNhbCgpLFxuICBjb2xsZWN0ZWQgPSBjb2xfZGF0ZXRpbWUoZm9ybWF0ID0gXCJcIiksXG4gIHByZXNlcnZlZCA9IGNvbF9kYXRldGltZShmb3JtYXQgPSBcIlwiKSxcbiAgYW5hbHl6ZWQgPSBjb2xfbG9naWNhbCgpLFxuICBhbmFseXppbmdfbGFiID0gY29sX2xvZ2ljYWwoKVxuICAjIC4uLiB3aXRoIDEgbW9yZSBjb2x1bW5zXG4pXG5pIFVzZSBgc3BlYygpYCBmb3IgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb25zLlxuXG4yMjMxIHBhcnNpbmcgZmFpbHVyZXMuXG5yb3cgY29sICAgZXhwZWN0ZWQgICAgYWN0dWFsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmlsZVxuICAyICAtLSAzMyBjb2x1bW5zIDEgY29sdW1ucyAnQzovVXNlcnMvanVzdGluLmJlbGx1ei9Eb2N1bWVudHMvUi9taWNyb3Njb3B5X09CSVMvbWV0YV9waHl0b18yMDIxXzA0XzE0LmNzdidcbiAgMyAgLS0gMzMgY29sdW1ucyAxIGNvbHVtbnMgJ0M6L1VzZXJzL2p1c3Rpbi5iZWxsdXovRG9jdW1lbnRzL1IvbWljcm9zY29weV9PQklTL21ldGFfcGh5dG9fMjAyMV8wNF8xNC5jc3YnXG4gIDQgIC0tIDMzIGNvbHVtbnMgMSBjb2x1bW5zICdDOi9Vc2Vycy9qdXN0aW4uYmVsbHV6L0RvY3VtZW50cy9SL21pY3Jvc2NvcHlfT0JJUy9tZXRhX3BoeXRvXzIwMjFfMDRfMTQuY3N2J1xuICA1ICAtLSAzMyBjb2x1bW5zIDEgY29sdW1ucyAnQzovVXNlcnMvanVzdGluLmJlbGx1ei9Eb2N1bWVudHMvUi9taWNyb3Njb3B5X09CSVMvbWV0YV9waHl0b18yMDIxXzA0XzE0LmNzdidcbiAgNiAgLS0gMzMgY29sdW1ucyAxIGNvbHVtbnMgJ0M6L1VzZXJzL2p1c3Rpbi5iZWxsdXovRG9jdW1lbnRzL1IvbWljcm9zY29weV9PQklTL21ldGFfcGh5dG9fMjAyMV8wNF8xNC5jc3YnXG4uLi4gLi4uIC4uLi4uLi4uLi4gLi4uLi4uLi4uIC4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLlxuU2VlIHByb2JsZW1zKC4uLikgZm9yIG1vcmUgZGV0YWlscy5cbiJ9 -->
+<pre><code>
+-- Column specification ------------------------------------------------------------------------------------
+cols(
+  .default = col_character(),
+  event_pk = col_double(),
+  rn = col_double(),
+  date = col_date(format = &quot;&quot;),
+  sampling_bout = col_double(),
+  project_specific_id = col_logical(),
+  lat = col_double(),
+  long = col_double(),
+  gather_lat = col_double(),
+  gather_long = col_double(),
+  mesh_size__um_ = col_double(),
+  net_dim___cm_ = col_double(),
+  net_length__cm_ = col_double(),
+  line_out_depth = col_double(),
+  pressure_transducer_depth = col_logical(),
+  volume = col_double(),
+  lugols = col_logical(),
+  collected = col_datetime(format = &quot;&quot;),
+  preserved = col_datetime(format = &quot;&quot;),
+  analyzed = col_logical(),
+  analyzing_lab = col_logical()
+  # ... with 1 more columns
+)
+i Use `spec()` for the full column specifications.
 
-#Join with microscopy data metadata
+2231 parsing failures.
+row col   expected    actual                                                                           file
+  2  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/meta_phyto_2021_04_14.csv&#39;
+  3  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/meta_phyto_2021_04_14.csv&#39;
+  4  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/meta_phyto_2021_04_14.csv&#39;
+  5  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/meta_phyto_2021_04_14.csv&#39;
+  6  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/meta_phyto_2021_04_14.csv&#39;
+... ... .......... ......... ..............................................................................
+See problems(...) for more details.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0pvaW4gd2l0aCBtaWNyb3Njb3B5IGRhdGEgbWV0YWRhdGFcbm1pY3JvX3RwIDwtIG1pY3JvX3RwICU+JSBcbiAgbGVmdF9qb2luKG1ldGFkYXRhKVxuYGBgIn0= -->
+<pre class="r"><code>#Join with microscopy data metadata
 micro_tp &lt;- micro_tp %&gt;% 
-  left_join(metadata)
-
-#reorganizing and eliminating unused columns
+  left_join(metadata)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImhha2FpX2lkXCJcbiJ9 -->
+<pre><code>Joining, by = &quot;hakai_id&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3Jlb3JnYW5pemluZyBhbmQgZWxpbWluYXRpbmcgdW51c2VkIGNvbHVtbnNcbm1pY3JvX3RwIDwtIG1pY3JvX3RwICU+JSBcbiAgc2VsZWN0KGRhdGUsIGNvbGxlY3RlZCwgaGFrYWlfaWQsIGxpbmVfb3V0X2RlcHRoLCB3b3JrX2FyZWEsIHNpdGVfaWQsXG4gICAgICAgICBsYXQsIGxvbmcsIHZvbHVtZSwgbHVnb2xzLCBjb2xsZWN0ZWQsXG4gICAgICAgICBgQWNobmFudGhlcyBzcHAuYDpPbGlnb3RyaWNoZWEpXG5cbiNGaW5kIHJvd3Mgd2hlcmUgdGhlcmUgd2FzIG5vIG1ldGFkYXRhIG1hdGNoIC0gQ2hlY2sgdG8gZW5zdXJlIG91dCBpcyAwLCB3aGljaCBtZWFucyBhbGwgb2YgdGhlIGRhdGEgd2FzIG1lcmdlZC5cbm1ldGFfbWlzc2luZyA8LSBtaWNyb190cCAlPiVcbiAgZmlsdGVyKGlzLm5hKGNvbGxlY3RlZCkpXG5gYGAifQ== -->
+<pre class="r"><code>#reorganizing and eliminating unused columns
 micro_tp &lt;- micro_tp %&gt;% 
   select(date, collected, hakai_id, line_out_depth, work_area, site_id,
          lat, long, volume, lugols, collected,

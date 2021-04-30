@@ -150,6 +150,9 @@ unknown <- unknown %>%
                              species == "Unknown flagellae-bearing cells" &
                              group == "Unknown flagellae-bearing cells" ~
                                "Protozoa",
+                             species == "Unknown species" &
+                             group == "Chrysophyta" ~
+                               "Chrysophyceae",
                              species == "banana" &
                              group == "pineapple" ~
                                "Protozoa")) %>% 
@@ -191,6 +194,9 @@ micro <- micro %>%
                              species == "Unknown flagellae-bearing cells" &
                              group == "Unknown flagellae-bearing cells" ~
                                "Protozoa",
+                             species == "Unknown species" &
+                             group == "Chrysophyta" ~
+                               "Chrysophyceae",
                              species == "banana" &
                              group == "pineapple" ~
                                "Protozoa",
@@ -221,7 +227,7 @@ micro <- micro %>%
 
 
 ```{r}
-#Make additional fixes to species names -  don't want to go too crazy here, but things need to be able to be found by the WoRMs database searches. If database search doesn't find something, can come back here and fix. Ignoring small/large designations as they will be summed once data is transposed. 
+#Make additional fixes to species names -  don't want to go too crazy here, but things need to be able to be found by the WoRMs database searches. If database search doesn't find something, can come back here and fix. Ignoring small/large designations as they will be summed and then name of new column set once data is transposed with species in column format.
 micro <- micro %>% 
   mutate(species = str_replace(species, "Copepodids", "Copepoda (copepodites)"))
 
@@ -253,9 +259,14 @@ micro_tp <- micro %>%
 
 micro_tp <- setNames(data.frame(t(micro_tp[ , -1])), micro_tp[ , 1])
 
-#For some reason, my abundance counts are characters - converting to numeric
+#For some reason, my abundance counts are characters - converting to numeric - saying I have duplicate columns... which mean I have duplicate species names??? (Check)Fixed)
 micro_tp <- micro_tp %>% 
   mutate_if(is.character, as.numeric)
+
+#Protozoa twice...
+# micro_test <- micro %>% 
+#   group_by(species) %>% 
+#   summarise(dup = n())
 
 #Pushes rownames to their own column
 #Pushes the hakaiID rownames into a column with a header.
@@ -283,18 +294,18 @@ micro_tp <- micro_tp %>%
                         `Unidentified very small pennate forms`, na.rm = TRUE),
          `Skeletonema marinoi` = sum(`S. marinoi (small cells)`,
                                     `S. marinoi (large cells)`, na.rm = TRUE),
-         # `Chaetoceros tenuissimus` = sum(`Chaetoceros tenuissimus (large)`,
-         #                                 `Chaetoceros tenuissimus (small)`, 
-         #                                 na.rm = TRUE),
-         #`Chaetoceros spp_sum.` = sum(`Chaetoceros spp.`,
-         #                        `Chaetoeros spp. very small`, na.rm = TRUE ),
+         `Chaetoceros tenuissimus` = sum(`Chaetoceros tenuissimus (large)`,
+                                         `Chaetoceros tenuissimus (small)`,
+                                         na.rm = TRUE),
+         `Chaetoceros spp_sum.` = sum(`Chaetoceros spp.`,
+                                `Chaetoeros spp. very small`, na.rm = TRUE ),
          Oligotrichea = sum(`Elongate form`, `Oligotricious forms (large)`,
                             `Oligotricious forms (medium)`, 
                             `Oligotricious forms (small)`, na.rm = TRUE))
 
 #In this instance, there was only a large of a specific species, so using rename here.
-micro_tp <- micro_tp %>% 
-  rename(`Chaetoceros tenuissimus` = `Chaetoceros tenuissimus (large)`)
+# micro_tp <- micro_tp %>% 
+#   rename(`Chaetoceros tenuissimus` = `Chaetoceros tenuissimus (large)`)
 
 #Checking that the sums worked. Needs to be updated to reflect sums done above.
 sum_check <- micro_tp %>% 
@@ -303,8 +314,8 @@ sum_check <- micro_tp %>%
          `Unidentified pennate forms`, `Unidentified very small pennate forms`,
          `Skeletonema marinoi`, `S. marinoi (small cells)`,
          `S. marinoi (large cells)`, `Chaetoceros tenuissimus`, 
-         #`Chaetoceros tenuissimus (large)`, `Chaetoceros tenuissimus (small)`,
-         #`Chaetoceros spp_sum.`, `Chaetoceros spp.`, `Chaetoeros spp. very small`,
+         `Chaetoceros tenuissimus (large)`, `Chaetoceros tenuissimus (small)`,
+         `Chaetoceros spp_sum.`, `Chaetoceros spp.`, `Chaetoeros spp. very small`,
          Oligotrichea, `Elongate form`, `Oligotricious forms (large)`,
          `Oligotricious forms (medium)`, `Oligotricious forms (small)`)
 
@@ -313,8 +324,8 @@ micro_tp <- micro_tp %>%
   select(-`Unidentified centric forms`, -`Unidentified very small centric forms`,
          -`Unidentified pennate forms`, -`Unidentified very small pennate forms`,
          -`S. marinoi (small cells)`, -`S. marinoi (large cells)`,
-         #-`Chaetoceros tenuissimus (large)`, -`Chaetoceros tenuissimus (small)`,
-         #-`Chaetoceros spp.`, -`Chaetoeros spp. very small`, 
+         -`Chaetoceros tenuissimus (large)`, -`Chaetoceros tenuissimus (small)`,
+         -`Chaetoceros spp.`, -`Chaetoeros spp. very small`,
          -`Elongate form`, -`Oligotricious forms (large)`, 
          -`Oligotricious forms (medium)`, -`Oligotricious forms (small)`)
 
@@ -324,8 +335,12 @@ micro_tp  <- micro_tp  %>%
          Pennales = na_if(Pennales, 0),
          `Skeletonema marinoi` = na_if(`Skeletonema marinoi`, 0),
          `Chaetoceros tenuissimus` = na_if(`Chaetoceros tenuissimus`, 0),
-         #`Chaetoceros spp_sum.` = na_if(`Chaetoceros spp_sum.`, 0),
+         `Chaetoceros spp_sum.` = na_if(`Chaetoceros spp_sum.`, 0),
          Oligotrichea = na_if(Oligotrichea, 0))
+
+#Rename Cheatoceros spp_sum to Cheatoceros spp. Need to check how I did this in my original worksheet for this dataset. It was addressed. 
+micro_tp <- micro_tp %>% 
+  rename(`Cheatoceros spp.` = `Chaetoceros spp_sum.`)
 ```
 
 ```{r}
@@ -569,7 +584,7 @@ micro_distinct <- micro_tidy %>%
 
 ```{r}
 #Write output to open in matching workbook
-write_csv(micro_tidy, here("cleaned_csv", "microscopy_qu39_2019_2021_04_26.csv"))
+write_csv(micro_tidy, here("cleaned_csv", "microscopy_qu39_2016_2019_2021_04_29.csv"))
 
 ```
 
