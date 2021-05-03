@@ -135,6 +135,7 @@ micro_sum <- micro %>%
   complete(date, group) %>% # make each day have all species, even if not observed (for joining)
   group_by(date, group) %>% 
   summarise(sum = sum(count)) %>% #sum counts for each grouping/class
+  ungroup() %>% 
   arrange(date, group) %>% 
   mutate(sum = replace_na(sum, 0)) #replace NAs, created by complete, with 0s
 ```
@@ -181,6 +182,7 @@ month_labels <- c('J','F','M','A','M','J','J','A','S','O','N','D')
 
 ```{r}
 micro_sum %>% 
+  mutate(year = lubridate::year(date)) %>% 
   filter(!group == "Unknown_Chlorophyta?" &
          !group == "Unknown_Dinophyceae?" &
          !group == "Unknown_flagellate") %>% 
@@ -196,6 +198,400 @@ micro_sum %>%
            y = bquote("Abundance (cells" ~ L^-1*")")) +
   theme(text = element_text(size = 25))
 
+```
+```{r}
+startTime_1 <- as.Date("2016-01-01")
+endTime_1 <- as.Date("2016-11-30")
+startEnd_1 <- c(startTime_1, endTime_1)
+
+p1 <- micro_sum %>% 
+  filter(date > "2016-01-01" & date < "2016-12-31" &
+         !group == "Unknown_Chlorophyta?" &
+         !group == "Unknown_Dinophyceae?" &
+         !group == "Unknown_flagellate") %>% 
+  ggplot(aes(x = date, y = sum, group = group, fill = group)) +
+  geom_area(position = "stack", alpha = 0.8, size = 0.5, colour = "black") +
+  ylim(0, 7000000) +
+  scale_fill_manual(values = color_palette_micro, labels = 
+                      c("diat.", "chry.", "dict.", "raph.", "dino.", 
+                        "cryp.","chlor.", "eugl.", "hapt.", "cyan.")) +
+  scale_x_date(limits = startEnd_1,
+                breaks = scales::date_breaks("1 month")) +
+  guides(fill = guide_legend(nrow = 1)) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11)) +
+  labs(x = "Month",
+           y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank())
+
+startTime_2 <- as.Date("2017-01-01")
+endTime_2 <- as.Date("2017-11-30")
+startEnd_2 <- c(startTime_2, endTime_2)
+
+p2 <- micro_sum %>% 
+  filter(date > "2017-01-01" & date < "2017-12-31" &
+         !group == "Unknown_Chlorophyta?" &
+         !group == "Unknown_Dinophyceae?" &
+         !group == "Unknown_flagellate") %>% 
+  ggplot(aes(x = date, y = sum, group = group, fill = group)) +
+  geom_area(position = "stack", alpha = 0.8, size = 0.5, colour = "black") +
+  ylim(0, 7000000) +
+  scale_fill_manual(values = color_palette_micro) +
+  scale_x_date(limits = startEnd_2,
+                breaks = scales::date_breaks("1 month")) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(x = "Month",
+           y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank())
+
+startTime_3 <- as.Date("2018-01-01")
+endTime_3 <- as.Date("2018-11-30")
+startEnd_3 <- c(startTime_3, endTime_3)
+
+p3 <- micro_sum %>% 
+  filter(date > "2018-01-01" & date < "2018-12-31" &
+         !group == "Unknown_Chlorophyta?" &
+         !group == "Unknown_Dinophyceae?" &
+         !group == "Unknown_flagellate") %>% 
+  ggplot(aes(x = date, y = sum, group = group, fill = group)) +
+  geom_area(position = "stack", alpha = 0.8, size = 0.5, colour = "black") +
+  ylim(0, 7000000) +
+  scale_fill_manual(values = color_palette_micro) +
+  scale_x_date(limits = startEnd_3,
+                breaks = scales::date_breaks("1 month")) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(y = bquote("Abund. (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank())
+
+startTime_4 <- as.Date("2019-01-01")
+endTime_4 <- as.Date("2019-11-30")
+startEnd_4 <- c(startTime_4, endTime_4)
+
+p4 <- micro_sum %>% 
+  filter(date > "2019-01-01" & date < "2019-12-31" &
+         !group == "Unknown_Chlorophyta?" &
+         !group == "Unknown_Dinophyceae?" &
+         !group == "Unknown_flagellate") %>% 
+  ggplot(aes(x = date, y = sum, group = group, fill = group)) +
+  geom_area(position = "stack", alpha = 0.8, size = 0.5, colour = "black") +
+  ylim(0, 7000000) +
+  scale_fill_manual(values = color_palette_micro) +
+  scale_x_date(limits = startEnd_4,
+                breaks = scales::date_breaks("1 month")) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(x = "Month",
+           y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank())
+
+startTime_5 <- as.Date("2020-01-01")
+endTime_5 <- as.Date("2020-11-30")
+startEnd_5 <- c(startTime_5, endTime_5)
+
+p5 <- micro_sum %>% 
+  filter(date > "2020-01-01" & date < "2020-12-31" &
+         !group == "Unknown_Chlorophyta?" &
+         !group == "Unknown_Dinophyceae?" &
+         !group == "Unknown_flagellate") %>% 
+  ggplot(aes(x = date, y = sum, group = group, fill = group)) +
+  geom_area(position = "stack", alpha = 0.8, size = 0.5, colour = "black") +
+  ylim(0, 7000000) +
+  scale_fill_manual(values = color_palette_micro) +
+  scale_x_date(limits = startEnd_5,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(x = "Month",
+           y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25),
+        axis.title.y = element_blank())
+
+
+fig_ts <- p1/p2/p3/p4/p5
+
+ggsave(here("figures", "qu39_ts_column.png"), fig_ts, width=16, height=15, dpi=300)
+```
+```{r}
+#Trying to plot diatom species
+p1 <- micro %>% 
+  filter(group == "Bacillariophyta" & count > 10000 & !is.na(genus) &
+           date > "2016-01-01" &
+           date < "2016-12-31") %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  mutate(count_sum = replace_na(count_sum, 0)) %>% 
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_area() +
+  scale_x_date(limits = startEnd_1,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  scale_fill_brewer(palette = "Spectral",
+                      name = "Genus, > 10000 cells") +
+  theme_bw() +
+  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(legend.position = c(0.14, 0.5),
+        legend.background =  element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),
+        text = element_text(size = 25)) 
+  
+p2 <- micro %>% 
+  filter(group == "Bacillariophyta" & count > 10000 & !is.na(genus) &
+           date > "2017-01-01" &
+           date < "2017-12-31") %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  mutate(count_sum = replace_na(count_sum, 0)) %>% 
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_area() +
+  scale_x_date(limits = startEnd_2,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  scale_fill_brewer(palette = "Spectral",
+                      name = "Genus, > 10000 cells") +
+  theme_bw() +
+  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(legend.position = c(0.14, 0.5),
+        legend.background =  element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),
+        text = element_text(size = 25))
+
+p3 <- micro %>% 
+  filter(group == "Bacillariophyta" & count > 10000 & !is.na(genus) &
+           date > "2018-01-01" &
+           date < "2018-12-31") %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  mutate(count_sum = replace_na(count_sum, 0)) %>% 
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_area() +
+  scale_x_date(limits = startEnd_3,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  scale_fill_brewer(palette = "Spectral",
+                      name = "Genus, > 10000 cells") +
+  theme_bw() +
+  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(legend.position = c(0.14, 0.5),
+        legend.background =  element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),
+        text = element_text(size = 25))
+
+p4 <- micro %>% 
+  filter(group == "Bacillariophyta" & count > 10000 & !is.na(genus) &
+           date > "2019-01-01" &
+           date < "2019-12-31") %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  mutate(count_sum = replace_na(count_sum, 0)) %>% 
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_area() +
+  scale_x_date(limits = startEnd_4,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  scale_fill_brewer(palette = "Spectral",
+                      name = "Genus, > 10000 cells") +
+  theme_bw() +
+  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(legend.position = c(0.14, 0.5),
+        legend.background =  element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),
+        text = element_text(size = 25))
+
+p5 <- micro %>% 
+  filter(group == "Bacillariophyta" & count > 10000 & !is.na(genus) &
+           date > "2020-01-01" &
+           date < "2020-12-31") %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  mutate(count_sum = replace_na(count_sum, 0)) %>% 
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_area() +
+  scale_x_date(limits = startEnd_5,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  scale_fill_brewer(palette = "Spectral",
+                      name = "Genus, > 10000 cells") +
+  theme_bw() +
+  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(legend.position = c(0.14, 0.5),
+        legend.background =  element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),
+        text = element_text(size = 25))
+
+fig_diat <- p1/p2/p3/p4/p5
+
+ggsave(here("figures", "qu39_ts_diatom.png"), fig_diat, width=16, height=15, dpi=300)
+```
+```{r}
+micro_diat <- micro %>% 
+  filter(group == "Bacillariophyta" & count > 20000 & !is.na(genus)) %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  arrange(date, count_sum)
+
+
+#Trying to plot diatom species
+p1 <- micro_diat %>% 
+ filter(date > "2016-01-01" &
+           date < "2016-12-31") %>% 
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
+  scale_x_date(limits = startEnd_1,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  scale_fill_brewer(palette = "Spectral",
+                      name = "Genus, > 20000 cells") +
+  theme_bw() +
+  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(legend.position = c(0.13, 0.5),
+        legend.background =  element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),
+        text = element_text(size = 25)) 
+  
+p2 <- micro_diat %>% 
+ filter(date > "2017-01-01" &
+           date < "2017-12-31") %>% 
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
+  scale_x_date(limits = startEnd_2,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  scale_fill_brewer(palette = "Spectral",
+                      name = element_blank()) +
+  theme_bw() +
+  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(legend.position = c(0.1, 0.5),
+        legend.background =  element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),
+        text = element_text(size = 25)) 
+
+p3 <- micro_diat %>% 
+ filter(date > "2018-01-01" &
+           date < "2018-12-31") %>% 
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
+  scale_x_date(limits = startEnd_3,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  scale_fill_brewer(palette = "Spectral",
+                      name = element_blank()) +
+  theme_bw() +
+  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(legend.position = c(0.1, 0.5),
+        legend.background =  element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),
+        text = element_text(size = 25)) 
+
+p4 <- micro_diat %>% 
+ filter(date > "2019-01-01" &
+           date < "2019-12-31") %>% 
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
+  scale_x_date(limits = startEnd_4,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  scale_fill_brewer(palette = "Spectral",
+                      name = element_blank()) +
+  theme_bw() +
+  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(legend.position = c(0.085, 0.5),
+        legend.background =  element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),
+        text = element_text(size = 25))
+
+p5 <- micro_diat %>% 
+ filter(date > "2020-01-01" &
+           date < "2020-12-31") %>% 
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
+  scale_x_date(limits = startEnd_5,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  scale_fill_brewer(palette = "Spectral",
+                      name = element_blank()) +
+  theme_bw() +
+  labs(y = bquote("Abundance (cells" ~ L^-1*")"),
+       x = "Month") +
+  theme(legend.position = c(0.1, 0.5),
+        legend.background =  element_blank(),
+        axis.title.y = element_blank(),
+        text = element_text(size = 25))
+
+fig_diat <- p1/p2/p3/p4/p5
+
+ggsave(here("figures", "qu39_ts_diatom_test.png"), fig_diat,
+       width = 16, height = 15, dpi = 300)
+```
+```{r}
+micro %>% 
+ filter(group == "Chlorophyta-Prasinophyta" &
+           date > "2016-01-01" &
+           date < "2016-12-31") %>%
+  complete(date, group, scientificName_accepted) %>% 
+  mutate(count = replace_na(count, 0)) %>%  
+  ggplot(aes(date, count, fill = scientificName_accepted)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
+  scale_x_date(limits = startEnd_1,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  scale_fill_brewer(palette = "Spectral",
+                      name = "Genus, > 20000 cells") +
+  theme_bw() +
+  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(legend.position = c(0.13, 0.5),
+        legend.background =  element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_blank(),
+        text = element_text(size = 25))
 
 ```
+
 
