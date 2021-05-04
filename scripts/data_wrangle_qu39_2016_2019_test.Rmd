@@ -588,4 +588,3 @@ write_csv(micro_tidy, here("cleaned_csv", "microscopy_qu39_2016_2019_2021_04_29.
 
 ```
 
-

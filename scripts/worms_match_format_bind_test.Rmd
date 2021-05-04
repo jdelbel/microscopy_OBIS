@@ -30,10 +30,14 @@ library(here)
 
 ```{r}
 #upload cleaned data - when new data comes in, good to bind it here as it should be formatted the same way at this stage
+
+#2020 data.
 micro_1 <- read_csv(here("cleaned_csv", "microscopy_QU39_2020.csv"))
 
+#this is exactly the same as the micro_1 - 202 data
 micro_2 <- read_csv(here("cleaned_csv", "microscopy_qu39_2019_2021_04_26.csv"))
 
+#This only goes to 2019-07-24
 micro_3 <- read_csv(here("cleaned_csv", "microscopy_qu39_2016_2019_2021_04_29.csv"))
 
 micro <- rbind(micro_1, micro_2, micro_3)

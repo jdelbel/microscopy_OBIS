@@ -19,6 +19,8 @@ micro <- read_csv(here("output_worms_matching", "qu39_2016_2020.csv"))
 
 micro$date <- as.Date(micro$date, "%Y-%m-%d")
 
+test <- micro %>% 
+  filter(date > "2019-01-01" & date < "2019-12-31")
 ```
 
 
