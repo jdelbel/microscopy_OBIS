@@ -61,6 +61,10 @@ micro <- micro %>%
 #Filling down the group names so each species is associated with a group 
 micro <- micro %>%
   fill(group)
+
+micro <- micro %>% 
+  mutate(group = case_when(group == "Chlorophyta" ~ "Chlorophyta-Prasinophyta",
+                             TRUE ~ as.character (group)))
 ```
 
 
@@ -289,7 +293,8 @@ micro_tp <- rownames_to_column(micro_tp, "hakai_id")
 size_list <- micro %>%
   filter(str_detect(species, "small") |
          str_detect(species, "medium") |
-         str_detect(species, "large"))
+         str_detect(species, "large") |
+         str_detect(species, "Elongate"))
          
 #Summing columns with size designation - needs to be updated to size list above - not adaptable (i.e. will fail if not reflective of datasheet), which is why certain things are commetented out
 micro_tp <- micro_tp %>% 
@@ -305,11 +310,12 @@ micro_tp <- micro_tp %>%
          #                                 na.rm = TRUE),
          # `Chaetoceros spp_sum.` = sum(`Chaetoceros spp.`,
          #                        `Chaetoeros spp. very small`, na.rm = TRUE ),
-         Oligotrichea = sum(`Oligotricious forms (large)`,
+         Oligotrichea = sum(#`Elongate form`,
+                            `Oligotricious forms (large)`,
                             `Oligotricious forms (medium)`, 
                             `Oligotricious forms (small)`, na.rm = TRUE))
 
-#`Elongate form`,
+#`Elongate form` Wasn't in the list but need to ensure added back in when present!
 
 #In this instance, there was only a large of a specific species, so using rename here.
 # micro_tp <- micro_tp %>% 
@@ -317,15 +323,26 @@ micro_tp <- micro_tp %>%
 
 #Checking that the sums worked. Needs to be updated to reflect sums done above.
 sum_check <- micro_tp %>% 
-  select(Biddulphiales, `Unidentified centric forms`, 
-         `Unidentified very small centric forms`, Pennales, 
-         `Unidentified pennate forms`, `Unidentified very small pennate forms`,
-         `Skeletonema marinoi`, `S. marinoi (small cells)`,
-         `S. marinoi (large cells)`, #`Chaetoceros tenuissimus`, 
-         # `Chaetoceros tenuissimus (large)`, `Chaetoceros tenuissimus (small)`,
-         # `Chaetoceros spp_sum.`, `Chaetoceros spp.`, `Chaetoeros spp. very small`,
-         Oligotrichea, `Oligotricious forms (large)`,
-         `Oligotricious forms (medium)`, `Oligotricious forms (small)`)
+  select(Biddulphiales, 
+         `Unidentified centric forms`, 
+         `Unidentified very small centric forms`, 
+         Pennales, 
+         `Unidentified pennate forms`, 
+         `Unidentified very small pennate forms`,
+         `Skeletonema marinoi`, 
+         `S. marinoi (small cells)`,
+         `S. marinoi (large cells)`, 
+         #`Chaetoceros tenuissimus`, 
+         # `Chaetoceros tenuissimus (large)`, 
+         # `Chaetoceros tenuissimus (small)`,
+         # `Chaetoceros spp_sum.`, 
+         # `Chaetoceros spp.`, 
+         # `Chaetoeros spp. very small`,
+         Oligotrichea, 
+         # `Elongate form`,
+         `Oligotricious forms (large)`,
+         `Oligotricious forms (medium)`, 
+         `Oligotricious forms (small)`)
 
 #Removing size separated columns that were summed into a single column. Needs to be updated to reflect sums done above.
 micro_tp <- micro_tp %>% 

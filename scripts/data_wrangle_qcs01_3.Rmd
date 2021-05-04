@@ -45,7 +45,7 @@ micro <- micro %>%
 group_name <- c("Bacillariophyta", "Chlorophyta-Prasinophyta" , "Chlorophyta",
                 "Choanoflagellata", "Chrysophyta", "Ciliophora", "Cryptophyta",
                 "Cyanobacteria", "Dictyophyta", "Dictyochophyta", "Dinoflagellata", "Ebriidea",
-                "Euglenophyta", "Kinetoplastidea", "Metazoa", "Protozoa",
+                "Euglenophyta", "Kinetoplastidea", "Metazoa", "Protozoa", "Haptophyta",
                 "Prymnesiophyta-Haptophyta", "Raphidiophyta",
                 "Unknown very small flagellated species",
                 "Unknown very small non-flagellated cells", "Unknown cells",
@@ -61,6 +61,22 @@ micro <- micro %>%
 #Filling down the group names so each species is associated with a group 
 micro <- micro %>%
   fill(group)
+
+
+#Changes captured in next script where data is bound and distinct combinations examined
+micro <- micro %>% 
+  mutate(group = case_when(group == "Chlorophyta" ~ "Chlorophyta-Prasinophyta",
+                           group == "Haptophyta" ~ "Prymnesiophyta-Haptophyta",
+                           group == "Dictyophyta" ~ "Dictyochophyta",
+                           TRUE ~ as.character (group)))
+
+micro <- micro %>% 
+  mutate(group = case_when(species == "Chrysochromulina spp" ~ "Prymnesiophyta-Haptophyta",
+                           TRUE ~ as.character (group)))
+
+micro <- micro %>% 
+  mutate(species = case_when(species == "Phaeocystis pouchetii" ~ "Phaeocystis poucheteii",
+                             TRUE ~ as.character (species)))
 ```
 
 
@@ -270,9 +286,9 @@ micro_tp <- micro_tp %>%
   mutate_if(is.character, as.numeric)
 
 #Protozoa twice...
-# micro_test <- micro %>% 
-#   group_by(species) %>% 
-#   summarise(dup = n())
+micro_test <- micro %>%
+  group_by(species) %>%
+  summarise(dup = n())
 
 #Pushes rownames to their own column
 #Pushes the hakaiID rownames into a column with a header.
@@ -289,7 +305,8 @@ micro_tp <- rownames_to_column(micro_tp, "hakai_id")
 size_list <- micro %>%
   filter(str_detect(species, "small") |
          str_detect(species, "medium") |
-         str_detect(species, "large"))
+         str_detect(species, "large") |
+         str_detect(species, "Elongate"))
          
 #Summing columns with size designation - needs to be updated to size list above - not adaptable (i.e. will fail if not reflective of datasheet), which is why certain things are commetented out
 micro_tp <- micro_tp %>% 
@@ -304,8 +321,9 @@ micro_tp <- micro_tp %>%
                                          `Chaetoceros tenuissimus (small)`,
                                          na.rm = TRUE),
          `Chaetoceros spp_sum.` = sum(`Chaetoceros spp.`,
-                                `Chaetoeros spp. very small`, na.rm = TRUE ),
-         Oligotrichea = sum(`Oligotricious forms (large)`,
+                                      `Chaetoeros spp. very small`, na.rm = TRUE ),
+         Oligotrichea = sum(`Elongate form`,
+                            `Oligotricious forms (large)`,
                             `Oligotricious forms (medium)`, 
                             `Oligotricious forms (small)`, na.rm = TRUE))
 
@@ -320,24 +338,38 @@ sum_check <- micro_tp %>%
   select(#Biddulphiales, `Unidentified centric forms`, 
          #`Unidentified very small centric forms`, 
          Pennales, 
-         `Unidentified pennate forms`, `Unidentified very small pennate forms`,
-         `Skeletonema marinoi`, `S. marinoi (small cells)`,
-         `S. marinoi (large cells)`, #`Chaetoceros tenuissimus`, 
-         `Chaetoceros tenuissimus (large)`, `Chaetoceros tenuissimus (small)`,
-         `Chaetoceros spp_sum.`, `Chaetoceros spp.`, `Chaetoeros spp. very small`,
-         Oligotrichea, `Oligotricious forms (large)`,
-         `Oligotricious forms (medium)`, `Oligotricious forms (small)`)
+         `Unidentified pennate forms`, 
+         `Unidentified very small pennate forms`,
+         `Skeletonema marinoi`, 
+         `S. marinoi (small cells)`,
+         `S. marinoi (large cells)`, 
+         #`Chaetoceros tenuissimus`, 
+         `Chaetoceros tenuissimus (large)`, 
+         `Chaetoceros tenuissimus (small)`,
+         `Chaetoceros spp_sum.`, 
+         `Chaetoceros spp.`, 
+         `Chaetoeros spp. very small`,
+         Oligotrichea, 
+         `Elongate form`,
+         `Oligotricious forms (large)`,
+         `Oligotricious forms (medium)`, 
+         `Oligotricious forms (small)`)
 
 #Removing size separated columns that were summed into a single column. Needs to be updated to reflect sums done above.
 micro_tp <- micro_tp %>% 
   select(#-`Unidentified centric forms`, -`Unidentified very small centric forms`,
-         -`Unidentified pennate forms`, -`Unidentified very small pennate forms`,
-         -`S. marinoi (small cells)`, -`S. marinoi (large cells)`,
-         -`Chaetoceros tenuissimus (large)`, -`Chaetoceros tenuissimus (small)`,
-         -`Chaetoceros spp.`, -`Chaetoeros spp. very small`,
-         # -`Elongate form`, 
+         -`Unidentified pennate forms`, 
+         -`Unidentified very small pennate forms`,
+         -`S. marinoi (small cells)`, 
+         -`S. marinoi (large cells)`,
+         -`Chaetoceros tenuissimus (large)`, 
+         -`Chaetoceros tenuissimus (small)`,
+         -`Chaetoceros spp.`, 
+         -`Chaetoeros spp. very small`,
+         -`Elongate form`, 
          -`Oligotricious forms (large)`, 
-         -`Oligotricious forms (medium)`, -`Oligotricious forms (small)`)
+         -`Oligotricious forms (medium)`, 
+         -`Oligotricious forms (small)`)
 
 #Changing zeros from sum math back to NA's
 micro_tp  <- micro_tp  %>% 
@@ -352,7 +384,7 @@ micro_tp  <- micro_tp  %>%
 
 micro_tp <- micro_tp %>%
   rename(`Chaetoceros spp.` = `Chaetoceros spp_sum.`) %>% 
-  rename(cyanobacteria = `Cyanobacteria (~large cells)`)
+  rename(Cyanobacteria = `Cyanobacteria (~large cells)`)
 ```
 
 ```{r}

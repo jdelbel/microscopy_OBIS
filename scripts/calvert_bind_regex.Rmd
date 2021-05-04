@@ -1,0 +1,237 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Testing upload methods for new data - Unfortunately, changes need to be made for each new data sheet. I'm conflicted as to whether some of these changes could be done more quickly manually within excel.
+
+```{r}
+#Load packages - Ran script with some packages turned off and it work, but need to try with more
+library(tidyverse)
+library(janitor) #Where do I use this? Test running without - removing empty rows/NArows
+library(hutils) #Used to drop empty columns 
+library(obistools) #Used for initial species matches to WoRMs - good for cleaning taxonomic names
+library(worrms) #Used to derive accepted names and taxonomic hierarchies
+library(curl) #??? Test running without.
+library(stringr) #Used to remove white-space after 
+library(here)
+```
+
+```{r}
+micro_1 <- read_csv(here("cleaned_csv", "qcs01_1.csv"))
+
+micro_2 <- read_csv(here("cleaned_csv", "qcs01_2.csv"))
+
+micro_3 <- read_csv(here("cleaned_csv", "qcs01_3.csv"))
+
+micro <- rbind(micro_1, micro_2, micro_3)
+
+micro_tidy <- micro %>% 
+  arrange(date)
+```
+
+
+```{r}
+#Further cleaning of data not done before making the data tidy - was too complicated with having to transpose the data for merging with metadata.
+
+
+#For the below regex string search lists, make sure to look at the original data (micro dataframe) to ensure all qualifiers/lifestages have been accounted for.
+
+#This creates regex list that will be used to add these terms to lifeStage column.
+lifeStage_regex <- c("resting stages", "resting stage", "r\\.s", "resting stg", 
+                     "nauplii/ekdysis", "\\bspore", "Auxospore",
+                     "auxospore", "Auxospores", "auxospores",
+                     "copepodites") %>% 
+  str_c(collapse = "|")
+
+#This creates regex list that will be used to add these terms to the identificationRemark column. 
+identificationRemark_regex <- c("alpha-starch, Chlorophyta\\?",
+                                "equatorial groove, Dinophyceae\\?",
+                                "cinctus/radicans",
+                                "non-motile stg",
+                                "pouchetii non motile") %>% 
+  str_c(collapse = "|")
+
+#This creates regex list that will be used to add these terms to the identificationQualifier column. I could likely make the search easier and eliminate [:blank:]spp$ by using stringr::str_trim to remove whitespace before or after.
+identificationQ_regex <- c("[:blank:]spp$", "spp\\.", "sp\\.") %>% 
+  str_c(collapse = "|")
+
+#This step uses the regular expression lists defined above to find matches within the taxonomic column and for these matches, writes the specified terms to either lifeStage, indentificationQualifier or identificationRemark columns.
+micro_tidy <- micro_tidy %>%
+  mutate(lifeStage = str_match(species, lifeStage_regex)) %>%
+  mutate(identificationQualifier = str_match(species, identificationQ_regex)) %>%
+  mutate(identificationRemark = str_match(species, identificationRemark_regex))
+
+#Adding spp. where I moved cinctus/radicans to identificationRemark. The last term in the case_when function makes sure that the other identificationQualifiers are not overwritten. Cinctus/Radicans not included in all sheets, but doesn't matter, can be run anyways so it is picked up when run.
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationQualifier = case_when(identificationRemark == 
+                                               "cinctus/radicans" ~ "spp.",
+                                             TRUE ~ as.character
+                                             (identificationQualifier)))
+
+#Rename lifeStage terms to match accepted vocabulary and fix a weird identificationQualifier spp that has white space making regex work difficult. 
+micro_tidy <- micro_tidy %>% 
+  mutate(lifeStage = str_replace(lifeStage, "spore", "spores")) %>%
+  mutate(lifeStage = str_replace(lifeStage, "resting stages", "resting spores")) %>% 
+  mutate(lifeStage = str_replace(lifeStage, "resting stage", "resting spores")) %>% 
+  mutate(lifeStage = str_replace(lifeStage, "resting stg", "resting spores")) %>% 
+  mutate(lifeStage = str_replace(lifeStage, "r\\.s", "resting spores")) %>% 
+  mutate(lifeStage = str_replace(lifeStage, "nauplii/ekdysis", "nauplii")) %>% 
+  mutate(identificationQualifier = str_replace(identificationQualifier,
+                                                "[:blank:]spp$", "spp."))
+
+#Make IdentificationQualifiers more encompassing
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            "alpha-starch, Chlorophyta\\?", 
+"Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta"))
+
+#Unknown protozoa that could be Dinophyceae
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            "equatorial groove, Dinophyceae\\?", 
+"Cells too small to identify. Showed equatorial groove and could be Dinophyceae"))
+
+#Couldn't tell between resting stage cinctus and radicans
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            "cinctus/radicans", 
+"Unable to distinguish between Chaetoceros cinctus and radicans"))
+
+#Would non-motile be an identification remark? Or something else?
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            "non-motile stg", 
+                                            "non-motile"),
+         identificationRemark = str_replace(identificationRemark,
+                                            "pouchetii non motile", 
+                                            "non-motile"))
+
+#Adding reason why classification was stopped at sp., spp according to Horten et al. In theory, shouldn't this Qualifier be put on any occurrence that stops before species level? Based on figure 1 in Horten et al., I think that the qualifier should be added even when there is no sp. or spp. I will add this after the taxonomic hierarchy has been applied so that I can filter for it.
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationQualifier = case_when(identificationQualifier == 
+                                               "spp." ~ "spp. Indet.",
+                                             identificationQualifier ==
+                                               "sp." ~ "sp. Indet.",
+                                             TRUE ~ as.character
+                                             (identificationQualifier)))
+
+
+#This step is time consuming to run, but removes any white-space before/after strings created through regex work.
+micro_tidy <- micro_tidy %>% 
+  mutate(species = stringr::str_trim(species, side = "right"))
+```
+
+```{r}
+#Remove any identifiers/information from the species designations in the species column - make sure to update if the data has new identifiers/qualifiers/lifestages etc. Unfortunately, order matters when there are similar words with slight variations. For instance, the plural auxospores need to be before singular. If singular is first, it leaves the s behind and then this is hard to remove on it's own. Having plural first removes only the plural and then the singular after removes only the singular. 
+micro_tidy <- micro_tidy %>% 
+  mutate(species = str_replace(species, "\\(resting stages\\)", "")) %>% 
+  mutate(species = str_replace(species, "resting stage", "")) %>%
+  mutate(species = str_replace(species, "resting stages", "")) %>%
+  mutate(species = str_replace(species, "resting stg", "")) %>%
+  mutate(species = str_replace(species, "r\\.s", "")) %>%
+  mutate(species = str_replace(species, "Auxospores", "")) %>%
+  mutate(species = str_replace(species, "auxospores", "")) %>%
+  mutate(species = str_replace(species, "Auxospore", "")) %>%
+  mutate(species = str_replace(species, "auxospore", "")) %>%
+  mutate(species = str_replace(species, "spore forms", "")) %>%
+  mutate(species = str_replace(species, "spore", "")) %>%
+  mutate(species = str_replace(species, "pouchetii non motile", "")) %>%
+  mutate(species = str_replace(species, "non-motile stg", "")) %>%
+  mutate(species = str_replace(species, "\\(copepodites\\)", "")) %>%
+  mutate(species = str_replace(species, "\\(nauplii/ekdysis\\)", "")) %>%
+  mutate(species = str_replace(species, "nauplii/ekdysis", "")) %>%
+  mutate(species = str_replace(species, "spp\\.", "")) %>%
+  mutate(species = str_replace(species, "\\bspp", "")) %>%
+  mutate(species = str_replace(species, "sp\\.", "")) %>%
+  mutate(species = str_replace(species, "cinctus/radicans", "")) %>%
+  mutate(species = str_replace(species, "\\(elongate form\\)", "")) %>% 
+  mutate(species = str_replace(species, "Pterosperma  s", "Pterosperma")) %>% 
+  mutate(species = str_replace(species, "\\(equatorial groove, Dinophyceae\\?\\)","")) %>%
+  mutate(species = str_replace(species, "\\(alpha-starch, Chlorophyta\\?\\)", "")) %>% 
+  mutate(species = str_replace(species, "[:blank:]spp$", "")) %>% 
+  mutate(species = str_replace(species, "\\.", "")) 
+
+```
+
+
+```{r}
+#These steps are crosschecks to ensure that all of the above string work was done correctly. Carefully examine the data as after this, the data are exported and then matched with the WoRMs database.
+
+#This step/sheet is a quality check to ensure that all of the lifeStage-taxonomic combinations are present 
+lifeStage_check <- micro_tidy %>% 
+  distinct(across(c(species, lifeStage))) %>% 
+  filter(!is.na(lifeStage)) 
+
+#Check that all the identificationQualifier combinations are present
+identificationQ_check <- micro_tidy %>% 
+  distinct(across(c(species, identificationQualifier))) %>% 
+  filter(!is.na(identificationQualifier)) 
+
+#Check that all of the identificationRemark combinations are present
+identificationRemark_check <- micro_tidy %>% 
+  distinct(across(c(species, identificationRemark))) %>% 
+  filter(!is.na(identificationRemark)) 
+
+micro_distinct <- micro_tidy %>%
+  distinct(species, lifeStage, identificationQualifier, identificationRemark, 
+           .keep_all = TRUE)
+
+
+```
+
+
+```{r}
+#Errors from string matching - kept as an example of errors that should be checked in future files
+
+#For an example of what should be looked for, below is a list of errors I found in the species list of the micro_distinct datasheet. They were not captured by the string/regex work. Every new upload will likely have new errors like this that will need to be added to the string expression searches, which is annoying, but how can you standardize this if things keep changing? Eventually the regex searches will become more extensive.
+
+#List of things not being captured and removed from the species names:
+#Phaeocystis poucheteii non-motile stg (would likely go in identificationRemark) (fixed)
+#Guinardia delicatula auxospore (fixed)
+#Rhizosolenia setigera . (fixed)
+#Ditylum brightwellii . (fixed)
+
+#Chaetocers debilis resting stg (being picked up but needs to be removed from species name) (fixed)
+#Chaetoceros  resting stg (above) (fixed)
+#Ditylum brightwellii spore (needs to be removed from species name) (fixed)
+#Phaeocystis pouchetii  pouchetii non motile
+
+
+#This is interesting for p.p non-motile - http://vocab.nerc.ac.uk/collection/S13/current/
+#Where would this be incorporated
+
+#Another issue
+#S. marinoi Auxospores (fixed)
+
+#Lots of duplicate species names from combining sheets with different group names -
+
+#probably most important
+#phaeocystis pouchetti grouped as eugenophyta? Means my grouping messed up. (fixed)
+
+##Chrysocromulina is a haptophyte (Fix here of earlier?) (fixed)
+##somehow elongate form got through - find sheet and fix. (fixed)
+##Some dictyocha and some dictyochophyta (fixed)
+
+
+```
+
+```{r}
+#errors from worms matching - returned from next step/workbook
+
+#didn't find:
+#copepod - fixed
+#Phyllomitus yorkeensis - decided to just remove because very infrequent and low abundance - but will keep this in the next phase.
+#Thalassiosira nordenskioldii - had to fix in earlier work. (fixed)
+
+```
+
+
+
+```{r}
+#Write output to open in matching workbook
+write_csv(micro_tidy, here("cleaned_csv", "microscopy_qcs01_2021-05-03.csv"))
+
+```
+
+
