@@ -269,6 +269,7 @@ micro <- micro %>%
 
 micro <- micro %>% 
   mutate(species = str_replace(species, "Tintinnid forms", "Tintinnina"))
+
 ```
 
 
@@ -393,7 +394,8 @@ micro_tp  <- micro_tp  %>%
 #Rename Cheatoceros spp_sum to Cheatoceros spp. Need to check how I did this in my original worksheet for this dataset. It was addressed.
 
 micro_tp <- micro_tp %>%
-  rename(`Chaetoceros spp.` = `Chaetoceros spp_sum.`)
+  rename(`Chaetoceros spp.` = `Chaetoceros spp_sum.`,
+         Cyanobacteria = `Cyanobacteria (~large cells)`)
 ```
 
 ```{r}
@@ -444,7 +446,8 @@ micro_tidy <- micro_tidy %>%
                             species == "Pennales" ~ "Bacillariophyta",
                             species == "Skeletonema marinoi" ~ "Bacillariophyta",
                             species == "Chaetoceros tenuissimus" ~ "Bacillariophyta",
-                            species == "Oligotrichea" ~ "Ciliophora", 
+                            species == "Oligotrichea" ~ "Ciliophora",
+                            species == "Cyanobacteria" ~ "Cyanobacteria",
                             TRUE ~ as.character (group)))
 micro_dup <- micro_tidy %>% 
   group_by(date, species, group) %>% 

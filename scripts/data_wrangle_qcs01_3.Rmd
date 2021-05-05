@@ -384,7 +384,8 @@ micro_tp  <- micro_tp  %>%
 
 micro_tp <- micro_tp %>%
   rename(`Chaetoceros spp.` = `Chaetoceros spp_sum.`) %>% 
-  rename(Cyanobacteria = `Cyanobacteria (~large cells)`)
+  rename(Cyanobacteria = `Cyanobacteria (~large cells)`) %>% 
+  rename(Biddulphiales = `Unidentified centric forms`)
 ```
 
 ```{r}
@@ -419,6 +420,8 @@ micro_tidy <- micro_tp %>%
 #Drop NAs - species not observed.
 micro_tidy <- micro_tidy %>%
   drop_na(counts)
+
+
 ```
 
 ```{r}
@@ -437,6 +440,9 @@ micro_tidy <- micro_tidy %>%
                             species == "Chaetoceros tenuissimus" ~ "Bacillariophyta",
                             species == "Oligotrichea" ~ "Ciliophora", 
                             TRUE ~ as.character (group)))
+
+micro_distinct <- micro_tidy %>% 
+  distinct(species, group)
 ```
 
 ```{r}

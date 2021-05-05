@@ -420,6 +420,9 @@ micro_tidy <- micro_tidy %>%
                             species == "Chaetoceros tenuissimus" ~ "Bacillariophyta",
                             species == "Oligotrichea" ~ "Ciliophora", 
                             TRUE ~ as.character (group)))
+
+micro_distinct <- micro_tidy %>% 
+  distinct(species, group)
 ```
 
 ```{r}

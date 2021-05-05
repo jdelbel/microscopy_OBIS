@@ -1752,13 +1752,18 @@ summary {
 <p>Testing upload methods for new data - Unfortunately, changes need to be made for each new data sheet. I’m conflicted as to whether some of these changes could be done more quickly manually within excel.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkeGwpXG5cbmBgYCJ9 -->
-<pre class="r"><code>library(readxl)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0xvYWQgcGFja2FnZXMgLSBSYW4gc2NyaXB0IHdpdGggc29tZSBwYWNrYWdlcyB0dXJuZWQgb2ZmIGFuZCBpdCB3b3JrLCBidXQgbmVlZCB0byB0cnkgd2l0aCBtb3JlXG5saWJyYXJ5KHRpZHl2ZXJzZSlcbmxpYnJhcnkoamFuaXRvcikgI1doZXJlIGRvIEkgdXNlIHRoaXM/IFRlc3QgcnVubmluZyB3aXRob3V0IC0gcmVtb3ZpbmcgZW1wdHkgcm93cy9OQXJvd3NcbmxpYnJhcnkoaHV0aWxzKSAjVXNlZCB0byBkcm9wIGVtcHR5IGNvbHVtbnMgXG5saWJyYXJ5KG9iaXN0b29scykgI1VzZWQgZm9yIGluaXRpYWwgc3BlY2llcyBtYXRjaGVzIHRvIFdvUk1zIC0gZ29vZCBmb3IgY2xlYW5pbmcgdGF4b25vbWljIG5hbWVzXG5saWJyYXJ5KHdvcnJtcykgI1VzZWQgdG8gZGVyaXZlIGFjY2VwdGVkIG5hbWVzIGFuZCB0YXhvbm9taWMgaGllcmFyY2hpZXNcbmxpYnJhcnkoY3VybCkgIz8/PyBUZXN0IHJ1bm5pbmcgd2l0aG91dC5cbmxpYnJhcnkoc3RyaW5ncikgI1VzZWQgdG8gcmVtb3ZlIHdoaXRlLXNwYWNlIGFmdGVyIFxubGlicmFyeShoZXJlKVxubGlicmFyeShyZWFkeGwpXG5gYGAifQ== -->
+<pre class="r"><code>#Load packages - Ran script with some packages turned off and it work, but need to try with more
+library(tidyverse)
+library(janitor) #Where do I use this? Test running without - removing empty rows/NArows
+library(hutils) #Used to drop empty columns 
+library(obistools) #Used for initial species matches to WoRMs - good for cleaning taxonomic names
+library(worrms) #Used to derive accepted names and taxonomic hierarchies
+library(curl) #??? Test running without.
+library(stringr) #Used to remove white-space after 
+library(here)
+library(readxl)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSDjpLzjuLFyZWFkeGzjpLzjuLIgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiA0LjAuM1xuIn0= -->
-<pre><code>package 㤼㸱readxl㤼㸲 was built under R version 4.0.3</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -2221,28 +2226,27 @@ micro_tp &lt;- micro_tp %&gt;%
 <!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImhha2FpX2lkXCJcbiJ9 -->
 <pre><code>Joining, by = &quot;hakai_id&quot;</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3Jlb3JnYW5pemluZyBhbmQgZWxpbWluYXRpbmcgdW51c2VkIGNvbHVtbnNcbm1pY3JvX3RwIDwtIG1pY3JvX3RwICU+JSBcbiAgc2VsZWN0KGRhdGUsIGNvbGxlY3RlZCwgaGFrYWlfaWQsIGxpbmVfb3V0X2RlcHRoLCB3b3JrX2FyZWEsIHNpdGVfaWQsXG4gICAgICAgICBsYXQsIGxvbmcsIHZvbHVtZSwgbHVnb2xzLCBjb2xsZWN0ZWQsXG4gICAgICAgICBgQXN0ZXJpb25lbGxvcHNpcyBnbGFjaWFsaXNgOk9saWdvdHJpY2hlYSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3Jlb3JnYW5pemluZyBhbmQgZWxpbWluYXRpbmcgdW51c2VkIGNvbHVtbnNcbm1pY3JvX3RwIDwtIG1pY3JvX3RwICU+JSBcbiAgc2VsZWN0KGRhdGUsIGNvbGxlY3RlZCwgaGFrYWlfaWQsIGxpbmVfb3V0X2RlcHRoLCB3b3JrX2FyZWEsIHNpdGVfaWQsXG4gICAgICAgICBsYXQsIGxvbmcsIHZvbHVtZSwgbHVnb2xzLCBjb2xsZWN0ZWQsXG4gICAgICAgICBgQ2hhZXRvY2Vyb3MgY2luY3R1c2A6T2xpZ290cmljaGVhKVxuXG4jRmluZCByb3dzIHdoZXJlIHRoZXJlIHdhcyBubyBtZXRhZGF0YSBtYXRjaCAtIENoZWNrIHRvIGVuc3VyZSBvdXQgaXMgMCwgd2hpY2ggbWVhbnMgYWxsIG9mIHRoZSBkYXRhIHdhcyBtZXJnZWQuXG5tZXRhX21pc3NpbmcgPC0gbWljcm9fdHAgJT4lXG4gIGZpbHRlcihpcy5uYShjb2xsZWN0ZWQpKVxuYGBgIn0= -->
 <pre class="r"><code>#reorganizing and eliminating unused columns
 micro_tp &lt;- micro_tp %&gt;% 
   select(date, collected, hakai_id, line_out_depth, work_area, site_id,
          lat, long, volume, lugols, collected,
-         `Asterionellopsis glacialis`:Oligotrichea)</code></pre>
+         `Chaetoceros cinctus`:Oligotrichea)
+
+#Find rows where there was no metadata match - Check to ensure out is 0, which means all of the data was merged.
+meta_missing &lt;- micro_tp %&gt;%
+  filter(is.na(collected))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IENhbid0IHN1YnNldCBjb2x1bW5zIHRoYXQgZG9uJ3QgZXhpc3QuXG54IENvbHVtbiBgQXN0ZXJpb25lbGxvcHNpcyBnbGFjaWFsaXNgIGRvZXNuJ3QgZXhpc3QuXG5SdW4gYHJsYW5nOjpsYXN0X2Vycm9yKClgIHRvIHNlZSB3aGVyZSB0aGUgZXJyb3Igb2NjdXJyZWQuXG4ifQ== -->
-<pre><code>Error: Can&#39;t subset columns that don&#39;t exist.
-x Column `Asterionellopsis glacialis` doesn&#39;t exist.
-Run `rlang::last_error()` to see where the error occurred.</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0NvbnZlcnQgZGF0YSB0byB0aWR5XG5cbiNNYWtpbmcgZGF0YSBUaWR5IFxubWljcm9fdGlkeSA8LSBtaWNyb190cCAlPiUgXG4gIHBpdm90X2xvbmdlcihjKGBBc3RlcmlvbmVsbG9wc2lzIGdsYWNpYWxpc2A6IE9saWdvdHJpY2hlYSksXG4gICAgICAgICAgICAgICBuYW1lc190byA9IFwic3BlY2llc1wiLCB2YWx1ZXNfdG8gPSBcImNvdW50c1wiKVxuXG4jRHJvcCBOQXMgLSBzcGVjaWVzIG5vdCBvYnNlcnZlZC5cbm1pY3JvX3RpZHkgPC0gbWljcm9fdGlkeSAlPiVcbiAgZHJvcF9uYShjb3VudHMpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0NvbnZlcnQgZGF0YSB0byB0aWR5XG5cbiNNYWtpbmcgZGF0YSBUaWR5IFxubWljcm9fdGlkeSA8LSBtaWNyb190cCAlPiUgXG4gIHBpdm90X2xvbmdlcihjKGBDaGFldG9jZXJvcyBjaW5jdHVzYDogT2xpZ290cmljaGVhKSxcbiAgICAgICAgICAgICAgIG5hbWVzX3RvID0gXCJzcGVjaWVzXCIsIHZhbHVlc190byA9IFwiY291bnRzXCIpXG5cbiNEcm9wIE5BcyAtIHNwZWNpZXMgbm90IG9ic2VydmVkLlxubWljcm9fdGlkeSA8LSBtaWNyb190aWR5ICU+JVxuICBkcm9wX25hKGNvdW50cylcbmBgYCJ9 -->
 <pre class="r"><code>#Convert data to tidy
 
 #Making data Tidy 
 micro_tidy &lt;- micro_tp %&gt;% 
-  pivot_longer(c(`Asterionellopsis glacialis`: Oligotrichea),
+  pivot_longer(c(`Chaetoceros cinctus`: Oligotrichea),
                names_to = &quot;species&quot;, values_to = &quot;counts&quot;)
 
 #Drop NAs - species not observed.
@@ -2293,9 +2297,9 @@ micro_distinct &lt;- micro_tidy %&gt;%
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1dyaXRlIG91dHB1dCB0byBvcGVuIGluIG1hdGNoaW5nIHdvcmtib29rXG53cml0ZV9jc3YobWljcm9fdGlkeSwgaGVyZShcImNsZWFuZWRfY3N2XCIsIFwia2MxMF8yLmNzdlwiKSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1dyaXRlIG91dHB1dCB0byBvcGVuIGluIG1hdGNoaW5nIHdvcmtib29rXG53cml0ZV9jc3YobWljcm9fdGlkeSwgaGVyZShcImNsZWFuZWRfY3N2XCIsIFwiZGZvMl8xLmNzdlwiKSlcbmBgYCJ9 -->
 <pre class="r"><code>#Write output to open in matching workbook
-write_csv(micro_tidy, here(&quot;cleaned_csv&quot;, &quot;kc10_2.csv&quot;))</code></pre>
+write_csv(micro_tidy, here(&quot;cleaned_csv&quot;, &quot;dfo2_1.csv&quot;))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->

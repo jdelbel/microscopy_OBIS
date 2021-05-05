@@ -1,0 +1,31 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+library(readxl)
+
+```
+
+
+```{r}
+micro_1 <- read_xlsx(here("files", "dfo2.xlsx"), sheet = "dfo2_1")
+
+micro_2 <- read_xlsx(here("files", "dfo2.xlsx"), sheet = "dfo2_2")
+
+micro_1 <- micro_1 %>% 
+  janitor::remove_empty()
+
+micro_2 <- micro_2 %>% 
+  janitor::remove_empty()
+
+micro <- micro_1 %>% 
+  full_join(micro_2, by = "species")
+
+#Mess
+```
+
+

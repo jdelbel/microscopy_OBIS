@@ -173,6 +173,9 @@ unknown <- unknown %>%
                              species == "Unknown species" &
                              group == "Chrysophyta" ~
                                "Chrysophyceae",
+                             species == "Unknown species" &
+                             group == "Raphidiophyta" ~
+                               "Raphidophyceae",
                              species == "banana" &
                              group == "pineapple" ~
                                "Protozoa")) %>% 
@@ -217,6 +220,9 @@ micro <- micro %>%
                              species == "Unknown species" &
                              group == "Chrysophyta" ~
                                "Chrysophyceae",
+                             species == "Unknown species" &
+                             group == "Raphidiophyta" ~
+                               "Raphidophyceae",
                              species == "banana" &
                              group == "pineapple" ~
                                "Protozoa",
