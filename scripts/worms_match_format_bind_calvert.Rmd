@@ -91,7 +91,8 @@ worm_na_match <- worm_match %>%
 worm_match_clean <- worm_match %>% 
   filter(!(str_detect(orig_name, "Pleurostomum gracile") |  
            str_detect(orig_name, "Phyllomitus yorkeensis") |  
-           str_detect(orig_name, "Meringosphaerae tenerrima"))) %>%   
+           str_detect(orig_name, "Meringosphaerae tenerrima") |  
+           str_detect(orig_name, "Jacobia iberia"))) %>% 
   distinct(scientificName, .keep_all = TRUE) 
 
 #This tool uses the worrms::wm_records_names tool to attach taxonomic hierarchies and accepted scientificNames to the scientificNames derived above from the obistools::match_taxa (provides direct matches, not accepted). Unfortunately, it re-adds duplicates (Appendicularia and Euglenozoa) where I was able to make selections in obistools::match_taxa and I need to manually remove these later. The worrms::wm_record_names is described here: https://cran.r-project.org/web/packages/worrms/worrms.pdf
@@ -141,9 +142,11 @@ micro <- micro %>%
 complete <- complete %>% 
   full_join(micro) %>% 
   rename(orig_name = species) %>% 
-  filter(!(str_detect(orig_name, "Pleurostomum gracile") | 
-           str_detect(orig_name, "Phyllomitus yorkeensis") | 
-           str_detect(orig_name, "Meringosphaerae tenerrima"))) 
+  filter(!(str_detect(orig_name, "Pleurostomum gracile") |  
+           str_detect(orig_name, "Phyllomitus yorkeensis") |  
+           str_detect(orig_name, "Meringosphaerae tenerrima") |  
+           str_detect(orig_name, "Jakobia iberia"))) 
+
 
 #This removes the double hierarchy matches (as seen in worm_join_dup data-sheet). Consultation was done to ensure the removal of the incorrect match and to leave the correct match. It might be better to do this in the last chunk where I develop this sheet - would probably flow better, rather than jumping back here.
 worm_hierarchy_clean <- worm_hierarchy %>% 
@@ -159,6 +162,7 @@ complete_join <- complete %>%
 complete_join <- complete_join %>% 
   arrange(date)
 
+
 ```
 ```{r}
 #With Calvert data, quite a few mistakes and species with no match.
@@ -170,7 +174,7 @@ mistake_1 <- complete_join %>%
 
 mistake_2 <- complete_join %>% 
   filter(orig_name == "Radiolaria")
-#DFO2 and KC10 - Should be changed to Radiozoa (fixed in bound sheet)
+#DFO2 and KC10 - Should be changed to Radiozoa (fixed in bound sheet) - Might have been better to just fix in here... ridiculous the amount of back and forth.
 
 mistake_3 <- complete_join %>% 
   filter(orig_name == "Raphidiophyta")
@@ -182,7 +186,7 @@ mistake_4 <- complete_join %>%
 
 mistake_5 <- complete_join %>% 
   filter(orig_name == "Unknown species")
-#KC10 - 2020 - remove from original sheet - Issue - there is a count under rapidophyta group row.
+#KC10 - 2020 - remove from original sheet - Issue - there is a count under rapidophyta group row. Fixed and put count in species row.
 
 #going to try to fix these once the data is bound....
 
@@ -199,6 +203,31 @@ complete_join <- complete_join %>%
                                                "Indet.",
                                              TRUE ~ as.character
                                              (identificationQualifier)))
+
+
+
+
+
+#For whatever reason, this wasn't removed previously. So doing it here, but need to troubleshoot when submitting to OBIS.
+complete_join <- complete_join %>% 
+  filter(!orig_name == "Jacobia iberia")
+
+complete_join <- complete_join %>% 
+  mutate(group = case_when(orig_name == "Chaetoceros" & is.na(group) ~ "Bacillariophyta",
+                           orig_name == "Cyanobacteria" & is.na(group) ~ "Cyanobacteria",
+                           TRUE ~ as.character(group)))
+
+complete_join <- complete_join %>% 
+  mutate(group = case_when(orig_name == "Protozoa" & 
+                           group == "Unknown very small flagellated species" ~ 
+                           "Unknown flagellae-bearing cells",
+                           TRUE ~ as.character(group)))
+
+#Unknown flagellae-bearing cells and Unknown very small flagellated species need to be combined. I will fix here for now
+
+complete_distinct <-  complete_join %>% 
+  distinct(valid_name, orig_name, group, lifeStage, 
+           identificationQualifier, identificationRemark)
 ```
 
 #Likely worth outputting the data here and then uploading the file for formatting into OBIS format - limits the amount of time I need to run the data through the worms database matching queries.

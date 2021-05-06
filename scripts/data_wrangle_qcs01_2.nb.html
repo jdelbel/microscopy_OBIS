@@ -2247,7 +2247,7 @@ micro_tidy &lt;- micro_tidy %&gt;%
 <!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcInNwZWNpZXNcIlxuIn0= -->
 <pre><code>Joining, by = &quot;species&quot;</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1dvcmtzIHdpdGggZXhjZXB0aW9uIHRvIGNvbHVtbnMgSSBzdW1tZWQvY2hhbmdlZC4gSSBndWVzcyBJIGNhbiBqdXN0IG1hbnVhbGx5IHJlLWFkZCBoZXJlLlxubWljcm9fdGlkeSA8LSBtaWNyb190aWR5ICU+JSBcbiAgbXV0YXRlKGdyb3VwID0gY2FzZV93aGVuKHNwZWNpZXMgPT0gXCJCaWRkdWxwaGlhbGVzXCIgfiBcIkJhY2lsbGFyaW9waHl0YVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJQZW5uYWxlc1wiIH4gXCJCYWNpbGxhcmlvcGh5dGFcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBzcGVjaWVzID09IFwiU2tlbGV0b25lbWEgbWFyaW5vaVwiIH4gXCJCYWNpbGxhcmlvcGh5dGFcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBzcGVjaWVzID09IFwiQ2hhZXRvY2Vyb3MgdGVudWlzc2ltdXNcIiB+IFwiQmFjaWxsYXJpb3BoeXRhXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIk9saWdvdHJpY2hlYVwiIH4gXCJDaWxpb3Bob3JhXCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIFRSVUUgfiBhcy5jaGFyYWN0ZXIgKGdyb3VwKSkpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1dvcmtzIHdpdGggZXhjZXB0aW9uIHRvIGNvbHVtbnMgSSBzdW1tZWQvY2hhbmdlZC4gSSBndWVzcyBJIGNhbiBqdXN0IG1hbnVhbGx5IHJlLWFkZCBoZXJlLlxubWljcm9fdGlkeSA8LSBtaWNyb190aWR5ICU+JSBcbiAgbXV0YXRlKGdyb3VwID0gY2FzZV93aGVuKHNwZWNpZXMgPT0gXCJCaWRkdWxwaGlhbGVzXCIgfiBcIkJhY2lsbGFyaW9waHl0YVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWNpZXMgPT0gXCJQZW5uYWxlc1wiIH4gXCJCYWNpbGxhcmlvcGh5dGFcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBzcGVjaWVzID09IFwiU2tlbGV0b25lbWEgbWFyaW5vaVwiIH4gXCJCYWNpbGxhcmlvcGh5dGFcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBzcGVjaWVzID09IFwiQ2hhZXRvY2Vyb3MgdGVudWlzc2ltdXNcIiB+IFwiQmFjaWxsYXJpb3BoeXRhXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgc3BlY2llcyA9PSBcIk9saWdvdHJpY2hlYVwiIH4gXCJDaWxpb3Bob3JhXCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIFRSVUUgfiBhcy5jaGFyYWN0ZXIgKGdyb3VwKSkpXG5cbm1pY3JvX2Rpc3RpbmN0IDwtIG1pY3JvX3RpZHkgJT4lIFxuICBkaXN0aW5jdChzcGVjaWVzLCBncm91cClcbmBgYCJ9 -->
 <pre class="r"><code>#Works with exception to columns I summed/changed. I guess I can just manually re-add here.
 micro_tidy &lt;- micro_tidy %&gt;% 
   mutate(group = case_when(species == &quot;Biddulphiales&quot; ~ &quot;Bacillariophyta&quot;,
@@ -2255,7 +2255,10 @@ micro_tidy &lt;- micro_tidy %&gt;%
                             species == &quot;Skeletonema marinoi&quot; ~ &quot;Bacillariophyta&quot;,
                             species == &quot;Chaetoceros tenuissimus&quot; ~ &quot;Bacillariophyta&quot;,
                             species == &quot;Oligotrichea&quot; ~ &quot;Ciliophora&quot;, 
-                            TRUE ~ as.character (group)))</code></pre>
+                            TRUE ~ as.character (group)))
+
+micro_distinct &lt;- micro_tidy %&gt;% 
+  distinct(species, group)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->

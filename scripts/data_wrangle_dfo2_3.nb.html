@@ -2182,70 +2182,15 @@ micro_tp &lt;- micro_tp %&gt;%
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI01lcmdpbmcgd2l0aCBtZXRhZGF0YVxuXG4jVXBsb2FkIG1ldGFkYXRhIC0gdXBkYXRlIHRvIEFQSSB3aGVuIHBvc3NpYmxlXG5tZXRhZGF0YSA8LSByZWFkX2NzdihoZXJlKFwibWV0YV9waHl0b18yMDIxXzA0XzE0LmNzdlwiKSlcbmBgYCJ9 -->
-<pre class="r"><code>#Merging with metadata
-
-#Upload metadata - update to API when possible
-metadata &lt;- read_csv(here(&quot;meta_phyto_2021_04_14.csv&quot;))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4tLSBDb2x1bW4gc3BlY2lmaWNhdGlvbiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbmNvbHMoXG4gIC5kZWZhdWx0ID0gY29sX2NoYXJhY3RlcigpLFxuICBldmVudF9wayA9IGNvbF9kb3VibGUoKSxcbiAgcm4gPSBjb2xfZG91YmxlKCksXG4gIGRhdGUgPSBjb2xfZGF0ZShmb3JtYXQgPSBcIlwiKSxcbiAgc2FtcGxpbmdfYm91dCA9IGNvbF9kb3VibGUoKSxcbiAgcHJvamVjdF9zcGVjaWZpY19pZCA9IGNvbF9sb2dpY2FsKCksXG4gIGxhdCA9IGNvbF9kb3VibGUoKSxcbiAgbG9uZyA9IGNvbF9kb3VibGUoKSxcbiAgZ2F0aGVyX2xhdCA9IGNvbF9kb3VibGUoKSxcbiAgZ2F0aGVyX2xvbmcgPSBjb2xfZG91YmxlKCksXG4gIG1lc2hfc2l6ZV9fdW1fID0gY29sX2RvdWJsZSgpLFxuICBuZXRfZGltX19fY21fID0gY29sX2RvdWJsZSgpLFxuICBuZXRfbGVuZ3RoX19jbV8gPSBjb2xfZG91YmxlKCksXG4gIGxpbmVfb3V0X2RlcHRoID0gY29sX2RvdWJsZSgpLFxuICBwcmVzc3VyZV90cmFuc2R1Y2VyX2RlcHRoID0gY29sX2xvZ2ljYWwoKSxcbiAgdm9sdW1lID0gY29sX2RvdWJsZSgpLFxuICBsdWdvbHMgPSBjb2xfbG9naWNhbCgpLFxuICBjb2xsZWN0ZWQgPSBjb2xfZGF0ZXRpbWUoZm9ybWF0ID0gXCJcIiksXG4gIHByZXNlcnZlZCA9IGNvbF9kYXRldGltZShmb3JtYXQgPSBcIlwiKSxcbiAgYW5hbHl6ZWQgPSBjb2xfbG9naWNhbCgpLFxuICBhbmFseXppbmdfbGFiID0gY29sX2xvZ2ljYWwoKVxuICAjIC4uLiB3aXRoIDEgbW9yZSBjb2x1bW5zXG4pXG5pIFVzZSBgc3BlYygpYCBmb3IgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb25zLlxuXG4yMjMxIHBhcnNpbmcgZmFpbHVyZXMuXG5yb3cgY29sICAgZXhwZWN0ZWQgICAgYWN0dWFsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmlsZVxuICAyICAtLSAzMyBjb2x1bW5zIDEgY29sdW1ucyAnQzovVXNlcnMvanVzdGluLmJlbGx1ei9Eb2N1bWVudHMvUi9taWNyb3Njb3B5X09CSVMvbWV0YV9waHl0b18yMDIxXzA0XzE0LmNzdidcbiAgMyAgLS0gMzMgY29sdW1ucyAxIGNvbHVtbnMgJ0M6L1VzZXJzL2p1c3Rpbi5iZWxsdXovRG9jdW1lbnRzL1IvbWljcm9zY29weV9PQklTL21ldGFfcGh5dG9fMjAyMV8wNF8xNC5jc3YnXG4gIDQgIC0tIDMzIGNvbHVtbnMgMSBjb2x1bW5zICdDOi9Vc2Vycy9qdXN0aW4uYmVsbHV6L0RvY3VtZW50cy9SL21pY3Jvc2NvcHlfT0JJUy9tZXRhX3BoeXRvXzIwMjFfMDRfMTQuY3N2J1xuICA1ICAtLSAzMyBjb2x1bW5zIDEgY29sdW1ucyAnQzovVXNlcnMvanVzdGluLmJlbGx1ei9Eb2N1bWVudHMvUi9taWNyb3Njb3B5X09CSVMvbWV0YV9waHl0b18yMDIxXzA0XzE0LmNzdidcbiAgNiAgLS0gMzMgY29sdW1ucyAxIGNvbHVtbnMgJ0M6L1VzZXJzL2p1c3Rpbi5iZWxsdXovRG9jdW1lbnRzL1IvbWljcm9zY29weV9PQklTL21ldGFfcGh5dG9fMjAyMV8wNF8xNC5jc3YnXG4uLi4gLi4uIC4uLi4uLi4uLi4gLi4uLi4uLi4uIC4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLlxuU2VlIHByb2JsZW1zKC4uLikgZm9yIG1vcmUgZGV0YWlscy5cbiJ9 -->
-<pre><code>
--- Column specification ------------------------------------------------------------------------------------
-cols(
-  .default = col_character(),
-  event_pk = col_double(),
-  rn = col_double(),
-  date = col_date(format = &quot;&quot;),
-  sampling_bout = col_double(),
-  project_specific_id = col_logical(),
-  lat = col_double(),
-  long = col_double(),
-  gather_lat = col_double(),
-  gather_long = col_double(),
-  mesh_size__um_ = col_double(),
-  net_dim___cm_ = col_double(),
-  net_length__cm_ = col_double(),
-  line_out_depth = col_double(),
-  pressure_transducer_depth = col_logical(),
-  volume = col_double(),
-  lugols = col_logical(),
-  collected = col_datetime(format = &quot;&quot;),
-  preserved = col_datetime(format = &quot;&quot;),
-  analyzed = col_logical(),
-  analyzing_lab = col_logical()
-  # ... with 1 more columns
-)
-i Use `spec()` for the full column specifications.
-
-2231 parsing failures.
-row col   expected    actual                                                                           file
-  2  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/meta_phyto_2021_04_14.csv&#39;
-  3  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/meta_phyto_2021_04_14.csv&#39;
-  4  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/meta_phyto_2021_04_14.csv&#39;
-  5  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/meta_phyto_2021_04_14.csv&#39;
-  6  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/meta_phyto_2021_04_14.csv&#39;
-... ... .......... ......... ..............................................................................
-See problems(...) for more details.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0pvaW4gd2l0aCBtaWNyb3Njb3B5IGRhdGEgbWV0YWRhdGFcbm1pY3JvX3RwIDwtIG1pY3JvX3RwICU+JSBcbiAgbGVmdF9qb2luKG1ldGFkYXRhKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0pvaW4gd2l0aCBtaWNyb3Njb3B5IGRhdGEgbWV0YWRhdGFcbm1pY3JvX3RwIDwtIG1pY3JvX3RwICU+JSBcbiAgbGVmdF9qb2luKG1ldGFkYXRhKVxuXG5gYGAifQ== -->
 <pre class="r"><code>#Join with microscopy data metadata
 micro_tp &lt;- micro_tp %&gt;% 
-  left_join(metadata)</code></pre>
+  left_join(metadata)
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImhha2FpX2lkXCJcbiJ9 -->
 <pre><code>Joining, by = &quot;hakai_id&quot;</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3Jlb3JnYW5pemluZyBhbmQgZWxpbWluYXRpbmcgdW51c2VkIGNvbHVtbnNcbm1pY3JvX3RwIDwtIG1pY3JvX3RwICU+JSBcbiAgc2VsZWN0KGRhdGUsIGNvbGxlY3RlZCwgaGFrYWlfaWQsIGxpbmVfb3V0X2RlcHRoLCB3b3JrX2FyZWEsIHNpdGVfaWQsXG4gICAgICAgICBsYXQsIGxvbmcsIHZvbHVtZSwgbHVnb2xzLCBjb2xsZWN0ZWQsXG4gICAgICAgICBgQXR0aGV5YSBzcHAuYDpPbGlnb3RyaWNoZWEpXG5cbiNGaW5kIHJvd3Mgd2hlcmUgdGhlcmUgd2FzIG5vIG1ldGFkYXRhIG1hdGNoIC0gQ2hlY2sgdG8gZW5zdXJlIG91dCBpcyAwLCB3aGljaCBtZWFucyBhbGwgb2YgdGhlIGRhdGEgd2FzIG1lcmdlZC5cbm1ldGFfbWlzc2luZyA8LSBtaWNyb190cCAlPiVcbiAgZmlsdGVyKGlzLm5hKGNvbGxlY3RlZCkpXG5gYGAifQ== -->
-<pre class="r"><code>#reorganizing and eliminating unused columns
-micro_tp &lt;- micro_tp %&gt;% 
-  select(date, collected, hakai_id, line_out_depth, work_area, site_id,
-         lat, long, volume, lugols, collected,
-         `Attheya spp.`:Oligotrichea)
-
-#Find rows where there was no metadata match - Check to ensure out is 0, which means all of the data was merged.
-meta_missing &lt;- micro_tp %&gt;%
-  filter(is.na(collected))</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->

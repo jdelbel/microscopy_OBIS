@@ -92,7 +92,7 @@ date,collected,hakai_id,line_out_depth,work_area,site_id,lat,long,volume,lugols,
 2018-04-22,2018-04-22T16:17:42Z,CPHY430,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Rhizosolenia setigera,1332,Bacillariophyta,NA,NA,NA
 2018-04-22,2018-04-22T16:17:42Z,CPHY430,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Thalassionema nitzschioides,370,Bacillariophyta,NA,NA,NA
 2018-04-22,2018-04-22T16:17:42Z,CPHY430,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Thalassiosira ,4884,Bacillariophyta,NA,spp. Indet.,NA
-2018-04-22,2018-04-22T16:17:42Z,CPHY430,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Unidentified centric forms,296,Bacillariophyta,NA,NA,NA
+2018-04-22,2018-04-22T16:17:42Z,CPHY430,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Biddulphiales,296,Bacillariophyta,NA,NA,NA
 2018-04-22,2018-04-22T16:17:42Z,CPHY430,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Pyramimonas orientalis,5000,Chlorophyta-Prasinophyta,NA,NA,NA
 2018-04-22,2018-04-22T16:17:42Z,CPHY430,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Protozoa ,47500,Chlorophyta-Prasinophyta,NA,NA,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta
 2018-04-22,2018-04-22T16:17:42Z,CPHY430,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Choanozoa,15000,Choanoflagellata,NA,NA,NA
@@ -301,7 +301,7 @@ date,collected,hakai_id,line_out_depth,work_area,site_id,lat,long,volume,lugols,
 2018-09-13,2018-09-13T17:05:09Z,CPHY468,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Thalassionema nitzschioides,888,Bacillariophyta,NA,NA,NA
 2018-09-13,2018-09-13T17:05:09Z,CPHY468,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Thalassiosira rotula,444,Bacillariophyta,NA,NA,NA
 2018-09-13,2018-09-13T17:05:09Z,CPHY468,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Thalassiosira ,2960,Bacillariophyta,NA,spp. Indet.,NA
-2018-09-13,2018-09-13T17:05:09Z,CPHY468,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Unidentified centric forms,74,Bacillariophyta,NA,NA,NA
+2018-09-13,2018-09-13T17:05:09Z,CPHY468,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Biddulphiales,74,Bacillariophyta,NA,NA,NA
 2018-09-13,2018-09-13T17:05:09Z,CPHY468,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Pyramimonas orientalis,19445,Chlorophyta-Prasinophyta,NA,NA,NA
 2018-09-13,2018-09-13T17:05:09Z,CPHY468,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Protozoa ,50557,Chlorophyta-Prasinophyta,NA,NA,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta
 2018-09-13,2018-09-13T17:05:09Z,CPHY468,5,CALVERT,QCS01,51.705,-128.2384,250,TRUE,Choanozoa,38890,Choanoflagellata,NA,NA,NA

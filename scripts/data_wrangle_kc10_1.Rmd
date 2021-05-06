@@ -70,10 +70,12 @@ micro <- micro %>%
                            group == "Dictyophyta" ~ "Dictyochophyta",
                            TRUE ~ as.character (group)))
 
+#Some sheets have chrysochromulina as a euglenophyte. It's a hapto.
 micro <- micro %>% 
   mutate(group = case_when(species == "Chrysochromulina spp" ~ "Prymnesiophyta-Haptophyta",
                            TRUE ~ as.character (group)))
 
+#Fixing spelling
 micro <- micro %>% 
   mutate(species = case_when(species == "Phaeocystis pouchetii" ~ "Phaeocystis poucheteii",
                              TRUE ~ as.character (species)))
@@ -271,6 +273,10 @@ micro <- micro %>%
 
 micro <- micro %>% 
   mutate(species = str_replace(species, "Tintinnid forms", "Tintinnina"))
+
+micro <- micro %>% 
+  mutate(species = str_replace(species, "Chatonella/Olisthodiscus", "Olisthodiscus"))
+
 ```
 
 
@@ -409,7 +415,7 @@ micro_tp <- micro_tp %>%
 micro_tp <- micro_tp %>% 
   select(date, collected, hakai_id, line_out_depth, work_area, site_id,
          lat, long, volume, lugols, collected,
-         `Asterionellopsis glacialis`:Oligotrichea)
+         `Achnanthes spp.`:Oligotrichea)
 
 #Find rows where there was no metadata match - Check to ensure out is 0, which means all of the data was merged.
 meta_missing <- micro_tp %>%
@@ -421,7 +427,7 @@ meta_missing <- micro_tp %>%
 
 #Making data Tidy 
 micro_tidy <- micro_tp %>% 
-  pivot_longer(c(`Asterionellopsis glacialis`: Oligotrichea),
+  pivot_longer(c(`Achnanthes spp.`: Oligotrichea),
                names_to = "species", values_to = "counts")
 
 #Drop NAs - species not observed.

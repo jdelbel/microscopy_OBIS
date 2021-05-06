@@ -15,6 +15,7 @@ library(worrms) #Used to derive accepted names and taxonomic hierarchies
 library(curl) #??? Test running without.
 library(stringr) #Used to remove white-space after 
 library(here)
+library(readxl)
 ```
 
 ```{r}

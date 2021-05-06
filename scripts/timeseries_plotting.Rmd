@@ -165,13 +165,13 @@ micro_sum$group <- factor(micro_sum$group,
 ```{r}
 #Setting colour pallete for microscopy data - roughly comparable to chemtax data
 color_palette_micro <- c("#ff8000", #Diatoms 
-                   "#ff99c7", #Chrysophytes
+                   "#2642D5", #Chrysophytes
                    "#ff99c7", #Dicto (same color as chryso as same pig. group)
                    "#4d6600", #Raph
                    "#ff0000", #Dino
                    "#ffff00", #Crypto
                    "#00ff00", #Chloro (chloro and eugleno same colour, same pig. group)
-                   "#00ff00", #Eugleno
+                   "#93FFCA", #Eugleno
                    "#7d4dcc", #Hapto
                    "#000000"  #Cyano
                    )
@@ -330,6 +330,8 @@ fig_ts <- p1/p2/p3/p4/p5
 
 ggsave(here("figures", "qu39_ts_column.png"), fig_ts, width=16, height=15, dpi=300)
 ```
+
+
 ```{r}
 #Trying to plot diatom species
 p1 <- micro %>% 
@@ -463,137 +465,42 @@ ggsave(here("figures", "qu39_ts_diatom.png"), fig_diat, width=16, height=15, dpi
 ```
 ```{r}
 micro_diat <- micro %>% 
-  filter(group == "Bacillariophyta" & count > 20000 & !is.na(genus)) %>% 
+  filter(group == "Bacillariophyta" & count > 30000 & !is.na(genus)) %>% 
   group_by(date, genus) %>% 
   summarise(count_sum = sum(count)) %>% 
   ungroup() %>% 
   complete(date, genus) %>% 
   arrange(date, count_sum)
 
-
-#Trying to plot diatom species
-p1 <- micro_diat %>% 
- filter(date > "2016-01-01" &
-           date < "2016-12-31") %>% 
-  ggplot(aes(date, count_sum, fill = genus)) +
+micro_diat %>% 
+  mutate(julian = lubridate::yday(date),
+         year = lubridate::year(date)) %>% 
+  ggplot(aes(julian, count_sum, fill = genus)) +
   geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
-  scale_x_date(limits = startEnd_1,
-               breaks = scales::date_breaks("1 month"),
-               labels = scales::date_format("%m")) +
-  scale_fill_brewer(palette = "Spectral",
-                      name = "Genus, > 20000 cells") +
+  scale_fill_brewer(palette = "Spectral") +
+  # scale_x_date(limits = startEnd,
+  #              breaks = scales::date_breaks("3 month"),
+  #              labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ year, ncol = 1, scales = "free_y") +
   theme_bw() +
-  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
-  theme(legend.position = c(0.13, 0.5),
-        legend.background =  element_blank(),
-        axis.title.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),
-        text = element_text(size = 25)) 
-  
-p2 <- micro_diat %>% 
- filter(date > "2017-01-01" &
-           date < "2017-12-31") %>% 
-  ggplot(aes(date, count_sum, fill = genus)) +
-  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
-  scale_x_date(limits = startEnd_2,
-               breaks = scales::date_breaks("1 month"),
-               labels = scales::date_format("%m")) +
-  scale_fill_brewer(palette = "Spectral",
-                      name = element_blank()) +
-  theme_bw() +
-  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
-  theme(legend.position = c(0.1, 0.5),
-        legend.background =  element_blank(),
-        axis.title.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),
-        text = element_text(size = 25)) 
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25)) 
 
-p3 <- micro_diat %>% 
- filter(date > "2018-01-01" &
-           date < "2018-12-31") %>% 
-  ggplot(aes(date, count_sum, fill = genus)) +
-  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
-  scale_x_date(limits = startEnd_3,
-               breaks = scales::date_breaks("1 month"),
-               labels = scales::date_format("%m")) +
-  scale_fill_brewer(palette = "Spectral",
-                      name = element_blank()) +
-  theme_bw() +
-  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
-  theme(legend.position = c(0.1, 0.5),
-        legend.background =  element_blank(),
-        axis.title.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),
-        text = element_text(size = 25)) 
 
-p4 <- micro_diat %>% 
- filter(date > "2019-01-01" &
-           date < "2019-12-31") %>% 
-  ggplot(aes(date, count_sum, fill = genus)) +
-  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
-  scale_x_date(limits = startEnd_4,
-               breaks = scales::date_breaks("1 month"),
-               labels = scales::date_format("%m")) +
-  scale_fill_brewer(palette = "Spectral",
-                      name = element_blank()) +
-  theme_bw() +
-  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
-  theme(legend.position = c(0.085, 0.5),
-        legend.background =  element_blank(),
-        axis.title.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),
-        text = element_text(size = 25))
+ggsave(here("figures", "qu39_ts_diatom_julian.png"), width=16, height=15, dpi=300)
 
-p5 <- micro_diat %>% 
- filter(date > "2020-01-01" &
-           date < "2020-12-31") %>% 
-  ggplot(aes(date, count_sum, fill = genus)) +
-  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
-  scale_x_date(limits = startEnd_5,
-               breaks = scales::date_breaks("1 month"),
-               labels = scales::date_format("%m")) +
-  scale_fill_brewer(palette = "Spectral",
-                      name = element_blank()) +
-  theme_bw() +
-  labs(y = bquote("Abundance (cells" ~ L^-1*")"),
-       x = "Month") +
-  theme(legend.position = c(0.1, 0.5),
-        legend.background =  element_blank(),
-        axis.title.y = element_blank(),
-        text = element_text(size = 25))
 
-fig_diat <- p1/p2/p3/p4/p5
 
-ggsave(here("figures", "qu39_ts_diatom_test.png"), fig_diat,
-       width = 16, height = 15, dpi = 300)
-```
-```{r}
-micro %>% 
- filter(group == "Chlorophyta-Prasinophyta" &
-           date > "2016-01-01" &
-           date < "2016-12-31") %>%
-  complete(date, group, scientificName_accepted) %>% 
-  mutate(count = replace_na(count, 0)) %>%  
-  ggplot(aes(date, count, fill = scientificName_accepted)) +
-  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
-  scale_x_date(limits = startEnd_1,
-               breaks = scales::date_breaks("1 month"),
-               labels = scales::date_format("%m")) +
-  scale_fill_brewer(palette = "Spectral",
-                      name = "Genus, > 20000 cells") +
-  theme_bw() +
-  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
-  theme(legend.position = c(0.13, 0.5),
-        legend.background =  element_blank(),
-        axis.title.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),
-        text = element_text(size = 25))
+
 
 ```
+
 
 

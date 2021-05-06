@@ -407,7 +407,7 @@ micro_tp <- micro_tp %>%
 micro_tp <- micro_tp %>% 
   select(date, collected, hakai_id, line_out_depth, work_area, site_id,
          lat, long, volume, lugols, collected,
-         `Chaetoceros cinctus`:Oligotrichea)
+         `Asterionellopsis glacialis`:Oligotrichea)
 
 #Find rows where there was no metadata match - Check to ensure out is 0, which means all of the data was merged.
 meta_missing <- micro_tp %>%
@@ -419,7 +419,7 @@ meta_missing <- micro_tp %>%
 
 #Making data Tidy 
 micro_tidy <- micro_tp %>% 
-  pivot_longer(c(`Chaetoceros cinctus`: Oligotrichea),
+  pivot_longer(c(`Asterionellopsis glacialis`: Oligotrichea),
                names_to = "species", values_to = "counts")
 
 #Drop NAs - species not observed.

@@ -27,6 +27,12 @@ micro <- rbind(micro_1, micro_2)
 micro_tidy <- micro %>% 
   arrange(date)
 ```
+```{r}
+#Fixes from worrms matching
+micro_tidy <- micro_tidy %>% 
+  mutate(species = case_when(species == "Radiolaria" ~ "Radiozoa",
+                                TRUE ~ as.character(species)))
+```
 
 
 ```{r}
