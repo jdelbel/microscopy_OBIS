@@ -240,7 +240,7 @@ micro_sum %>%
         text = element_text(size = 11),
         strip.background = element_blank(),
         strip.text = element_blank()) + 
-  labs(x = "Month",
+  labs(x = "Date",
            y = bquote("Abundance (cells" ~ L^-1*")")) +
   theme(text = element_text(size = 25)) 
 
