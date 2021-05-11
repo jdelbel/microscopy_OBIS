@@ -1,0 +1,62 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+library(tidyverse) 
+library(here)
+```
+
+```{r}
+#Upload two different versions
+
+micro_1 <- read_csv(here("output_obis_format", "OBIS_flat_qu39_2016-2020_v2021-05-11.csv"))
+
+micro_2 <- read_csv(here("output_files", "OBIS_format_flat.csv"))
+```
+
+```{r}
+
+#filtering two data sets so have same date range
+
+micro_1 <- micro_1 %>% 
+  filter(date > "2016-01-01" & date < "2019-01-01") %>% 
+  arrange(date, occurrenceID) %>% 
+  mutate(rn = row_number())
+
+micro_2 <- micro_2 %>% 
+  filter(date > "2016-01-01" & date < "2019-01-01") %>% 
+  arrange(date, occurrenceID) %>% 
+  mutate(rn = row_number())
+
+all.equal(micro_1, micro_2)
+
+compare <- micro_1 %>% 
+  full_join(micro_2, by = "rn")
+
+compare <- compare %>% 
+  mutate(value_test = measurementValue.x == measurementValue.y,
+         name_test = scientificName.x == scientificName.y,
+         event_test = eventID.x == eventID.y) 
+
+compare_value <- compare %>% 
+  filter(value_test = FALSE)
+
+compare_name <- compare %>% 
+  filter(name_test = FALSE)
+
+compare_event <- compare %>% 
+  filter(event_test = FALSE)
+```
+
+```{r}
+compare %>% 
+ggplot(aes(measurementValue.x, measurementValue.y)) +
+  geom_point()
+```
+
+
+

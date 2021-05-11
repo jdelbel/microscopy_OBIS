@@ -40,7 +40,7 @@ library(here)
 #I need to update the upload to use "here"
 
 #Uploads data - the way I have it formatted ensures the data columns are kept as numeric.
-micro_qu39 <- read_csv(here("QU39_v1.2.csv"), skip = 2)
+micro_qu39 <- read.csv(here("QU39_v1.2.csv"), skip = 2)
 
 
 #Removes phytoplankton group designations by the analyst. Removed because when kept in, it makes the columns character rather then numeric after the transpose performed in the next step.
@@ -647,13 +647,13 @@ data_incorp <- complete_join %>%
 #out_path <- "C:\\Users\\justin.belluz\\Documents\\R\\microscopy_OBIS\\output_files"
 
 #Write sheets to file.
-write_csv(format_obis, here(output_files, "OBIS_format_flat.csv"))
-write_csv(event, here(output_files, "Hakai_phytoplankton_event.csv"))
-write_csv(occurrence, here(output_files, "Hakai_phytoplankton_occurrence_idRemark.csv"))
-write_csv(emof_no_lifeStage, here(output_files, "Hakai_phytoplankton_emof_no_lifeStage.csv"))
-write_csv(emof_lifeStage, here(output_files, "Hakai_phytoplankton_emof_lifeStage.csv"))
-write_csv(occurrence_unique, here(output_files, "occurrence_distinct_check_4.csv"))
-write_csv(data_incorp, here(output_files, "incorp_hakID.csv"))
+write_csv(format_obis, here("output_files", "OBIS_format_flat.csv"))
+write_csv(event, here("output_files", "Hakai_phytoplankton_event.csv"))
+write_csv(occurrence, here("output_files", "Hakai_phytoplankton_occurrence_idRemark.csv"))
+write_csv(emof_no_lifeStage, here("output_files", "Hakai_phytoplankton_emof_no_lifeStage.csv"))
+write_csv(emof_lifeStage, here("output_files", "Hakai_phytoplankton_emof_lifeStage.csv"))
+write_csv(occurrence_unique, here("output_files", "occurrence_distinct_check_4.csv"))
+write_csv(data_incorp, here("output_files", "incorp_hakID.csv"))
 ```
 
 ```{r}
