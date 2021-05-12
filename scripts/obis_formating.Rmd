@@ -30,13 +30,17 @@ format_obis <- format_flat %>%
          taxonRank = rank, lifeStage, identificationRemark, 
          identificationQualifier, measurementValue = counts)
 
+#For this submission, I am only included data to the end of 2018 - comment this off if want full dataset
+format_obis <- format_obis %>% 
+  filter(date > "2016-01-01" & date < "2018-12-31")
+
 #The worrms::wm_records_names tool does not output the correct scientificNameID format (not a url), but it does give the correct aphiaID number. The obistools::match_taxa format is correct, but with the unaccepted species aphiaIDs at the end. In this step, I remove the ID numbers at the end of the obistools scientificNameID url and then concatenate the correct ID number from the worrms tool at the end of the url. 
 format_obis <- format_obis %>% 
   mutate(scientificNameID_2 = str_replace_all(scientificNameID, "[:digit:]", "")) %>% 
   unite("ScientificNameID_corr", scientificNameID_2, valid_AphiaID, 
         sep = "", remove = FALSE) %>% 
   select(-scientificNameID_2, - scientificNameID, -valid_AphiaID,
-         scientificnameID = ScientificNameID_corr)
+         scientificNameID = ScientificNameID_corr)
 
 #Adding required columns (these pertain to the Occurrence table)
 format_obis <- format_obis %>% 
@@ -44,6 +48,11 @@ format_obis <- format_obis %>%
          basisOfRecord = "HumanObservation",
          identifiedBy = "Louis Hobson",
          method = "Morphology")
+
+
+#Before making the IDs, organize by date and species name (alphabetical) or leave as is? Alphabetical doesn't really make sense taxonimcally (i.e. all the diatoms aren't together, but sort of hard to organize in this way with all of the different levels of classification. Alphabetical seems good - although likely doesn't matter, nit picky)
+format_obis <- format_obis %>% 
+  arrange(date, scientificName)
 
 ##https://tools.gbif.org/dwca-validator/extension.do?id=dwc:Event
 #Creating eventID - An identifier for the set of information associated with an Event (something that occurs at a place and time). May be a global unique identifier or an identifier specific to the data set.
@@ -79,18 +88,18 @@ event <- format_obis %>%
 #Creating occurrence table pulling columns from flat format_obis table 
 occurrence <- format_obis %>%
   select(eventID, occurrenceID, scientificName, 
-         scientificnameID, taxonRank, lifeStage, identificationRemark,
+         scientificNameID, taxonRank, lifeStage, identificationRemark,
          identificationQualifier, occuranceStatus, basisOfRecord,
          identifiedBy, 
          method)
 
-#Creating extended measurement of fact sheet without lifeStage.
-emof_no_lifeStage <- format_obis %>%
-  select(occurrenceID, measurementValue, lifeStage) %>%
-  mutate(measurementType = "Abundance of phytoplankton",
-         measurementTypeID = "http://vocab.nerc.ac.uk/collection/P01/current/PU00M00Z/",
-         measurementUnit = "cells per litre",
-         measurementUnitID = "http://vocab.nerc.ac.uk/collection/P06/current/UCPL/")
+#Creating extended measurement of fact sheet without lifeStage - seems like consensus on including so commenting
+# emof_no_lifeStage <- format_obis %>%
+#   select(occurrenceID, measurementValue, lifeStage) %>%
+#   mutate(measurementType = "Abundance of phytoplankton",
+#          measurementTypeID = "http://vocab.nerc.ac.uk/collection/P01/current/PU00M00Z/",
+#          measurementUnit = "cells per litre",
+#          measurementUnitID = "http://vocab.nerc.ac.uk/collection/P06/current/UCPL/")
 
 #Creating EMoF with lifestage included in long (tidy) format.
 emof_lifeStage <- format_obis %>% 
@@ -113,14 +122,14 @@ emof_lifeStage <- emof_lifeStage %>%
   relocate(measurementID, .after = occurrenceID) %>% 
   select(!meas_num) #removing sequential # used to build measID
 
-#Adding measurementType and MeasurementTypeID to emof_lifestage. 
+#Adding measurementType and MeasurementTypeID to emof_lifestage. Need to update here as abundance of phytoplankton not applicable. 
 emof_lifeStage <- emof_lifeStage %>% 
   mutate(measurementType = str_replace(measurementType,
                                  "measurementValue", 
-                                 "Abundance of phytoplankton")) %>%
+                                 "Abundance")) %>%
   mutate(measurementTypeID = 
-           case_when(measurementType == "Abundance of phytoplankton" ~ 
-                       "http://vocab.nerc.ac.uk/collection/P01/current/PU00M00Z/",
+           case_when(measurementType == "Abundance" ~ 
+                       "http://vocab.nerc.ac.uk/collection/P01/current/SDBIOL01/",
                      measurementType == "lifeStage" ~
                        "http://vocab.nerc.ac.uk/collection/P01/current/LSTAGE01/")) %>% 
   mutate(measurementValueID = 
@@ -137,22 +146,34 @@ emof_lifeStage <- emof_lifeStage %>%
   select(occurrenceID, measurementID, measurementType, measurementTypeID,
          measurementValue, measurementValueID)
 
+#Setting measurement method as new PO1 term does not include "by optical microscopy"
+emof_lifeStage <- emof_lifeStage %>% 
+  mutate(measurementMethod = "http://vocab.nerc.ac.uk/collection/S04/current/S0423/")
+
 #Adding measurement unit for abundance counts and measurementUnitID for measurementUnit
 emof_lifeStage <- emof_lifeStage %>% 
   mutate(measurementUnit = 
-           case_when(measurementType == "Abundance of phytoplankton" ~
+           case_when(measurementType == "Abundance" ~
                        "Number per litre")) %>% 
   mutate(measurementUnitID = 
-           case_when(measurementType == "Abundance of phytoplankton" ~
+           case_when(measurementType == "Abundance" ~
                        "http://vocab.nerc.ac.uk/collection/P06/current/UCPL/"))
+
+#Adding sampling protocol - was going to add this to the eventCore, but OBIS manual recommends EMoF
+emof_lifeStage <- emof_lifeStage %>% 
+  mutate(samplingProtocol = "Edler, L., and Elbrächter, M. (2010). The utermöhl method for quantitative
+phytoplankton analysis, inMicroscopic and Molecular Methods for Quantitative
+Phytoplankton Analysis, eds B. Karlson, C. Cusack, and E. Bresnan (Paris:
+UNESCO), 13–20., https://repository.oceanbestpractices.org/bitstream/handle/11329/303/WKNCT_Handbook_ver5May2010_2.pdf?sequence=1#page=17")
+
 ```
 
 ```{r}
-#Make sure to alter file names so they are reflective of the dataset being used
-write_csv(format_obis, here("output_obis_format", "OBIS_flat_qu39_2016-2020_v2021-05-11.csv"))
-write_csv(event, here("output_obis_format", "event_qu39_2016-2020_v2021-05-11.csv"))
-write_csv(occurrence, here("output_obis_format", "occurrence_qu39_2016-2020_v2021-05-11.csv"))
-write_csv(emof_lifeStage, here("output_obis_format", "emof_qu39_2016-2020_v2021-05-11.csv"))
+#Make sure to alter file names so they are reflective of the dataset being used - change date range as this updates
+write_csv(format_obis, here("output_obis_format", "OBIS_flat_qu39_2016-2018_v2021-05-11.csv"))
+write_csv(event, here("output_obis_format", "event_qu39_2016-2018_v2021-05-11.csv"))
+write_csv(occurrence, here("output_obis_format", "occurrence_qu39_2016-2018_v2021-05-11.csv"))
+write_csv(emof_lifeStage, here("output_obis_format", "emof_qu39_2016-2018_v2021-05-11.csv"))
 
 ```
 
