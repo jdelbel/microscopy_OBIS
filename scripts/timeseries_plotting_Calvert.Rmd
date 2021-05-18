@@ -308,28 +308,239 @@ ggsave(here("figures", "Calvert_diat_species.png"),
 
 
 ```{r}
-micro %>% 
- filter(group == "Chlorophyta-Prasinophyta" &
-           date > "2016-01-01" &
-           date < "2016-12-31") %>%
-  complete(date, group, scientificName_accepted) %>% 
-  mutate(count = replace_na(count, 0)) %>%  
-  ggplot(aes(date, count, fill = scientificName_accepted)) +
-  geom_bar(position = "stack", stat = "identity", color = "black", width = 3) +
-  scale_x_date(limits = startEnd_1,
-               breaks = scales::date_breaks("1 month"),
-               labels = scales::date_format("%m")) +
-  scale_fill_brewer(palette = "Spectral",
-                      name = "Genus, > 20000 cells") +
+#Chorophytes
+micro %>%
+  filter(group == "Chlorophyta-Prasinophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
   theme_bw() +
-  labs(y = bquote("Abundance (cells" ~ L^-1*")")) +
-  theme(legend.position = c(0.13, 0.5),
-        legend.background =  element_blank(),
-        axis.title.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.title.y = element_blank(),
-        text = element_text(size = 25))
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
 
+ggsave(here("figures", "Calvert_chloro_species.png"), 
+        width = 17, height = 15, dpi = 300)
 ```
 
+```{r}
+#Chrysophytes
+micro %>%
+  filter(group == "Chrysophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
 
+ggsave(here("figures", "Calvert_chryso_species.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+```{r}
+#Cryptophytes
+micro %>%
+  filter(group == "Cryptophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_cryto_species.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+
+```{r}
+#Dictyos
+micro %>%
+  filter(group == "Dictyochophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_dictyo_species.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+```{r}
+#Dinos - found an error here - Ebria Tripartita is not a Dinoflagellate - how did this happen? Need to look into this and fix...
+micro_dino_dfo <- micro %>% 
+  filter(site_id == "DFO2" &
+           group == "Dinoflagellata" & count > 2000 & !is.na(genus) &
+           !scientificName == "Ebria tripartita") %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  arrange(date, count_sum) %>% 
+  mutate(site_id = "DFO2")
+
+micro_dino_kc10 <- micro %>% 
+  filter(site_id == "KC10" &
+           group == "Dinoflagellata" & count > 2000 & !is.na(genus) &
+           !scientificName == "Ebria tripartita") %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  arrange(date, count_sum) %>% 
+  mutate(site_id = "KC10")
+
+micro_dino_qcs01 <- micro %>% 
+  filter(site_id == "QCS01" &
+           group == "Dinoflagellata" & count > 2000 & !is.na(genus) &
+           !scientificName == "Ebria tripartita") %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  arrange(date, count_sum) %>% 
+  mutate(site_id = "QCS01")
+
+micro_dino <- rbind(micro_dino_dfo, micro_dino_kc10, micro_dino_qcs01)
+
+micro_dino %>%
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_dinos_species.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+```{r}
+#Euglenos
+micro %>%
+  filter(group == "Euglenophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_euglenos_species.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+```{r}
+#Haptos
+micro %>%
+  filter(group == "Prymnesiophyta-Haptophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_haptos_species.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+
+```{r}
+#Raphidos
+micro %>%
+  filter(group == "Raphidiophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_raphidos_species.png"), 
+        width = 17, height = 15, dpi = 300)
+```
