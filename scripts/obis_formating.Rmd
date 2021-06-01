@@ -18,7 +18,7 @@ format_flat <- read_csv(here("output_worms_matching", "qu39_2016_2020.csv"))
 ```
 
 ```{r}
-#In this chunk I work to get the data into the OBIS-DWC format and split it into the event-core and the occurrence and extended measurement of fact (EMoF) extensions. 
+#In this chunk I work to get the data into the OBIS-DWC format and split it into the eventCore, occurrence and extended measurement of fact (EMoF) extensions. 
 
 #Setting up a large flat table that I will split the Event, Occurrence and EMoF extensions from afterwards.
 
@@ -78,13 +78,26 @@ format_obis <- format_obis %>%
 #Removing cyanobacteria because observation/count highly speculative - could do earlier in process, but nice to have for other work.
 format_obis <- format_obis %>% 
   filter(!scientificName == "Cyanobacteria")
+```
 
+
+```{r}
 #Creating eventCore - pulling columns from flat format_obis table
 event <- format_obis %>% 
   select(eventID, eventDate, minimumDepthInMeters,maximumDepthInMeters,
          decimalLongitude = long, decimalLatitude = lat) %>% 
   distinct(eventID, .keep_all = TRUE)
   
+#Addint sampling protocol to EventCore
+event <- event %>% 
+  mutate(samplingProtocol = "Edler, L., and Elbrächter, M. (2010). The utermöhl method for quantitative
+phytoplankton analysis, in Microscopic and Molecular Methods for Quantitative
+Phytoplankton Analysis, eds B. Karlson, C. Cusack, and E. Bresnan (Paris:
+UNESCO), 13–20., https://repository.oceanbestpractices.org/bitstream/handle/11329/303/WKNCT_Handbook_ver5May2010_2.pdf?sequence=1#page=17")
+```
+
+
+```{r}
 #Creating occurrence table pulling columns from flat format_obis table 
 occurrence <- format_obis %>%
   select(eventID, occurrenceID, scientificName, 
@@ -92,6 +105,11 @@ occurrence <- format_obis %>%
          identificationQualifier, occuranceStatus, basisOfRecord,
          identifiedBy, 
          method)
+```
+
+
+```{r}
+#Creating EMoF
 
 #Creating extended measurement of fact sheet without lifeStage - seems like consensus on including so commenting
 # emof_no_lifeStage <- format_obis %>%
@@ -159,12 +177,12 @@ emof_lifeStage <- emof_lifeStage %>%
            case_when(measurementType == "Abundance" ~
                        "http://vocab.nerc.ac.uk/collection/P06/current/UCPL/"))
 
-#Adding sampling protocol - was going to add this to the eventCore, but OBIS manual recommends EMoF
-emof_lifeStage <- emof_lifeStage %>% 
-  mutate(samplingProtocol = "Edler, L., and Elbrächter, M. (2010). The utermöhl method for quantitative
-phytoplankton analysis, inMicroscopic and Molecular Methods for Quantitative
-Phytoplankton Analysis, eds B. Karlson, C. Cusack, and E. Bresnan (Paris:
-UNESCO), 13–20., https://repository.oceanbestpractices.org/bitstream/handle/11329/303/WKNCT_Handbook_ver5May2010_2.pdf?sequence=1#page=17")
+#Adding sampling protocol - was going to add this to the eventCore, but OBIS manual recommends EMoF - Discussed with Tim and decided to put in eventCore
+# emof_lifeStage <- emof_lifeStage %>% 
+#   mutate(samplingProtocol = "Edler, L., and Elbrächter, M. (2010). The utermöhl method for quantitative
+# phytoplankton analysis, in Microscopic and Molecular Methods for Quantitative
+# Phytoplankton Analysis, eds B. Karlson, C. Cusack, and E. Bresnan (Paris:
+# UNESCO), 13–20., https://repository.oceanbestpractices.org/bitstream/handle/11329/303/WKNCT_Handbook_ver5May2010_2.pdf?sequence=1#page=17")
 
 ```
 

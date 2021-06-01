@@ -1814,89 +1814,332 @@ micro_qu39 &lt;- drop_empty_cols(micro_qu39)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuYGBgclxuYGBgclxuI0FkZGluZyBJbmRldC4gdG8gYWxsIGNsYXNzaWZpY2F0aW9uIHRoYXQgZGlkIG5vdCBnbyB0byBzcGVjaWVzIGxldmVsIGFuZCBkbyBub3QgaGF2ZSBzcC4gb3Igc3BwLlxuXG5jb21wbGV0ZV9qb2luIDwtIGNvbXBsZXRlX2pvaW4gJT4lIFxuICBtdXRhdGUoaWRlbnRpZmljYXRpb25RdWFsaWZpZXIgPSBjYXNlX3doZW4oIXJhbmsgPT0gXFxTcGVjaWVzXFwgJiBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaXMubmEoaWRlbnRpZmljYXRpb25RdWFsaWZpZXIpIH5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXFxJbmRldC5cXCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFRSVUUgfiBhcy5jaGFyYWN0ZXJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIChpZGVudGlmaWNhdGlvblF1YWxpZmllcikpKVxuYGBgXG5gYGBcbmBgYFxuYGBgIn0= -->
-<pre class="r"><code>```r
-```r
-```r
-#Adding Indet. to all classification that did not go to species level and do not have sp. or spp.
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0hlcmUsIEkgd29yayB3aXRoL21hbmlwdWxhdGUgc29tZSBvZiB0aGUgdGF4b25vbWljIGRlc2lnbmF0aW9ucyB3aGlsZSB0aGV5IGFyZSBzdGlsbCBpbiBjb2x1bW4gZm9ybWF0IChlYWNoIHRheG9ub21pYyBkZXNpZ25hdGlvbiBpcyBhIG5hbWUgb2YgYSBjb2x1bW4pLiBJdCdzIGVhc2llciB0byByZW5hbWUgY29sdW1ucyBhbmQgc3VtIGFidW5kYW5jZSBjb3VudHMgaW4gdGhpcyBmb3JtYXQgd2hlbiBjb21wYXJlZCB0byB0aWR5IGZvcm1hdFxuXG4jVGhlIGJlbG93IHN0ZXAgc3VtcyB0YXhvbm9taWMgY29sdW1ucyB3aXRoIHNpemUgZGVzaWduYXRpb25zLiBBcyBwZXIgdGhlIGFuYWx5c3QsIHRoZXNlIHNpemUgc2VwYXJhdGlvbnMgd2VyZSBxdWFsaXRhdGl2ZS9kZXNjcmlwdGl2ZSBhbmQgYXJlIG5vdCB1c2VmdWwvZGVzY3JpcHRpdmUgZm9yIE9CSVMgdXBsb2FkLlxuXG4jV2hhdCBhYm91dCBjaGFldG9jZXJvcyBjaW5jdHVzL3JhZGljYW5zIHJlc3RpbmdzIHN0YWdlcz8gU3VtIHdpdGggY2hhZXRvY2Vyb3Mgc3BwLiAocmVzdGluZykuIEkgdGhpbmsgY2FuIGtlZXAgYW5kIHBsYWNlIGluIGlkZW50aWZpY2F0aW9uUmVtYXJrcy5cblxubWljcm9fcXUzOSA8LSBtaWNyb19xdTM5ICU+JSBcbiAgcm93d2lzZSgpICU+JSBcbiAgbXV0YXRlKEJpZGR1bHBoaWFsZXMgPSBzdW0oYFVuaWRlbnRpZmllZCBjZW50cmljIGZvcm1zYCwgXG4gICAgICAgICAgICAgICAgICAgYFVuaWRlbnRpZmllZCB2ZXJ5IHNtYWxsIGNlbnRyaWMgZm9ybXNgLCBuYS5ybSA9IFRSVUUpLFxuICAgICAgICAgUGVubmFsZXMgPSBzdW0oYFVuaWRlbnRpZmllZCBwZW5uYXRlIGZvcm1zYCxcbiAgICAgICAgICAgICAgICAgICAgICAgIGBVbmlkZW50aWZpZWQgdmVyeSBzbWFsbCBwZW5uYXRlIGZvcm1zYCwgbmEucm0gPSBUUlVFKSxcbiAgICAgICAgIGBTa2VsZXRvbmVtYSBtYXJpbm9pYCA9IHN1bShgUy4gbWFyaW5vaSAoc21hbGwgY2VsbHMpYCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGBTLiBtYXJpbm9pIChsYXJnZSBjZWxscylgLCBuYS5ybSA9IFRSVUUpLFxuICAgICAgICAgYENoYWV0b2Nlcm9zIHRlbnVpc3NpbXVzYCA9IHN1bShgQ2hhZXRvY2Vyb3MgdGVudWlzc2ltdXMgKGxhcmdlKWAsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGBDaGFldG9jZXJvcyB0ZW51aXNzaW11cyAoc21hbGwpYCwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5hLnJtID0gVFJVRSksXG4gICAgICAgICBgQ2hhZXRvY2Vyb3Mgc3BwX3N1bS5gID0gc3VtKGBDaGFldG9jZXJvcyBzcHAuYCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBgQ2hhZXRvZXJvcyBzcHAuIHZlcnkgc21hbGxgLCBuYS5ybSA9IFRSVUUgKSxcbiAgICAgICAgIE9saWdvdHJpY2hlYSA9IHN1bShgRWxvbmdhdGUgZm9ybWAsIGBPbGlnb3RyaWNpb3VzIGZvcm1zIChsYXJnZSlgLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGBPbGlnb3RyaWNpb3VzIGZvcm1zIChtZWRpdW0pYCwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgYE9saWdvdHJpY2lvdXMgZm9ybXMgKHNtYWxsKWAsIG5hLnJtID0gVFJVRSkpXG4gICAgICAgICBcbiNDaGVja2luZyB0aGF0IHRoZSBzdW1zIHdvcmtlZC5cbnN1bV9jaGVjayA8LSBtaWNyb19xdTM5ICU+JSBcbiAgc2VsZWN0KEJpZGR1bHBoaWFsZXMsIGBVbmlkZW50aWZpZWQgY2VudHJpYyBmb3Jtc2AsIFxuICAgICAgICAgYFVuaWRlbnRpZmllZCB2ZXJ5IHNtYWxsIGNlbnRyaWMgZm9ybXNgLCBQZW5uYWxlcywgXG4gICAgICAgICBgVW5pZGVudGlmaWVkIHBlbm5hdGUgZm9ybXNgLCBgVW5pZGVudGlmaWVkIHZlcnkgc21hbGwgcGVubmF0ZSBmb3Jtc2AsXG4gICAgICAgICBgU2tlbGV0b25lbWEgbWFyaW5vaWAsIGBTLiBtYXJpbm9pIChzbWFsbCBjZWxscylgLFxuICAgICAgICAgYFMuIG1hcmlub2kgKGxhcmdlIGNlbGxzKWAsIGBDaGFldG9jZXJvcyB0ZW51aXNzaW11c2AsIFxuICAgICAgICAgYENoYWV0b2Nlcm9zIHRlbnVpc3NpbXVzIChsYXJnZSlgLCBgQ2hhZXRvY2Vyb3MgdGVudWlzc2ltdXMgKHNtYWxsKWAsXG4gICAgICAgICBgQ2hhZXRvY2Vyb3Mgc3BwX3N1bS5gLCBgQ2hhZXRvY2Vyb3Mgc3BwLmAsIGBDaGFldG9lcm9zIHNwcC4gdmVyeSBzbWFsbGAsXG4gICAgICAgICBPbGlnb3RyaWNoZWEsIGBFbG9uZ2F0ZSBmb3JtYCwgYE9saWdvdHJpY2lvdXMgZm9ybXMgKGxhcmdlKWAsXG4gICAgICAgICBgT2xpZ290cmljaW91cyBmb3JtcyAobWVkaXVtKWAsIGBPbGlnb3RyaWNpb3VzIGZvcm1zIChzbWFsbClgKSAgXG4gIFxuXG4jUmVtb3Zpbmcgc2l6ZSBzZXBhcmF0ZWQgY29sdW1ucyB0aGF0IHdlcmUgc3VtbWVkIGludG8gYSBzaW5nbGUgY29sdW1uLlxubWljcm9fcXUzOSA8LSBtaWNyb19xdTM5ICU+JSBcbiAgc2VsZWN0KC1gVW5pZGVudGlmaWVkIGNlbnRyaWMgZm9ybXNgLCAtYFVuaWRlbnRpZmllZCB2ZXJ5IHNtYWxsIGNlbnRyaWMgZm9ybXNgLFxuICAgICAgICAgLWBVbmlkZW50aWZpZWQgcGVubmF0ZSBmb3Jtc2AsIC1gVW5pZGVudGlmaWVkIHZlcnkgc21hbGwgcGVubmF0ZSBmb3Jtc2AsXG4gICAgICAgICAtYFMuIG1hcmlub2kgKHNtYWxsIGNlbGxzKWAsIC1gUy4gbWFyaW5vaSAobGFyZ2UgY2VsbHMpYCxcbiAgICAgICAgIC1gQ2hhZXRvY2Vyb3MgdGVudWlzc2ltdXMgKGxhcmdlKWAsIC1gQ2hhZXRvY2Vyb3MgdGVudWlzc2ltdXMgKHNtYWxsKWAsXG4gICAgICAgICAtYENoYWV0b2Nlcm9zIHNwcC5gLCAtYENoYWV0b2Vyb3Mgc3BwLiB2ZXJ5IHNtYWxsYCwgXG4gICAgICAgICAtYEVsb25nYXRlIGZvcm1gLCAtYE9saWdvdHJpY2lvdXMgZm9ybXMgKGxhcmdlKWAsIFxuICAgICAgICAgLWBPbGlnb3RyaWNpb3VzIGZvcm1zIChtZWRpdW0pYCwgLWBPbGlnb3RyaWNpb3VzIGZvcm1zIChzbWFsbClgKVxuXG4jU3VtIHN0ZXAgdHVybmVkIE5BJ3MgaW50byB6ZXJvcy4gT25jZSB0aWR5LCBJIHJlbW92ZSBOQSdzIGFzIGl0IGluZGljYXRlcyBubyBvYnNlcnZhdGlvbi4gVGhpcyBzdGVwIGNvbnZlcnRzIHRoZSB6ZXJvcyBpbiB0aGUgc3VtbWVkIGNvbHVtbnMgYmFjayBpbnRvIE5BJ3MuXG5taWNyb19xdTM5IDwtIG1pY3JvX3F1MzkgJT4lIFxuICBtdXRhdGUoQmlkZHVscGhpYWxlcyA9IG5hX2lmKEJpZGR1bHBoaWFsZXMsIDApLFxuICAgICAgICAgUGVubmFsZXMgPSBuYV9pZihQZW5uYWxlcywgMCksXG4gICAgICAgICBgU2tlbGV0b25lbWEgbWFyaW5vaWAgPSBuYV9pZihgU2tlbGV0b25lbWEgbWFyaW5vaWAsIDApLFxuICAgICAgICAgYENoYWV0b2Nlcm9zIHRlbnVpc3NpbXVzYCA9IG5hX2lmKGBDaGFldG9jZXJvcyB0ZW51aXNzaW11c2AsIDApLFxuICAgICAgICAgYENoYWV0b2Nlcm9zIHNwcF9zdW0uYCA9IG5hX2lmKGBDaGFldG9jZXJvcyBzcHBfc3VtLmAsIDApLFxuICAgICAgICAgT2xpZ290cmljaGVhID0gbmFfaWYoT2xpZ290cmljaGVhLCAwKSkgI0hhZCB0aGUgd3JvbmcgbmFtZSBoZXJlIC0gYENoYWV0b2Nlcm9zIHNwcF9zdW0uYCBDL1AgZXJyb3JcblxuI0JlbG93LCBJIHJlbmFtZSBcInVua25vd25cIiB0YXhvbm9taWMgZGVzaWduYXRpb25zIHRvIHRoZSBsb3dlc3QgdGF4b25vbWljIGxldmVsIHBvc3NpYmxlLiBJbiB0aGUgb3JpZ2luYWwgZXhjZWwgc2hlZXQsIHRoZXNlIGhhZCBhIGdyb3VwIGxldmVsIGNsYXNzaWZpY2F0aW9uIGluIHRoZSBuZWlnaGJvcmluZyBjb2x1bW4sIGJ1dCBJIHJlbW92ZWQgdGhpcyBhcyBpdCB3YXMgaW50ZXJmZXJpbmcgd2l0aCBmb3JtYXR0aW5nLiBUaGUgd29yayBiZWxvdyByZWxpZXMgb24gY29sdW1uIHBvc2l0aW9uIHRvIHNlcGFyYXRlIHdoaWNoIHVua25vd24gc3BlY2llcyBpcyB3aGljaCAoaS5lLiBVbmtub3duIHNwZWNpZXMgdnMuIFVua25vd24gc3BlY2llcy4xIGV0Yy4pLiBJdCB3b3JrcyBoZXJlLCBidXQgaXQgY291bGQgY2F1c2UgZXJyb3JzIHdoZW4gbW9yZSBkYXRhIGlzIGluY2x1ZGVkLiBJIHdvbmRlciBpZiB0aGVyZSBpcyBhbnl3YXkgdG8ga2VlcCB0aGUgYW5hbHlzdCBncm91cCB0aGF0IHRoZXkgd2VyZSBhc3NvY2lhdGVkIHdpdGg/IFJlYWxseSB0aG91Z2gsIHRoZXNlIHNob3VsZCBzdGF5IGluIHRoZSBzYW1lIG9yZGVyIHVubGVzcyB0aGUgYW5hbHlzdCBhZGRzIGEgbmV3IFwiVW5rbm93biBzcGVjaWVzXCIuXG5cbiNEbyBJIGp1c3QgY29tYmluZSBhbGwgb2YgdGhlIHByb3Rvem9hIG9yIGRvIEkga2VlcCBxdWFsaWZpZXJzP1xuXG5taWNyb19xdTM5IDwtIG1pY3JvX3F1MzkgJT4lIFxuICByZW5hbWUoQmFjaWxsYXJpb3BoeWNlYWUgID0gYFVua25vd24gZm9ybXNgLCAjQ2xhc3NcbiAgICAgICAgIGBQcm90b3pvYSAoYWxwaGEtc3RhcmNoLCBDaGxvcm9waHl0YT8pYCA9IGBVbmtub3duIHNwZWNpZXNgLCAjQmlvdGEgXG4gICAgICAgICBgQ2hhZXRvY2Vyb3Mgc3BwLmAgPSBgQ2hhZXRvY2Vyb3Mgc3BwX3N1bS5gLCAjR2VudXNcbiAgICAgICAgIENob2Fub3pvYSA9IGBVbmtub3duIHNwZWNpZXMuMWAsICNQaHlsdW1cbiAgICAgICAgIENocnlzb3BoeWNlYWUgPSBgVW5rbm93biBzcGVjaWVzLjJgLCAjQ2xhc3NcbiAgICAgICAgIGBEaW5vcGh5Y2VhZSAocmVzdGluZyBzdGFnZXMpYCA9IGBSZXN0aW5nIHN0YWdlc2AsICNDbGFzcywgTlZTIFMxMTM0IHJlc3RpbmcgXCJzcG9yZXNcIlxuICAgICAgICAgRGlub3BoeWNlYWUgPSBgVW5rbm93biBzcGVjaWVzLjNgLCAjQ2xhc3MgXG4gICAgICAgICBFdWdsZW5vem9hID0gYFVua25vd24gc3BlY2llcy40YCwgICNQaHlsdW1cbiAgICAgICAgIEtpbmV0b3BsYXN0ZWEgPSBgVW5rbm93biBzcGVjaWVzLjVgLCAjQ2xhc3MuXG4gICAgICAgICBQcm90b3pvYSA9IGBVbmtub3duIGZsYWdlbGxhZS1iZWFyaW5nIGNlbGxzYCwgI0Jpb3RhXG4gICAgICAgICBgUHJvdG96b2EgKGVxdWF0b3JpYWwgZ3Jvb3ZlLCBEaW5vcGh5Y2VhZT8pYCA9IGBVbmtub3duIHZlcnkgc21hbGwgc3BlY2llcyAoZGlubz8/KWAsXG4gICAgICAgICBgY29wZXBvZGEgKGNvcGVwb2RpdGVzKWAgPSBDb3BlcG9kaWRzLCAjU3ViY2xhc3MsIE5WUyBsaWZlc3RhZ2UgUzExNVxuICAgICAgICAgYGNvcGVwb2RhIChuYXVwbGlpL2VrZHlzaXMpYCA9IGBDb3BlcG9kIG5hdXBsaWkvZWtkeXNpc2AsICNTdWJjbGFzcywgTlZTIFMxMTMwXG4gICAgICAgICBgVGhhbGFzc2lvc2lyYSBub3JkZW5za2lvZWxkaWlgID0gYFRoYWxhc3Npb3NpcmEgbm9yZGVuc2tpb2xkaWlgLFxuICAgICAgICAgVGludGlubmluYSA9IGBUaW50aW5uaWQgZm9ybXNgKSAjc3Vib3JkZXJcblxuI0ZpbmRpbmcgcmVtYWluaW5nIHVua25vd24gc3BlY2llcyBjbGFzc2lmaWNhdGlvbnMgdGhhdCBJIGNvdWxkbid0IHJlc29sdmUuIFVua25vd24gY2VsbHMgY2Fubm90IGJlIGluY2x1ZGVkLiBUb3RhbCBjZWxscyBpcyBqdXN0IGEgc3VtbWF0aW9uIG9mIGFsbCBkaWF0b21zIGFuZCBzaG91bGQgYmUgZXhjbHVkZWQuXG51bmtub3duX0NvbF9saXN0IDwtIG1pY3JvX3F1MzkgJT4lIFxuICBzZWxlY3Qoc3RhcnRzX3dpdGgoXCJ2XCIpIHxcbiAgICAgICAgICAgc3RhcnRzX3dpdGgoXCJ1bmtcIikgfFxuICAgICAgICAgICBzdGFydHNfd2l0aChcInVuaVwiKSB8XG4gICAgICAgICAgIHN0YXJ0c193aXRoKFwidG90XCIpKSAgXG4gIFxuI1JlbW92ZXMgYWxsIG9mIHRoZSBhYm92ZSBjb2x1bW5zIHRoYXQgZG9uJ3QgaGF2ZSB0YXhvbm9taWMgaW5mb3JtYXRpb24uIFxubWljcm9fcXUzOSA8LSBtaWNyb19xdTM5ICU+JSBcbiAgc2VsZWN0KCEoc3RhcnRzX3dpdGgoXCJ2XCIpIHxcbiAgICAgICAgICAgICBzdGFydHNfd2l0aChcInVua1wiKSB8XG4gICAgICAgICAgICAgc3RhcnRzX3dpdGgoXCJ1bmlcIikgfFxuICAgICAgICAgICAgIHN0YXJ0c193aXRoKFwidG90XCIpKSlcbmBgYCJ9 -->
+<pre class="r"><code>#Here, I work with/manipulate some of the taxonomic designations while they are still in column format (each taxonomic designation is a name of a column). It&#39;s easier to rename columns and sum abundance counts in this format when compared to tidy format
 
-complete_join &lt;- complete_join %&gt;% 
-  mutate(identificationQualifier = case_when(!rank == \Species\ &amp; 
-                                               is.na(identificationQualifier) ~
-                                               \Indet.\,
-                                             TRUE ~ as.character
-                                             (identificationQualifier)))</code></pre>
-<pre><code></code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
+#The below step sums taxonomic columns with size designations. As per the analyst, these size separations were qualitative/descriptive and are not useful/descriptive for OBIS upload.
 
-&lt;!-- rnb-chunk-end --&gt;
+#What about chaetoceros cinctus/radicans restings stages? Sum with chaetoceros spp. (resting). I think can keep and place in identificationRemarks.
 
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0pvaW4gd2l0aCBwb3J0YWwgbWV0YWRhdGEgYmFzZWQgb24gaGFrYWlfaWQgLSBDYXV0aW9uIHJlcXVpcmVkIGFzIHRoZSBhbmFseXN0IGRvZXNuJ3QgcHJvdmlkZSBIYWthaSBJRCBpbiBkYXRhIHNoZWV0cyAob25seSBzdGF0aW9uIGFuZCBkYXRlKSwgc28gSSBuZWVkIHRvIGludmVzdGlnYXRlIGRhdGEgc2hlZXQgZXJyb3JzIGFuZCBlbnN1cmUgSSBhc3NpZ24gdGhlbSB0aGUgY29ycmVjdCBIYWthaSBJRC4gIFxubWljcm9fcXUzOSA8LSBtaWNyb19xdTM5ICU+JSBcbiAgbGVmdF9qb2luKG1ldGFkYXRhKVxuXG5gYGAifQ== --&gt;
-
-```r
-#Join with portal metadata based on hakai_id - Caution required as the analyst doesn&#39;t provide Hakai ID in data sheets (only station and date), so I need to investigate data sheet errors and ensure I assign them the correct Hakai ID.  
 micro_qu39 &lt;- micro_qu39 %&gt;% 
-  left_join(metadata)
-</code></pre>
+  rowwise() %&gt;% 
+  mutate(Biddulphiales = sum(`Unidentified centric forms`, 
+                   `Unidentified very small centric forms`, na.rm = TRUE),
+         Pennales = sum(`Unidentified pennate forms`,
+                        `Unidentified very small pennate forms`, na.rm = TRUE),
+         `Skeletonema marinoi` = sum(`S. marinoi (small cells)`,
+                                    `S. marinoi (large cells)`, na.rm = TRUE),
+         `Chaetoceros tenuissimus` = sum(`Chaetoceros tenuissimus (large)`,
+                                         `Chaetoceros tenuissimus (small)`, 
+                                         na.rm = TRUE),
+         `Chaetoceros spp_sum.` = sum(`Chaetoceros spp.`,
+                                  `Chaetoeros spp. very small`, na.rm = TRUE ),
+         Oligotrichea = sum(`Elongate form`, `Oligotricious forms (large)`,
+                            `Oligotricious forms (medium)`, 
+                            `Oligotricious forms (small)`, na.rm = TRUE))
+         
+#Checking that the sums worked.
+sum_check &lt;- micro_qu39 %&gt;% 
+  select(Biddulphiales, `Unidentified centric forms`, 
+         `Unidentified very small centric forms`, Pennales, 
+         `Unidentified pennate forms`, `Unidentified very small pennate forms`,
+         `Skeletonema marinoi`, `S. marinoi (small cells)`,
+         `S. marinoi (large cells)`, `Chaetoceros tenuissimus`, 
+         `Chaetoceros tenuissimus (large)`, `Chaetoceros tenuissimus (small)`,
+         `Chaetoceros spp_sum.`, `Chaetoceros spp.`, `Chaetoeros spp. very small`,
+         Oligotrichea, `Elongate form`, `Oligotricious forms (large)`,
+         `Oligotricious forms (medium)`, `Oligotricious forms (small)`)  
+  
+
+#Removing size separated columns that were summed into a single column.
+micro_qu39 &lt;- micro_qu39 %&gt;% 
+  select(-`Unidentified centric forms`, -`Unidentified very small centric forms`,
+         -`Unidentified pennate forms`, -`Unidentified very small pennate forms`,
+         -`S. marinoi (small cells)`, -`S. marinoi (large cells)`,
+         -`Chaetoceros tenuissimus (large)`, -`Chaetoceros tenuissimus (small)`,
+         -`Chaetoceros spp.`, -`Chaetoeros spp. very small`, 
+         -`Elongate form`, -`Oligotricious forms (large)`, 
+         -`Oligotricious forms (medium)`, -`Oligotricious forms (small)`)
+
+#Sum step turned NA&#39;s into zeros. Once tidy, I remove NA&#39;s as it indicates no observation. This step converts the zeros in the summed columns back into NA&#39;s.
+micro_qu39 &lt;- micro_qu39 %&gt;% 
+  mutate(Biddulphiales = na_if(Biddulphiales, 0),
+         Pennales = na_if(Pennales, 0),
+         `Skeletonema marinoi` = na_if(`Skeletonema marinoi`, 0),
+         `Chaetoceros tenuissimus` = na_if(`Chaetoceros tenuissimus`, 0),
+         `Chaetoceros spp_sum.` = na_if(`Chaetoceros spp_sum.`, 0),
+         Oligotrichea = na_if(Oligotrichea, 0)) #Had the wrong name here - `Chaetoceros spp_sum.` C/P error
+
+#Below, I rename &quot;unknown&quot; taxonomic designations to the lowest taxonomic level possible. In the original excel sheet, these had a group level classification in the neighboring column, but I removed this as it was interfering with formatting. The work below relies on column position to separate which unknown species is which (i.e. Unknown species vs. Unknown species.1 etc.). It works here, but it could cause errors when more data is included. I wonder if there is anyway to keep the analyst group that they were associated with? Really though, these should stay in the same order unless the analyst adds a new &quot;Unknown species&quot;.
+
+#Do I just combine all of the protozoa or do I keep qualifiers?
+
+micro_qu39 &lt;- micro_qu39 %&gt;% 
+  rename(Bacillariophyceae  = `Unknown forms`, #Class
+         `Protozoa (alpha-starch, Chlorophyta?)` = `Unknown species`, #Biota 
+         `Chaetoceros spp.` = `Chaetoceros spp_sum.`, #Genus
+         Choanozoa = `Unknown species.1`, #Phylum
+         Chrysophyceae = `Unknown species.2`, #Class
+         `Dinophyceae (resting stages)` = `Resting stages`, #Class, NVS S1134 resting &quot;spores&quot;
+         Dinophyceae = `Unknown species.3`, #Class 
+         Euglenozoa = `Unknown species.4`,  #Phylum
+         Kinetoplastea = `Unknown species.5`, #Class.
+         Protozoa = `Unknown flagellae-bearing cells`, #Biota
+         `Protozoa (equatorial groove, Dinophyceae?)` = `Unknown very small species (dino??)`,
+         `copepoda (copepodites)` = Copepodids, #Subclass, NVS lifestage S115
+         `copepoda (nauplii/ekdysis)` = `Copepod nauplii/ekdysis`, #Subclass, NVS S1130
+         `Thalassiosira nordenskioeldii` = `Thalassiosira nordenskioldii`,
+         Tintinnina = `Tintinnid forms`) #suborder
+
+#Finding remaining unknown species classifications that I couldn&#39;t resolve. Unknown cells cannot be included. Total cells is just a summation of all diatoms and should be excluded.
+unknown_Col_list &lt;- micro_qu39 %&gt;% 
+  select(starts_with(&quot;v&quot;) |
+           starts_with(&quot;unk&quot;) |
+           starts_with(&quot;uni&quot;) |
+           starts_with(&quot;tot&quot;))  
+  
+#Removes all of the above columns that don&#39;t have taxonomic information. 
+micro_qu39 &lt;- micro_qu39 %&gt;% 
+  select(!(starts_with(&quot;v&quot;) |
+             starts_with(&quot;unk&quot;) |
+             starts_with(&quot;uni&quot;) |
+             starts_with(&quot;tot&quot;)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI01lcmdpbmcgZGF0YSB3aXRoIGRhdGFiYXNlLCBjcm9zcyBjaGVja2luZyBtZXJnZS4gTWFraW5nIGRhdGEgdGlkeS5cblxuI1VwbG9hZCBwb3J0YWwgbWV0YWRhdGEgdG8gZ2V0IGxvY2F0aW9uIGFuZCB0aW1lcy4gQ2hhbmdlZCB0byB0aGUgbmV3ZXIgcmVhZF9jc3YuIE5vdCBzdXJlIHdoeSBJIHdhcyB1c2luZyB0aGUgYmFzZSBSIHZlcnNpb24sIGJ1dCBrZXB0IHRoZSBsaW5lIGhlcmUgYXMgaXQgaXMgd2hhdCBJIGRldmVsb3BlZCBldmVyeXRoaW5nIGZyb20uIENoZWNrZWQgYW5kIGRvZXNuJ3Qgc2VlbSB0byBiZSBhbnkgZGlmZmVyZW5jZXMsIGJ1dCBuZWVkIHRvIGNyb3NzIGNoZWNrIGZpbmFsIHByb2R1Y3QuIEFsc28sIHdhbnQgdG8gbW92ZSB0aGUgZmlsZSBpbnRvIGEgZmlsZXMgZm9sZGVyIE9SIHVwbG9hZCBkaXJlY3RseSBmcm9tIHBvcnRhbCB1c2luZyB0aGUgQVBJLCBidXQgaGF2ZW4ndCBiZWVuIGFibGUgdG8gbWFrZSB0aGlzIHdvcmsgeWV0LlxuI21ldGFkYXRhIDwtIHJlYWQuY3N2KFwibWV0YWRhdGFfcGh5dG8uY3N2XCIpXG5tZXRhZGF0YSA8LSByZWFkX2NzdihoZXJlKFwibWV0YWRhdGFfcGh5dG8uY3N2XCIpKVxuYGBgIn0= -->
+<pre class="r"><code>#Merging data with database, cross checking merge. Making data tidy.
+
+#Upload portal metadata to get location and times. Changed to the newer read_csv. Not sure why I was using the base R version, but kept the line here as it is what I developed everything from. Checked and doesn&#39;t seem to be any differences, but need to cross check final product. Also, want to move the file into a files folder OR upload directly from portal using the API, but haven&#39;t been able to make this work yet.
+#metadata &lt;- read.csv(&quot;metadata_phyto.csv&quot;)
+metadata &lt;- read_csv(here(&quot;metadata_phyto.csv&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4tLSBDb2x1bW4gc3BlY2lmaWNhdGlvbiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuY29scyhcbiAgLmRlZmF1bHQgPSBjb2xfY2hhcmFjdGVyKCksXG4gIGV2ZW50X3BrID0gY29sX2RvdWJsZSgpLFxuICBybiA9IGNvbF9kb3VibGUoKSxcbiAgZGF0ZSA9IGNvbF9kYXRlKGZvcm1hdCA9IFwiXCIpLFxuICBzYW1wbGluZ19ib3V0ID0gY29sX2RvdWJsZSgpLFxuICBwcm9qZWN0X3NwZWNpZmljX2lkID0gY29sX2xvZ2ljYWwoKSxcbiAgbGF0ID0gY29sX2RvdWJsZSgpLFxuICBsb25nID0gY29sX2RvdWJsZSgpLFxuICBnYXRoZXJfbGF0ID0gY29sX2RvdWJsZSgpLFxuICBnYXRoZXJfbG9uZyA9IGNvbF9kb3VibGUoKSxcbiAgbWVzaF9zaXplX191bV8gPSBjb2xfZG91YmxlKCksXG4gIG5ldF9kaW1fX19jbV8gPSBjb2xfZG91YmxlKCksXG4gIG5ldF9sZW5ndGhfX2NtXyA9IGNvbF9kb3VibGUoKSxcbiAgbGluZV9vdXRfZGVwdGggPSBjb2xfZG91YmxlKCksXG4gIHByZXNzdXJlX3RyYW5zZHVjZXJfZGVwdGggPSBjb2xfbG9naWNhbCgpLFxuICB2b2x1bWUgPSBjb2xfZG91YmxlKCksXG4gIGx1Z29scyA9IGNvbF9sb2dpY2FsKCksXG4gIGNvbGxlY3RlZCA9IGNvbF9kYXRldGltZShmb3JtYXQgPSBcIlwiKSxcbiAgcHJlc2VydmVkID0gY29sX2RhdGV0aW1lKGZvcm1hdCA9IFwiXCIpLFxuICBhbmFseXplZCA9IGNvbF9sb2dpY2FsKCksXG4gIGFuYWx5emluZ19sYWIgPSBjb2xfbG9naWNhbCgpXG4gICMgLi4uIHdpdGggMSBtb3JlIGNvbHVtbnNcbilcbmkgVXNlIGBzcGVjKClgIGZvciB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbnMuXG5cbjE3OTEgcGFyc2luZyBmYWlsdXJlcy5cbnJvdyBjb2wgICBleHBlY3RlZCAgICBhY3R1YWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZpbGVcbiAgMiAgLS0gMzMgY29sdW1ucyAxIGNvbHVtbnMgJ0M6L1VzZXJzL2p1c3Rpbi5iZWxsdXovRG9jdW1lbnRzL1IvbWljcm9zY29weV9PQklTL21ldGFkYXRhX3BoeXRvLmNzdidcbiAgMyAgLS0gMzMgY29sdW1ucyAxIGNvbHVtbnMgJ0M6L1VzZXJzL2p1c3Rpbi5iZWxsdXovRG9jdW1lbnRzL1IvbWljcm9zY29weV9PQklTL21ldGFkYXRhX3BoeXRvLmNzdidcbiAgNCAgLS0gMzMgY29sdW1ucyAxIGNvbHVtbnMgJ0M6L1VzZXJzL2p1c3Rpbi5iZWxsdXovRG9jdW1lbnRzL1IvbWljcm9zY29weV9PQklTL21ldGFkYXRhX3BoeXRvLmNzdidcbiAgNSAgLS0gMzMgY29sdW1ucyAxIGNvbHVtbnMgJ0M6L1VzZXJzL2p1c3Rpbi5iZWxsdXovRG9jdW1lbnRzL1IvbWljcm9zY29weV9PQklTL21ldGFkYXRhX3BoeXRvLmNzdidcbiAgNiAgLS0gMzMgY29sdW1ucyAxIGNvbHVtbnMgJ0M6L1VzZXJzL2p1c3Rpbi5iZWxsdXovRG9jdW1lbnRzL1IvbWljcm9zY29weV9PQklTL21ldGFkYXRhX3BoeXRvLmNzdidcbi4uLiAuLi4gLi4uLi4uLi4uLiAuLi4uLi4uLi4gLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi5cblNlZSBwcm9ibGVtcyguLi4pIGZvciBtb3JlIGRldGFpbHMuXG4ifQ== -->
+<pre><code>
+-- Column specification -----------------------------------------------------------------------------------------
+cols(
+  .default = col_character(),
+  event_pk = col_double(),
+  rn = col_double(),
+  date = col_date(format = &quot;&quot;),
+  sampling_bout = col_double(),
+  project_specific_id = col_logical(),
+  lat = col_double(),
+  long = col_double(),
+  gather_lat = col_double(),
+  gather_long = col_double(),
+  mesh_size__um_ = col_double(),
+  net_dim___cm_ = col_double(),
+  net_length__cm_ = col_double(),
+  line_out_depth = col_double(),
+  pressure_transducer_depth = col_logical(),
+  volume = col_double(),
+  lugols = col_logical(),
+  collected = col_datetime(format = &quot;&quot;),
+  preserved = col_datetime(format = &quot;&quot;),
+  analyzed = col_logical(),
+  analyzing_lab = col_logical()
+  # ... with 1 more columns
+)
+i Use `spec()` for the full column specifications.
+
+1791 parsing failures.
+row col   expected    actual                                                                    file
+  2  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/metadata_phyto.csv&#39;
+  3  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/metadata_phyto.csv&#39;
+  4  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/metadata_phyto.csv&#39;
+  5  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/metadata_phyto.csv&#39;
+  6  -- 33 columns 1 columns &#39;C:/Users/justin.belluz/Documents/R/microscopy_OBIS/metadata_phyto.csv&#39;
+... ... .......... ......... .......................................................................
+See problems(...) for more details.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0pvaW4gd2l0aCBwb3J0YWwgbWV0YWRhdGEgYmFzZWQgb24gaGFrYWlfaWQgLSBDYXV0aW9uIHJlcXVpcmVkIGFzIHRoZSBhbmFseXN0IGRvZXNuJ3QgcHJvdmlkZSBIYWthaSBJRCBpbiBkYXRhIHNoZWV0cyAob25seSBzdGF0aW9uIGFuZCBkYXRlKSwgc28gSSBuZWVkIHRvIGludmVzdGlnYXRlIGRhdGEgc2hlZXQgZXJyb3JzIGFuZCBlbnN1cmUgSSBhc3NpZ24gdGhlbSB0aGUgY29ycmVjdCBIYWthaSBJRC4gIFxubWljcm9fcXUzOSA8LSBtaWNyb19xdTM5ICU+JSBcbiAgbGVmdF9qb2luKG1ldGFkYXRhKVxuYGBgIn0= -->
+<pre class="r"><code>#Join with portal metadata based on hakai_id - Caution required as the analyst doesn&#39;t provide Hakai ID in data sheets (only station and date), so I need to investigate data sheet errors and ensure I assign them the correct Hakai ID.  
+micro_qu39 &lt;- micro_qu39 %&gt;% 
+  left_join(metadata)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImhha2FpX2lkXCJcbiJ9 -->
 <pre><code>Joining, by = &quot;hakai_id&quot;</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuI1RoaXMgY2h1bmsgYWRkcyB0YXhvbm9taWMgaW5mb3JtYXRpb24gdG8gdGhlIGZ1bGwgZGF0YXNldCwgcmF0aGVyIHRoYW4ganVzdCBhIGRpc3RpbmN0IGxpc3QuIFRoZSBkaXN0aW5jdCBsaXN0IGlzIHN0aWxsIGltcG9ydGFudCBiZWNhdXNlIHRoZSB3b3JybXM6OndtX3JlY29yZHNfbmFtZXMgdG9vbCB3aWxsIG9ubHkgcnVuIG9uIGEgc21hbGwgbnVtYmVyIG9mIHJlY29yZHMuIFRoZXJlZm9yZSwgSSBuZWVkZWQgdG8gdXNlIHRoZSBkaXN0aW5jdCBsaXN0IGZyb20gYWJvdmUgdG8gam9pbiB0byB0aGUgbGFyZ2VyIGRhdGFzZXQgaGVyZS4gSSBkb24ndCByZWFsbHkgbGlrZSBteSBuYW1pbmcgY29udmVudGlvbnMgaGVyZS5cblxuI1BlcmZvcm1zIG9iaXN0b29sczo6bWF0Y2hfdGF4YSBvbiBmdWxsIGRhdGFzZXQuIFdoZW4gcHJvbXB0ZWQgaW4gY29uc29sZSwgc2VsZWN0IHksIDIsIDIuIEFzIHRoZSBvdXRwdXQgaXMgYSBzaW5nbGUgc2NpZW50aWZpY05hbWUgY29sdW1uLCB0aGlzIHN0ZXAgYWxzbyBnaXZlcyBhbiBpZCBzbyB0aGF0IHRoaXMgY2FuIGJlIG1lcmdlZCBiYWNrIHdpdGggdGhlIG1ldGFkYXRhIGluIHRoZSBuZXh0IHN0ZXAuXG5jb21wbGV0ZSA8LSBtaWNyb19xdTM5X3RpZHkkc3BlY2llcyAlPiUgXG4gIG1hdGNoX3RheGEoKSAlPiUgXG4gIG11dGF0ZShpZCA9IHJvd19udW1iZXIoKSlcblxuI0dpdmVzIHRoZSBmdWxsIGRhdGEgc2hlZXQgYW4gaWQgZm9yIG1lcmdpbmcgd2l0aCBcbm1pY3JvX3F1MzlfdGlkeSA8LSBtaWNyb19xdTM5X3RpZHkgJT4lIFxuICBtdXRhdGUoaWQgPSByb3dfbnVtYmVyKCkpXG5cblxuI1JlbW92ZXMgc3BlY2llcyBuYW1lcyB0aGF0IEkgZGVjaWRlZCB0byByZW1vdmUgZnJvbSB0aGUgZGF0YSBiYXNlZCBvbiB0aGUgYW5hbHlzdHMgc3VnZ2VzdGlvbi4gSSBjb3VsZCBhbHNvIGRvIHRoaXMgZWFybGllciBiZWZvcmUgdGhlIG1hdGNoaW5nIGlzIGRvbmUuXG5jb21wbGV0ZSA8LSBjb21wbGV0ZSAlPiUgXG4gIGZ1bGxfam9pbihtaWNyb19xdTM5X3RpZHkpICU+JSBcbiAgcmVuYW1lKG9yaWdfbmFtZSA9IHNwZWNpZXMpICU+JSBcbiAgZmlsdGVyKCEoc3RyX2RldGVjdChvcmlnX25hbWUsIFxcUGxldXJvc3RvbXVtIGdyYWNpbGVcXCkgfCBcbiAgICAgICAgICAgc3RyX2RldGVjdChvcmlnX25hbWUsIFxcUGh5bGxvbWl0dXMgeW9ya2VlbnNpc1xcKSB8IFxuICAgICAgICAgICBzdHJfZGV0ZWN0KG9yaWdfbmFtZSwgXFxNZXJpbmdvc3BoYWVyYWUgdGVuZXJyaW1hXFwpKSkgXG5cbiNUaGlzIHJlbW92ZXMgdGhlIGRvdWJsZSBoaWVyYXJjaHkgbWF0Y2hlcyAoYXMgc2VlbiBpbiB3b3JtX2pvaW5fZHVwIGRhdGEtc2hlZXQpLiBDb25zdWx0YXRpb24gd2FzIGRvbmUgdG8gZW5zdXJlIHRoZSByZW1vdmFsIG9mIHRoZSBpbmNvcnJlY3QgbWF0Y2ggYW5kIHRvIGxlYXZlIHRoZSBjb3JyZWN0IG1hdGNoLiBJdCBtaWdodCBiZSBiZXR0ZXIgdG8gZG8gdGhpcyBpbiB0aGUgbGFzdCBjaHVuayB3aGVyZSBJIGRldmVsb3AgdGhpcyBzaGVldCAtIHdvdWxkIHByb2JhYmx5IGZsb3cgYmV0dGVyLCByYXRoZXIgdGhhbiBqdW1waW5nIGJhY2sgaGVyZS5cbndvcm1faGllcmFyY2h5X2NsZWFuIDwtIHdvcm1faGllcmFyY2h5ICU+JSBcbiAgZmlsdGVyKCEoKHNjaWVudGlmaWNOYW1lID09IFxcQXBwZW5kaWN1bGFyaWFcXCAmIGlzLm5hKGF1dGhvcml0eSkpIHxcbiAgICAgICAgICAoc2NpZW50aWZpY05hbWUgPT0gXFxEaW5vcGh5c2lzIHJvdHVuZGF0YVxcICYgYXV0aG9yaXR5ID09IFxcTGV2YW5kZXJcbmBgYCJ9 -->
-<pre class="r"><code>```r
-#This chunk adds taxonomic information to the full dataset, rather than just a distinct list. The distinct list is still important because the worrms::wm_records_names tool will only run on a small number of records. Therefore, I needed to use the distinct list from above to join to the larger dataset here. I don&#39;t really like my naming conventions here.
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3Jlb3JnYW5pemluZyBhbmQgZWxpbWluYXRpbmcgdW51c2VkIGNvbHVtbnNcbm1pY3JvX3F1MzkgPC0gbWljcm9fcXUzOSAlPiUgXG4gIHNlbGVjdChkYXRlLCBjb2xsZWN0ZWQsIGhha2FpX2lkLCBkZXB0aCA9IERlcHRoLCBsaW5lX291dF9kZXB0aCwgd29ya19hcmVhLCBzaXRlX2lkLFxuICAgICAgICAgbGF0LCBsb25nLCB2b2x1bWUsIGx1Z29scywgY29sbGVjdGVkLFxuICAgICAgICAgYEFjaG5hbnRoZXMgc3BwLmA6T2xpZ290cmljaGVhKVxuXG4jRmluZCByb3dzIHdoZXJlIHRoZXJlIHdhcyBubyBtZXRhZGF0YSBtYXRjaCAtIFRoaXMgc3RlcCBpcyBhIFFDIGNoZWNrIHRvIG1ha2Ugc3VyZSB0aGF0IGFsbCBhbmFseXN0IHJlc3VsdHMgd2VyZSBtYXRjaGVkIHRvIG1ldGFkYXRhLlxubWV0YV9taXNzaW5nIDwtIG1pY3JvX3F1MzkgJT4lXG4gIGZpbHRlcihpcy5uYShjb2xsZWN0ZWQpKVxuXG4jVGVzdCB0byBzZWUgaWYgbWV0YSBsaW5lLW91dC1kZXB0aCBtYXRjaGVzIGRhdGEgc2hlZXQgZGVwdGguXG5kZXB0aF9taXNtYXRjaCA8LSBtaWNyb19xdTM5ICU+JSBcbiAgbXV0YXRlKGRlcHRoX2NoZWNrID0gaWZfZWxzZShsaW5lX291dF9kZXB0aCA9PSBkZXB0aCwgMSwgMCkpICU+JSBcbiAgc2VsZWN0KGRlcHRoX2NoZWNrKSAlPiUgXG4gIGZpbHRlcihkZXB0aF9jaGVjayA9PSAwKVxuXG4jTWFraW5nIGRhdGEgVGlkeSBcbm1pY3JvX3F1MzlfdGlkeSA8LSBtaWNyb19xdTM5ICU+JSBcbiAgcGl2b3RfbG9uZ2VyKGMoYEFjaG5hbnRoZXMgc3BwLmA6IE9saWdvdHJpY2hlYSksXG4gICAgICAgICAgICAgICBuYW1lc190byA9IFwic3BlY2llc1wiLCB2YWx1ZXNfdG8gPSBcImNvdW50c1wiKVxuXG4jV2l0aCB0aGlzIGRhdGEsIE5BJ3MgcmVwcmVzZW50IHplcm9zLCB3aGljaCBtZWFucyBzcGVjaWVzIHdlcmUgbm90IG9ic2VydmVkLiBSZW1vdmluZyBhcyBvbmx5IHdhbnQgb2JzZXJ2ZWQgc3BlY2llcy5cbm1pY3JvX3F1MzlfdGlkeSA8LSBtaWNyb19xdTM5X3RpZHkgJT4lXG4gIGRyb3BfbmEoY291bnRzKVxuYGBgIn0= -->
+<pre class="r"><code>#reorganizing and eliminating unused columns
+micro_qu39 &lt;- micro_qu39 %&gt;% 
+  select(date, collected, hakai_id, depth = Depth, line_out_depth, work_area, site_id,
+         lat, long, volume, lugols, collected,
+         `Achnanthes spp.`:Oligotrichea)
 
-#Performs obistools::match_taxa on full dataset. When prompted in console, select y, 2, 2. As the output is a single scientificName column, this step also gives an id so that this can be merged back with the metadata in the next step.
-complete &lt;- micro_qu39_tidy$species %&gt;% 
-  match_taxa() %&gt;% 
-  mutate(id = row_number())
+#Find rows where there was no metadata match - This step is a QC check to make sure that all analyst results were matched to metadata.
+meta_missing &lt;- micro_qu39 %&gt;%
+  filter(is.na(collected))
 
-#Gives the full data sheet an id for merging with 
-micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;% 
-  mutate(id = row_number())
+#Test to see if meta line-out-depth matches data sheet depth.
+depth_mismatch &lt;- micro_qu39 %&gt;% 
+  mutate(depth_check = if_else(line_out_depth == depth, 1, 0)) %&gt;% 
+  select(depth_check) %&gt;% 
+  filter(depth_check == 0)
 
+#Making data Tidy 
+micro_qu39_tidy &lt;- micro_qu39 %&gt;% 
+  pivot_longer(c(`Achnanthes spp.`: Oligotrichea),
+               names_to = &quot;species&quot;, values_to = &quot;counts&quot;)
 
-#Removes species names that I decided to remove from the data based on the analysts suggestion. I could also do this earlier before the matching is done.
-complete &lt;- complete %&gt;% 
-  full_join(micro_qu39_tidy) %&gt;% 
-  rename(orig_name = species) %&gt;% 
-  filter(!(str_detect(orig_name, \Pleurostomum gracile\) | 
-           str_detect(orig_name, \Phyllomitus yorkeensis\) | 
-           str_detect(orig_name, \Meringosphaerae tenerrima\))) 
-
-#This removes the double hierarchy matches (as seen in worm_join_dup data-sheet). Consultation was done to ensure the removal of the incorrect match and to leave the correct match. It might be better to do this in the last chunk where I develop this sheet - would probably flow better, rather than jumping back here.
-worm_hierarchy_clean &lt;- worm_hierarchy %&gt;% 
-  filter(!((scientificName == \Appendicularia\ &amp; is.na(authority)) |
-          (scientificName == \Dinophysis rotundata\ &amp; authority == \Levander</code></pre>
+#With this data, NA&#39;s represent zeros, which means species were not observed. Removing as only want observed species.
+micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;%
+  drop_na(counts)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud29ybV9tYXRjaCA8LSB3b3JtX21hdGNoICU+JVxuICBmdWxsX2pvaW4odW5pcXVlX2xpc3QpICU+JVxuICByZW5hbWUob3JpZ19uYW1lID0gc3BlY2llcylcblxuYGBgIn0= -->
-<pre class="r"><code>worm_match &lt;- worm_match %&gt;%
-  full_join(unique_list) %&gt;%
-  rename(orig_name = species)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0NsZWFuaW5nIHVwIHRoZSBkYXRhXG5cbiNJbiB0aGlzIGNodW5rIEkgc3RhcnQgd29ya2luZyB3aXRoIHRoZSB0YXhvbm9taWMgZGVzaWduYXRpb25zIHRvIGFsbG93IGZvciBtYXRjaGVzIHdpdGhpbiB0aGUgV29STXMgZGF0YWJhc2UuIFNwZWNpZmljYWxseSwgbm9uLXRheG9ub21pYyBkYXRhIGFyZSByZW1vdmVkIGFuZCBxdWFsaWZpZXJzIGFyZSBtb3ZlZCBpbnRvIHNlcGFyYXRlIGNvbHVtbnMuIFRoZSBsYXR0ZXIgc3RlcCBpbnZvbHZlcyBjb25zaWRlcmFibGUgcmVndWxhciBleHByZXNzaW9uIHdvcmsuXG5cbiNDcmVhdGUgYSBsaXN0IG9mIGRlc2lnbmF0aW9ucy9uYW1lcyBkbyBub3QgaGF2ZSB0YXhvbm9taWMgaW5mb3JtYXRpb24gYW5kIHRoYXQgSSByZW1vdmUgaW4gdGhlIG5leHQgc3RlcC4gXG5yZW1vdmVkX3Jvd19saXN0IDwtIG1pY3JvX3F1MzlfdGlkeSAlPiVcbiAgZmlsdGVyKHN0cl9kZXRlY3Qoc3BlY2llcywgXCJFZ2dzXCIpIHxcbiAgICAgICAgIHN0cl9kZXRlY3Qoc3BlY2llcywgXCJwaWVjZXNcIikgfFxuICAgICAgICAgc3RyX2RldGVjdChzcGVjaWVzLCBcIkZlY2FsXCIpIHxcbiAgICAgICAgIHN0cl9kZXRlY3Qoc3BlY2llcywgXCJlamVjdGFcIikpXG5cblxuI1JlbW92ZXMgZGVzaWduYXRpb25zL25hbWVzIHdpdGggbm8gdGF4b25vbWljIGluZm9ybWF0aW9uIGZyb20gZGF0YXNoZWV0LlxubWljcm9fcXUzOV90aWR5IDwtIG1pY3JvX3F1MzlfdGlkeSAlPiVcbiAgZmlsdGVyKCEoc3RyX2RldGVjdChzcGVjaWVzLCBcIkVnZ3NcIikgfFxuICAgICAgICAgICBzdHJfZGV0ZWN0KHNwZWNpZXMsIFwicGllY2VzXCIpIHxcbiAgICAgICAgICAgc3RyX2RldGVjdChzcGVjaWVzLCBcIkZlY2FsXCIpIHxcbiAgICAgICAgICAgc3RyX2RldGVjdChzcGVjaWVzLCBcImVqZWN0YVwiKSkpXG5cbiNUaGlzIGNyZWF0ZXMgcmVnZXggbGlzdCB0aGF0IHdpbGwgYmUgdXNlZCB0byBhZGQgdGhlc2UgdGVybXMgdG8gbGlmZVN0YWdlIGNvbHVtbi5cbmxpZmVTdGFnZV9yZWdleCA8LSBjKFwicmVzdGluZyBzdGFnZXNcIiwgXCJyZXN0aW5nIHN0YWdlXCIsIFwibmF1cGxpaS9la2R5c2lzXCIsXG4gICAgICAgICAgICAgXCJcXFxcYnNwb3JlXCIsIFwiQXV4b3Nwb3JlXCIsIFwiY29wZXBvZGl0ZXNcIikgJT4lIFxuICBzdHJfYyhjb2xsYXBzZSA9IFwifFwiKVxuXG4jVGhpcyBjcmVhdGVzIHJlZ2V4IGxpc3QgdGhhdCB3aWxsIGJlIHVzZWQgdG8gYWRkIHRoZXNlIHRlcm1zIHRvIHRoZSBpZGVudGlmaWNhdGlvblJlbWFyayBjb2x1bW4uIFxuaWRlbnRpZmljYXRpb25SZW1hcmtfcmVnZXggPC0gYyhcImFscGhhLXN0YXJjaCwgQ2hsb3JvcGh5dGFcXFxcP1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcImVxdWF0b3JpYWwgZ3Jvb3ZlLCBEaW5vcGh5Y2VhZVxcXFw/XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiY2luY3R1cy9yYWRpY2Fuc1wiKSAlPiUgXG4gIHN0cl9jKGNvbGxhcHNlID0gXCJ8XCIpXG5cbiNUaGlzIGNyZWF0ZXMgcmVnZXggbGlzdCB0aGF0IHdpbGwgYmUgdXNlZCB0byBhZGQgdGhlc2UgdGVybXMgdG8gdGhlIGlkZW50aWZpY2F0aW9uUXVhbGlmaWVyIGNvbHVtbi4gSSBjb3VsZCBsaWtlbHkgbWFrZSB0aGUgc2VhcmNoIGVhc2llciBhbmQgZWxpbWluYXRlIFs6Ymxhbms6XXNwcCQgYnkgdXNpbmcgc3RyaW5ncjo6c3RyX3RyaW0gdG8gcmVtb3ZlIHdoaXRlc3BhY2UgYmVmb3JlIG9yIGFmdGVyLlxuaWRlbnRpZmljYXRpb25RX3JlZ2V4IDwtIGMoXCJbOmJsYW5rOl1zcHAkXCIsIFwic3BwXFxcXC5cIiwgXCJzcFxcXFwuXCIpICU+JSBcbiAgc3RyX2MoY29sbGFwc2UgPSBcInxcIilcblxuI1RoaXMgc3RlcCB1c2VzIHRoZSByZWd1bGFyIGV4cHJlc3Npb24gbGlzdHMgZGVmaW5lZCBhYm92ZSB0byBmaW5kIG1hdGNoZXMgd2l0aGluIHRoZSB0YXhvbm9taWMgY29sdW1uIGFuZCBmb3IgdGhlc2UgbWF0Y2hlcywgd3JpdGVzIHRoZSBzcGVjaWZpZWQgdGVybXMgdG8gZWl0aGVyIGxpZmVTdGFnZSwgaW5kZW50aWZpY2F0aW9uUXVhbGlmaWVyIG9yIGlkZW50aWZpY2F0aW9uUmVtYXJrIGNvbHVtbnMuXG5taWNyb19xdTM5X3RpZHkgPC0gbWljcm9fcXUzOV90aWR5ICU+JSBcbiAgbXV0YXRlKGxpZmVTdGFnZSA9IHN0cl9tYXRjaChzcGVjaWVzLCBsaWZlU3RhZ2VfcmVnZXgpKSAlPiUgXG4gIG11dGF0ZShpZGVudGlmaWNhdGlvblF1YWxpZmllciA9IHN0cl9tYXRjaChzcGVjaWVzLCBpZGVudGlmaWNhdGlvblFfcmVnZXgpKSAlPiUgXG4gIG11dGF0ZShpZGVudGlmaWNhdGlvblJlbWFyayA9IHN0cl9tYXRjaChzcGVjaWVzLCBpZGVudGlmaWNhdGlvblJlbWFya19yZWdleCkpXG5cbiNOb3cgdGhhdCBJIGhhdmUgdGFrZW4gdGhlc2UgdGVybXMgdGhhdCB3ZXJlIGluY2x1ZGVkIHdpdGggdGhlIHRheG9ub21pYyBpbmZvcm1hdGlvbiBhbmQgcHV0IHRoZW0gaW4gdGhlIGNvcnJlY3QgY29sdW1ucywgSSBub3cgZml4IHJlbmFtZSB0aGUgbGlmZVN0YWdlcyB0byBtYXRjaCBhY2NlcHRlZCB2b2NhYnVsYXJ5IGFuZCBmaXggYSB3ZWlyZCBpZGVudGlmaWNhdGlvblF1YWxpZmllciBzcHAgdGhhdCBoYXMgd2hpdGUgc3BhY2UgbWFraW5nIHJlZ2V4IHdvcmsgZGlmZmljdWx0LiBJIGNvdWxkIGhhdmUgZml4ZWQgdGhlc2UgZWFybGllciB3aGVuIEkgd2FzIHdvcmtpbmcgd2l0aCB0aGUgZGF0YSBpbiB0aGUgY29sdW1uIGZvcm1hdC4gXG5taWNyb19xdTM5X3RpZHkgPC0gbWljcm9fcXUzOV90aWR5ICU+JSBcbiAgbXV0YXRlKGxpZmVTdGFnZSA9IHN0cl9yZXBsYWNlKGxpZmVTdGFnZSwgXCJzcG9yZVwiLCBcInNwb3Jlc1wiKSkgJT4lXG4gIG11dGF0ZShsaWZlU3RhZ2UgPSBzdHJfcmVwbGFjZShsaWZlU3RhZ2UsIFwicmVzdGluZyBzdGFnZXNcIiwgXCJyZXN0aW5nIHNwb3Jlc1wiKSkgJT4lXG4gIG11dGF0ZShsaWZlU3RhZ2UgPSBzdHJfcmVwbGFjZShsaWZlU3RhZ2UsIFwicmVzdGluZyBzdGFnZVwiLCBcInJlc3Rpbmcgc3BvcmVzXCIpKSAlPiVcbiAgbXV0YXRlKGxpZmVTdGFnZSA9IHN0cl9yZXBsYWNlKGxpZmVTdGFnZSwgXCJuYXVwbGlpL2VrZHlzaXNcIiwgXCJuYXVwbGlpXCIpKSAlPiUgXG4gIG11dGF0ZShpZGVudGlmaWNhdGlvblF1YWxpZmllciA9IHN0cl9yZXBsYWNlKGlkZW50aWZpY2F0aW9uUXVhbGlmaWVyLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIls6Ymxhbms6XXNwcCRcIiwgXCJzcHAuXCIpKVxuICBcbiNUaGlzIHN0ZXAvc2hlZXQgaXMgYSBxdWFsaXR5IGNoZWNrIHRvIGVuc3VyZSB0aGF0IGFsbCBvZiB0aGUgbGlmZVN0YWdlLXRheG9ub21pYyBjb21iaW5hdGlvbnMgYXJlIHByZXNlbnQgXG5saWZlU3RhZ2VfY2hlY2sgPC0gbWljcm9fcXUzOV90aWR5ICU+JSBcbiAgZGlzdGluY3QoYWNyb3NzKGMoc3BlY2llcywgbGlmZVN0YWdlKSkpICU+JSBcbiAgZmlsdGVyKCFpcy5uYShsaWZlU3RhZ2UpKSBcblxuI0NoZWNrIHRoYXQgYWxsIHRoZSBpZGVudGlmaWNhdGlvblF1YWxpZmllciBjb21iaW5hdGlvbnMgYXJlIHByZXNlbnRcbmlkZW50aWZpY2F0aW9uUV9jaGVjayA8LSBtaWNyb19xdTM5X3RpZHkgJT4lIFxuICBkaXN0aW5jdChhY3Jvc3MoYyhzcGVjaWVzLCBpZGVudGlmaWNhdGlvblF1YWxpZmllcikpKSAlPiUgXG4gIGZpbHRlcighaXMubmEoaWRlbnRpZmljYXRpb25RdWFsaWZpZXIpKSBcblxuI0NoZWNrIHRoYXQgYWxsIG9mIHRoZSBpZGVudGlmaWNhdGlvblJlbWFyayBjb21iaW5hdGlvbnMgYXJlIHByZXNlbnRcbmlkZW50aWZpY2F0aW9uUmVtYXJrX2NoZWNrIDwtIG1pY3JvX3F1MzlfdGlkeSAlPiUgXG4gIGRpc3RpbmN0KGFjcm9zcyhjKHNwZWNpZXMsIGlkZW50aWZpY2F0aW9uUmVtYXJrKSkpICU+JSBcbiAgZmlsdGVyKCFpcy5uYShpZGVudGlmaWNhdGlvblJlbWFyaykpIFxuXG4jQWRkaW5nIHNwcC4gd2hlcmUgSSBtb3ZlZCBjaW5jdHVzL3JhZGljYW5zIHRvIGlkZW50aWZpY2F0aW9uUmVtYXJrLiBUaGUgbGFzdCB0ZXJtIGluIHRoZSBjYXNlX3doZW4gZnVuY3Rpb24gbWFrZXMgc3VyZSB0aGF0IHRoZSBvdGhlciBpZGVudGlmaWNhdGlvblF1YWxpZmllcnMgYXJlIG5vdCBvdmVyd3JpdHRlbi5cbm1pY3JvX3F1MzlfdGlkeSA8LSBtaWNyb19xdTM5X3RpZHkgJT4lIFxuICBtdXRhdGUoaWRlbnRpZmljYXRpb25RdWFsaWZpZXIgPSBjYXNlX3doZW4oaWRlbnRpZmljYXRpb25SZW1hcmsgPT0gXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiY2luY3R1cy9yYWRpY2Fuc1wiIH4gXCJzcHAuXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBUUlVFIH4gYXMuY2hhcmFjdGVyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoaWRlbnRpZmljYXRpb25RdWFsaWZpZXIpKSlcblxuI1JlbW92ZSBhbGwgcXVhbGlmaWVyIGluZm9ybWF0aW9uIGZyb20gdGF4b25vbWljL3NwZWNpZXMgbmFtZSBjb2x1bW4gc28gdGhhdCBvbmx5IHRheG9ub21pYyBpbmZvcm1hdGlvbiByZW1haW5zLlxubWljcm9fcXUzOV90aWR5IDwtIG1pY3JvX3F1MzlfdGlkeSAlPiUgXG4gIG11dGF0ZShzcGVjaWVzID0gc3RyX3JlcGxhY2Uoc3BlY2llcywgXCJcXFxcKHJlc3Rpbmcgc3RhZ2VzXFxcXClcIiwgXCJcIikpICU+JSBcbiAgbXV0YXRlKHNwZWNpZXMgPSBzdHJfcmVwbGFjZShzcGVjaWVzLCBcInJlc3Rpbmcgc3RhZ2VcIiwgXCJcIikpICU+JVxuICBtdXRhdGUoc3BlY2llcyA9IHN0cl9yZXBsYWNlKHNwZWNpZXMsIFwicmVzdGluZyBzdGFnZXNcIiwgXCJcIikpICU+JVxuICBtdXRhdGUoc3BlY2llcyA9IHN0cl9yZXBsYWNlKHNwZWNpZXMsIFwiQXV4b3Nwb3JlXCIsIFwiXCIpKSAlPiVcbiAgbXV0YXRlKHNwZWNpZXMgPSBzdHJfcmVwbGFjZShzcGVjaWVzLCBcIlxcXFwoY29wZXBvZGl0ZXNcXFxcKVwiLCBcIlwiKSkgJT4lXG4gIG11dGF0ZShzcGVjaWVzID0gc3RyX3JlcGxhY2Uoc3BlY2llcywgXCJcXFxcKG5hdXBsaWkvZWtkeXNpc1xcXFwpXCIsIFwiXCIpKSAlPiVcbiAgbXV0YXRlKHNwZWNpZXMgPSBzdHJfcmVwbGFjZShzcGVjaWVzLCBcInNwcFxcXFwuXCIsIFwiXCIpKSAlPiVcbiAgbXV0YXRlKHNwZWNpZXMgPSBzdHJfcmVwbGFjZShzcGVjaWVzLCBcIlxcXFxic3BwXCIsIFwiXCIpKSAlPiVcbiAgbXV0YXRlKHNwZWNpZXMgPSBzdHJfcmVwbGFjZShzcGVjaWVzLCBcInNwXFxcXC5cIiwgXCJcIikpICU+JVxuICBtdXRhdGUoc3BlY2llcyA9IHN0cl9yZXBsYWNlKHNwZWNpZXMsIFwic3BvcmUgZm9ybXNcIiwgXCJcIikpICU+JSBcbiAgbXV0YXRlKHNwZWNpZXMgPSBzdHJfcmVwbGFjZShzcGVjaWVzLCBcImNpbmN0dXMvcmFkaWNhbnNcIiwgXCJcIikpICU+JVxuICBtdXRhdGUoc3BlY2llcyA9IHN0cl9yZXBsYWNlKHNwZWNpZXMsIFwiXFxcXChlbG9uZ2F0ZSBmb3JtXFxcXClcIiwgXCJcIikpICU+JSBcbiAgbXV0YXRlKHNwZWNpZXMgPSBzdHJfcmVwbGFjZShzcGVjaWVzLCBcIlB0ZXJvc3Blcm1hICBzXCIsIFwiUHRlcm9zcGVybWFcIikpICU+JSBcbiAgbXV0YXRlKHNwZWNpZXMgPSBzdHJfcmVwbGFjZShzcGVjaWVzLCBcIlxcXFwoZXF1YXRvcmlhbCBncm9vdmUsIERpbm9waHljZWFlXFxcXD9cXFxcKVwiLFwiXCIpKSAlPiVcbiAgbXV0YXRlKHNwZWNpZXMgPSBzdHJfcmVwbGFjZShzcGVjaWVzLCBcIlxcXFwoYWxwaGEtc3RhcmNoLCBDaGxvcm9waHl0YVxcXFw/XFxcXClcIiwgXCJcIikpICU+JSBcbiAgbXV0YXRlKHNwZWNpZXMgPSBzdHJfcmVwbGFjZShzcGVjaWVzLCBcIls6Ymxhbms6XXNwcCRcIiwgXCJcIikpXG5cbiNBZGRpbmcgbW9yZSBpbmZvcm1hdGlvbiB0byBteSBpZGVudGlmaWNhdGlvblJlbWFya3MuIFRoZSBjdXJyZW50IHJlbWFya3Mgd2VyZSBlYXN5IHRvIG1hbmlwdWx0ZSBpbiBlYXJsaWVyIHN0ZXBzLCBidXQgaGVyZSBhdCB0aGUgZW5kIG9mIHRoZSBwcm9jZXNzLCBJIGNhbiBtYWtlIHRoZW0gbW9yZSBlbmNvbXBhc3NpbmcuXG5cbiNVbmtub3duIHByb3Rvem9hIHRoYXQgY291bGQgYmUgQ2hsb3JvcGh5dGVzXG5taWNyb19xdTM5X3RpZHkgPC0gbWljcm9fcXUzOV90aWR5ICU+JSBcbiAgbXV0YXRlKGlkZW50aWZpY2F0aW9uUmVtYXJrID0gc3RyX3JlcGxhY2UoaWRlbnRpZmljYXRpb25SZW1hcmssXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiYWxwaGEtc3RhcmNoLCBDaGxvcm9waHl0YVxcXFw/XCIsIFxuXCJDZWxscyB0b28gc21hbGwgdG8gaWRlbnRpZnkuIFN0YWluZWQgYmx1ZSBpbmRpY2F0aW5nIGFscGhhIHN0YXJjaCBhbmQgY291bGQgYmUgQ2hsb3JvcGh5dGFcIikpXG5cbiNVbmtub3duIHByb3Rvem9hIHRoYXQgY291bGQgYmUgRGlub3BoeWNlYWVcbm1pY3JvX3F1MzlfdGlkeSA8LSBtaWNyb19xdTM5X3RpZHkgJT4lIFxuICBtdXRhdGUoaWRlbnRpZmljYXRpb25SZW1hcmsgPSBzdHJfcmVwbGFjZShpZGVudGlmaWNhdGlvblJlbWFyayxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJlcXVhdG9yaWFsIGdyb292ZSwgRGlub3BoeWNlYWVcXFxcP1wiLCBcblwiQ2VsbHMgdG9vIHNtYWxsIHRvIGlkZW50aWZ5LiBTaG93ZWQgZXF1YXRvcmlhbCBncm9vdmUgYW5kIGNvdWxkIGJlIERpbm9waHljZWFlXCIpKVxuXG4jQ291bGRuJ3QgdGVsbCBiZXR3ZWVuIHJlc3Rpbmcgc3RhZ2UgY2luY3R1cyBhbmQgcmFkaWNhbnNcbm1pY3JvX3F1MzlfdGlkeSA8LSBtaWNyb19xdTM5X3RpZHkgJT4lIFxuICBtdXRhdGUoaWRlbnRpZmljYXRpb25SZW1hcmsgPSBzdHJfcmVwbGFjZShpZGVudGlmaWNhdGlvblJlbWFyayxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJjaW5jdHVzL3JhZGljYW5zXCIsIFxuXCJVbmFibGUgdG8gZGlzdGluZ3Vpc2ggYmV0d2VlbiBDaGFldG9jZXJvcyBjaW5jdHVzIGFuZCByYWRpY2Fuc1wiKSlcblxuI0FkZGluZyByZWFzb24gd2h5IGNsYXNzaWZpY2F0aW9uIHdhcyBzdG9wcGVkIGF0IHNwLiwgc3BwIGFjY29yZGluZyB0byBIb3J0ZW4gZXQgYWwuIEluIHRoZW9yeSwgc2hvdWxkbid0IHRoaXMgUXVhbGlmaWVyIGJlIHB1dCBvbiBhbnkgb2NjdXJyZW5jZSB0aGF0IHN0b3BzIGJlZm9yZSBzcGVjaWVzIGxldmVsPyBCYXNlZCBvbiBmaWd1cmUgMSBpbiBIb3J0ZW4gZXQgYWwuLCBJIHRoaW5rIHRoYXQgdGhlIHF1YWxpZmllciBzaG91bGQgYmUgYWRkZWQgZXZlbiB3aGVuIHRoZXJlIGlzIG5vIHNwLiBvciBzcHAuIEkgd2lsbCBhZGQgdGhpcyBhZnRlciB0aGUgdGF4b25vbWljIGhpZXJhcmNoeSBoYXMgYmVlbiBhcHBsaWVkIHNvIHRoYXQgSSBjYW4gZmlsdGVyIGZvciBpdC5cbm1pY3JvX3F1MzlfdGlkeSA8LSBtaWNyb19xdTM5X3RpZHkgJT4lIFxuICBtdXRhdGUoaWRlbnRpZmljYXRpb25RdWFsaWZpZXIgPSBjYXNlX3doZW4oaWRlbnRpZmljYXRpb25RdWFsaWZpZXIgPT0gXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwic3BwLlwiIH4gXCJzcHAuIEluZGV0LlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWRlbnRpZmljYXRpb25RdWFsaWZpZXIgPT1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJzcC5cIiB+IFwic3AuIEluZGV0LlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVFJVRSB+IGFzLmNoYXJhY3RlclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKGlkZW50aWZpY2F0aW9uUXVhbGlmaWVyKSkpXG5cbiNUaGlzIHN0ZXAgaXMgdGltZSBjb25zdW1pbmcgdG8gcnVuLCBidXQgcmVtb3ZlcyBhbnkgd2hpdGUtc3BhY2UgYmVmb3JlL2FmdGVyIHN0cmluZ3MgY3JlYXRlZCB0aHJvdWdoIHJlZ2V4IHdvcmsuXG5taWNyb19xdTM5X3RpZHkgPC0gbWljcm9fcXUzOV90aWR5ICU+JSBcbiAgbXV0YXRlKHNwZWNpZXMgPSBzdHJpbmdyOjpzdHJfdHJpbShzcGVjaWVzLCBzaWRlID0gXCJyaWdodFwiKSlcblxuYGBgIn0= -->
+<pre class="r"><code>#Cleaning up the data
+
+#In this chunk I start working with the taxonomic designations to allow for matches within the WoRMs database. Specifically, non-taxonomic data are removed and qualifiers are moved into separate columns. The latter step involves considerable regular expression work.
+
+#Create a list of designations/names do not have taxonomic information and that I remove in the next step. 
+removed_row_list &lt;- micro_qu39_tidy %&gt;%
+  filter(str_detect(species, &quot;Eggs&quot;) |
+         str_detect(species, &quot;pieces&quot;) |
+         str_detect(species, &quot;Fecal&quot;) |
+         str_detect(species, &quot;ejecta&quot;))
+
+
+#Removes designations/names with no taxonomic information from datasheet.
+micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;%
+  filter(!(str_detect(species, &quot;Eggs&quot;) |
+           str_detect(species, &quot;pieces&quot;) |
+           str_detect(species, &quot;Fecal&quot;) |
+           str_detect(species, &quot;ejecta&quot;)))
+
+#This creates regex list that will be used to add these terms to lifeStage column.
+lifeStage_regex &lt;- c(&quot;resting stages&quot;, &quot;resting stage&quot;, &quot;nauplii/ekdysis&quot;,
+             &quot;\\bspore&quot;, &quot;Auxospore&quot;, &quot;copepodites&quot;) %&gt;% 
+  str_c(collapse = &quot;|&quot;)
+
+#This creates regex list that will be used to add these terms to the identificationRemark column. 
+identificationRemark_regex &lt;- c(&quot;alpha-starch, Chlorophyta\\?&quot;,
+                                &quot;equatorial groove, Dinophyceae\\?&quot;,
+                                &quot;cinctus/radicans&quot;) %&gt;% 
+  str_c(collapse = &quot;|&quot;)
+
+#This creates regex list that will be used to add these terms to the identificationQualifier column. I could likely make the search easier and eliminate [:blank:]spp$ by using stringr::str_trim to remove whitespace before or after.
+identificationQ_regex &lt;- c(&quot;[:blank:]spp$&quot;, &quot;spp\\.&quot;, &quot;sp\\.&quot;) %&gt;% 
+  str_c(collapse = &quot;|&quot;)
+
+#This step uses the regular expression lists defined above to find matches within the taxonomic column and for these matches, writes the specified terms to either lifeStage, indentificationQualifier or identificationRemark columns.
+micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;% 
+  mutate(lifeStage = str_match(species, lifeStage_regex)) %&gt;% 
+  mutate(identificationQualifier = str_match(species, identificationQ_regex)) %&gt;% 
+  mutate(identificationRemark = str_match(species, identificationRemark_regex))
+
+#Now that I have taken these terms that were included with the taxonomic information and put them in the correct columns, I now fix rename the lifeStages to match accepted vocabulary and fix a weird identificationQualifier spp that has white space making regex work difficult. I could have fixed these earlier when I was working with the data in the column format. 
+micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;% 
+  mutate(lifeStage = str_replace(lifeStage, &quot;spore&quot;, &quot;spores&quot;)) %&gt;%
+  mutate(lifeStage = str_replace(lifeStage, &quot;resting stages&quot;, &quot;resting spores&quot;)) %&gt;%
+  mutate(lifeStage = str_replace(lifeStage, &quot;resting stage&quot;, &quot;resting spores&quot;)) %&gt;%
+  mutate(lifeStage = str_replace(lifeStage, &quot;nauplii/ekdysis&quot;, &quot;nauplii&quot;)) %&gt;% 
+  mutate(identificationQualifier = str_replace(identificationQualifier,
+                                               &quot;[:blank:]spp$&quot;, &quot;spp.&quot;))
+  
+#This step/sheet is a quality check to ensure that all of the lifeStage-taxonomic combinations are present 
+lifeStage_check &lt;- micro_qu39_tidy %&gt;% 
+  distinct(across(c(species, lifeStage))) %&gt;% 
+  filter(!is.na(lifeStage)) 
+
+#Check that all the identificationQualifier combinations are present
+identificationQ_check &lt;- micro_qu39_tidy %&gt;% 
+  distinct(across(c(species, identificationQualifier))) %&gt;% 
+  filter(!is.na(identificationQualifier)) 
+
+#Check that all of the identificationRemark combinations are present
+identificationRemark_check &lt;- micro_qu39_tidy %&gt;% 
+  distinct(across(c(species, identificationRemark))) %&gt;% 
+  filter(!is.na(identificationRemark)) 
+
+#Adding spp. where I moved cinctus/radicans to identificationRemark. The last term in the case_when function makes sure that the other identificationQualifiers are not overwritten.
+micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;% 
+  mutate(identificationQualifier = case_when(identificationRemark == 
+                                               &quot;cinctus/radicans&quot; ~ &quot;spp.&quot;,
+                                             TRUE ~ as.character
+                                             (identificationQualifier)))
+
+#Remove all qualifier information from taxonomic/species name column so that only taxonomic information remains.
+micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;% 
+  mutate(species = str_replace(species, &quot;\\(resting stages\\)&quot;, &quot;&quot;)) %&gt;% 
+  mutate(species = str_replace(species, &quot;resting stage&quot;, &quot;&quot;)) %&gt;%
+  mutate(species = str_replace(species, &quot;resting stages&quot;, &quot;&quot;)) %&gt;%
+  mutate(species = str_replace(species, &quot;Auxospore&quot;, &quot;&quot;)) %&gt;%
+  mutate(species = str_replace(species, &quot;\\(copepodites\\)&quot;, &quot;&quot;)) %&gt;%
+  mutate(species = str_replace(species, &quot;\\(nauplii/ekdysis\\)&quot;, &quot;&quot;)) %&gt;%
+  mutate(species = str_replace(species, &quot;spp\\.&quot;, &quot;&quot;)) %&gt;%
+  mutate(species = str_replace(species, &quot;\\bspp&quot;, &quot;&quot;)) %&gt;%
+  mutate(species = str_replace(species, &quot;sp\\.&quot;, &quot;&quot;)) %&gt;%
+  mutate(species = str_replace(species, &quot;spore forms&quot;, &quot;&quot;)) %&gt;% 
+  mutate(species = str_replace(species, &quot;cinctus/radicans&quot;, &quot;&quot;)) %&gt;%
+  mutate(species = str_replace(species, &quot;\\(elongate form\\)&quot;, &quot;&quot;)) %&gt;% 
+  mutate(species = str_replace(species, &quot;Pterosperma  s&quot;, &quot;Pterosperma&quot;)) %&gt;% 
+  mutate(species = str_replace(species, &quot;\\(equatorial groove, Dinophyceae\\?\\)&quot;,&quot;&quot;)) %&gt;%
+  mutate(species = str_replace(species, &quot;\\(alpha-starch, Chlorophyta\\?\\)&quot;, &quot;&quot;)) %&gt;% 
+  mutate(species = str_replace(species, &quot;[:blank:]spp$&quot;, &quot;&quot;))
+
+#Adding more information to my identificationRemarks. The current remarks were easy to manipulte in earlier steps, but here at the end of the process, I can make them more encompassing.
+
+#Unknown protozoa that could be Chlorophytes
+micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            &quot;alpha-starch, Chlorophyta\\?&quot;, 
+&quot;Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta&quot;))
+
+#Unknown protozoa that could be Dinophyceae
+micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            &quot;equatorial groove, Dinophyceae\\?&quot;, 
+&quot;Cells too small to identify. Showed equatorial groove and could be Dinophyceae&quot;))
+
+#Couldn&#39;t tell between resting stage cinctus and radicans
+micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            &quot;cinctus/radicans&quot;, 
+&quot;Unable to distinguish between Chaetoceros cinctus and radicans&quot;))
+
+#Adding reason why classification was stopped at sp., spp according to Horten et al. In theory, shouldn&#39;t this Qualifier be put on any occurrence that stops before species level? Based on figure 1 in Horten et al., I think that the qualifier should be added even when there is no sp. or spp. I will add this after the taxonomic hierarchy has been applied so that I can filter for it.
+micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;% 
+  mutate(identificationQualifier = case_when(identificationQualifier == 
+                                               &quot;spp.&quot; ~ &quot;spp. Indet.&quot;,
+                                             identificationQualifier ==
+                                               &quot;sp.&quot; ~ &quot;sp. Indet.&quot;,
+                                             TRUE ~ as.character
+                                             (identificationQualifier)))
+
+#This step is time consuming to run, but removes any white-space before/after strings created through regex work.
+micro_qu39_tidy &lt;- micro_qu39_tidy %&gt;% 
+  mutate(species = stringr::str_trim(species, side = &quot;right&quot;))
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImlkXCJcbiJ9 -->
-<pre><code>Joining, by = &quot;id&quot;</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1RoaXMgY2h1bmsgb2YgY29kZSBydW5zIHRoZSBvYmlzdG9vbHMgYW5kIHdvcnJtcyB0b29scyBvbiBhIHRydW5jYXRlZCBkaXN0aW5jdCBzcGVjaWVzIGxpc3QgcmF0aGVyIHRoYW4gdGhlIGVudGlyZSBkYXRhLXNoZWV0LiBUaGlzIHN0ZXAgaXMgaW1wb3J0YW50IGJlY2F1c2UgaXQgaGVscHMgdG8gaXNvbGF0ZSBzcGVjaWVzIG1hdGNoIGlzc3VlcyBvbiBhIHNtYWxsIGRhdGEtc2V0LiBGdXJ0aGVybW9yZSwgdGhlIHdvcnJtczo6d21fcmVjb3JkX25hbWVzIHByb3ZpZGVzIHRoZSBhY2NlcHRlZCBzY2llbnRpZmljTmFtZSwgYXBoaWFJRCBhbmQgdGF4b25vbWljIGhpZXJhcmNoeSAtIHRoZXNlIGFyZSBub3QgcHJvdmlkZWQgYnkgdGhlIG9iaXN0b29sczptYXRjaF90YXhhLiBcblxuI0ZvciBlcnJvciBjaGVja2luZywgbGltaXQgc3BlY2llcyB0byB1bmlxdWUgc3BlY2llcyBuYW1lcy4gRm9yIHdoYXRldmVyIHJlYXNvbiwgdGhpcyBpcyB0aHJvd2luZyBkdXBsaWNhdGVzIC0gbXVzdCBiZSBzb21ldGhpbmcgZnJvbSBteSBhYm92ZSBmaWx0ZXJpbmcvcmVuYW1pbmcgKGkuZS4gYSBzcGFjZSBhZnRlciB0aGUgbmFtZT8pLiBOb3QgY2VydGFpbiB5ZXQgaWYgaXQgaXMgbmVjZXNzYXJ5IHRvIGZpeCB0aGlzIGFzIGl0IHdpbGwgZGVwZW5kIG9uIGlmIGl0IGFmZmVjdHMgdGhlIGRhdGEgd2hlbiBJIGFwcGx5IGZ1bmN0aW9ucyB0byB0aGUgZnVsbCBkYXRhc2V0LCB3aGljaCBpcyBub3QgYSB1bmlxdWUgc3Vic2V0LiBGb3IgdW5pcXVlIHN1YnNldCwgSSBkZWFsIHdpdGggdGhpcyBsYXRlciBhZnRlciB0aGUgbWF0Y2hfdGF4YSBoYXMgYmVlbiBwZXJmb3JtZWQgLSBhcHBseSBkaXN0aW5jdCB0byB0aGUgc2NpZW50aWZpY05hbWUgb3V0cHV0LlxuXG51bmlxdWVfbGlzdCA8LSBtaWNyb19xdTM5X3RpZHkgJT4lXG4gIGRpc3RpbmN0KHNwZWNpZXMpICU+JVxuICBhcnJhbmdlKHNwZWNpZXMpICU+JVxuICBtdXRhdGUoaWQgPSByb3dfbnVtYmVyKCkpXG5cbiNUYWtlIHVuaXF1ZSBsaXN0IG9mIHNwZWNpZXMgYW5kIHNlYXJjaCBmb3IgdGhlbSB3aXRoaW4gdGhlIFdvUk1zIGRhdGFiYXNlLiBBZGQgYSB1bmlxdWUgcm93IG51bWJlciBmb3IgbWF0Y2hpbmcgd2l0aCB0aGUgb3JpZ2luYWwgc3BlY2llcyBuYW1lIGxpc3QsIHNvIHRoYXQgc3BlY2llcyB3aXRoIHBvb3Igb3Igbm8gbWF0Y2hlcyBjYW4gYmUgaWRlbnRpZmllZFxuXG53b3JtX21hdGNoIDwtIHVuaXF1ZV9saXN0JHNwZWNpZXMgJT4lXG4gIG1hdGNoX3RheGEoKSAlPiVcbiAgbXV0YXRlKGlkID0gcm93X251bWJlcigpKVxuYGBgIn0= -->
+<pre class="r"><code>#This chunk of code runs the obistools and worrms tools on a truncated distinct species list rather than the entire data-sheet. This step is important because it helps to isolate species match issues on a small data-set. Furthermore, the worrms::wm_record_names provides the accepted scientificName, aphiaID and taxonomic hierarchy - these are not provided by the obistools:match_taxa. 
+
+#For error checking, limit species to unique species names. For whatever reason, this is throwing duplicates - must be something from my above filtering/renaming (i.e. a space after the name?). Not certain yet if it is necessary to fix this as it will depend on if it affects the data when I apply functions to the full dataset, which is not a unique subset. For unique subset, I deal with this later after the match_taxa has been performed - apply distinct to the scientificName output.
+
+unique_list &lt;- micro_qu39_tidy %&gt;%
+  distinct(species) %&gt;%
+  arrange(species) %&gt;%
+  mutate(id = row_number())
+
+#Take unique list of species and search for them within the WoRMs database. Add a unique row number for matching with the original species name list, so that species with poor or no matches can be identified
+
+worm_match &lt;- unique_list$species %&gt;%
+  match_taxa() %&gt;%
+  mutate(id = row_number())</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiMTM0IG5hbWVzLCAwIHdpdGhvdXQgbWF0Y2hlcywgMiB3aXRoIG11bHRpcGxlIG1hdGNoZXNcbiJ9 -->
+<pre><code>134 names, 0 without matches, 2 with multiple matches</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2094,11 +2337,6 @@ write_csv(data_incorp, here(&quot;output_files&quot;, &quot;incorp_hakID.csv&quo
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3RoaW5ncyB0byBkb1xuI2ZpeCB0aW1lIChkb25lKVxuI2FkZCBxdWFsaWZpZXIgaW5mb3JtYXRpb24gKGRvbmUsIGJ1dCBuZWVkcyBjcm9zcyBjaGVja3MpXG5gYGAifQ== -->
-<pre class="r"><code>#things to do
-#fix time (done)
-#add qualifier information (done, but needs cross checks)</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
