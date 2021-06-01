@@ -106,11 +106,11 @@ UNESCO), 13–20., https://repository.oceanbestpractices.org/bitstream/handle/11
 
 occurrence <- format_obis %>%
   select(eventID, occurrenceID, scientificName, 
-         scientificNameID, taxonRank, lifeStage, 
-         identificationRemark = identificationRemark,
+         scientificNameID, taxonRank, 
+         identificationRemarks = identificationRemark,
          identificationQualifier, occurrenceStatus, basisOfRecord,
-         identifiedBy, 
-         method)
+         identifiedBy
+         )
 ```
 
 
