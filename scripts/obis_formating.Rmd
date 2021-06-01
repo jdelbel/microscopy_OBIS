@@ -44,7 +44,7 @@ format_obis <- format_obis %>%
 
 #Adding required columns (these pertain to the Occurrence table)
 format_obis <- format_obis %>% 
-  mutate(occuranceStatus = "Present",
+  mutate(occurrenceStatus = "Present",
          basisOfRecord = "HumanObservation",
          identifiedBy = "Louis Hobson",
          method = "Morphology")
@@ -98,11 +98,17 @@ UNESCO), 13–20., https://repository.oceanbestpractices.org/bitstream/handle/11
 
 
 ```{r}
-#Creating occurrence table pulling columns from flat format_obis table 
+#Creating occurrence table pulling columns from flat format_obis table
+
+#"method" wasn't found by IPT, so dropping it.
+#"eventID" redundant with eventCore, so dropping it
+#"lifestage" redundant with EMoF, so dropping it.
+
 occurrence <- format_obis %>%
   select(eventID, occurrenceID, scientificName, 
-         scientificNameID, taxonRank, lifeStage, identificationRemark,
-         identificationQualifier, occuranceStatus, basisOfRecord,
+         scientificNameID, taxonRank, lifeStage, 
+         identificationRemark = identificationRemark,
+         identificationQualifier, occurrenceStatus, basisOfRecord,
          identifiedBy, 
          method)
 ```
@@ -188,10 +194,10 @@ emof_lifeStage <- emof_lifeStage %>%
 
 ```{r}
 #Make sure to alter file names so they are reflective of the dataset being used - change date range as this updates
-write_csv(format_obis, here("output_obis_format", "OBIS_flat_qu39_2016-2018_v2021-05-11.csv"))
-write_csv(event, here("output_obis_format", "event_qu39_2016-2018_v2021-05-11.csv"))
-write_csv(occurrence, here("output_obis_format", "occurrence_qu39_2016-2018_v2021-05-11.csv"))
-write_csv(emof_lifeStage, here("output_obis_format", "emof_qu39_2016-2018_v2021-05-11.csv"))
+write_csv(format_obis, here("output_obis_format", "OBIS_flat_qu39_2016-2018_v2021-06-01.csv"))
+write_csv(event, here("output_obis_format", "event_qu39_2016-2018_v2021-06-01.csv"))
+write_csv(occurrence, here("output_obis_format", "occurrence_qu39_2016-2018_v2021-06-01.csv"))
+write_csv(emof_lifeStage, here("output_obis_format", "emof_qu39_2016-2018_v2021-06-01.csv"))
 
 ```
 
