@@ -9,12 +9,36 @@ Try executing this chunk by clicking the *Run* button within the chunk or by pla
 
 ```{r}
 library(tidyverse)
-library(here) 
+library(here)
+library(readxl)
+library(lubridate)
 ```
 
 ```{r}
 #Uploaded data that has been cleaned and has worms matches
 format_flat <- read_csv(here("output_worms_matching", "qu39_2016_2020.csv"))
+
+#Uploading sheet with difference between prior invoice data and invoice date for each sample - provides a date range for analysis, which will be included under dateIdentified. This is important for users so they can assess potential bias due to sample degradation.
+invoice_date <- read_xlsx(here("files", "invoice_date_2016-2018.xlsx"))
+```
+
+
+```{r}
+#Working with analysis_start (with date between when samples were shipped or last invoice and the invoice for the sample - whichever is shorter)
+
+#Ensuring difference in days is always positive (i.e. beginning of period is always before invoice date)
+invoice_date <- invoice_date %>% 
+  filter(Results == "Y") %>% 
+  select(hakai_id = `Hakai ID`, sent = Sent, invoice = Invoice, 
+         analysis_start = Analysis_Start, 
+         invoice_date = `Invoice Date`) %>%
+  mutate(date_diff = difftime(invoice_date, analysis_start, units = "days"))
+  
+#Combining the two columns to create a date range that conforms to ISO 8601-1:2019
+invoice_date_comb <- invoice_date %>% 
+  unite(dateIdentified, analysis_start, invoice_date, sep = "/") %>% 
+  select(hakai_id, dateIdentified)
+
 ```
 
 ```{r}
@@ -24,7 +48,7 @@ format_flat <- read_csv(here("output_worms_matching", "qu39_2016_2020.csv"))
 
 #Switched from portal date to collected, which includes hours/minutes/seconds in UTC. The portal format looks to be in the correct format for OBIS-DwC. I kept the date (format Year-month-day) for the creation of the eventID, because I thought it was too complex to add the hours/minutes/seconds to the ID
 format_obis <- format_flat %>% 
-  select(date, eventDate = collected, minimumDepthInMeters = line_out_depth,
+  select(date, hakai_id, eventDate = collected, minimumDepthInMeters = line_out_depth,
          maximumDepthInMeters = line_out_depth, lat, long,
          scientificName = valid_name, scientificNameID, valid_AphiaID, 
          taxonRank = rank, lifeStage, identificationRemark, 
@@ -80,7 +104,12 @@ format_obis <- format_obis %>%
   filter(!scientificName == "Cyanobacteria")
 ```
 
+```{r}
+#Adding date identified
+format_obis <- format_obis %>% 
+  left_join(invoice_date_comb)
 
+```
 ```{r}
 #Creating eventCore - pulling columns from flat format_obis table
 event <- format_obis %>% 
@@ -109,7 +138,7 @@ occurrence <- format_obis %>%
          scientificNameID, taxonRank, 
          identificationRemarks = identificationRemark,
          identificationQualifier, occurrenceStatus, basisOfRecord,
-         identifiedBy
+         identifiedBy, dateIdentified
          )
 ```
 
