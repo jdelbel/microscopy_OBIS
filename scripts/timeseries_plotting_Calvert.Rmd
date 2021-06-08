@@ -127,6 +127,8 @@ micro <- micro %>%
 trophic_check <- micro %>% 
   distinct(group, trophicStatus) %>% 
   arrange(trophicStatus)
+
+write_csv(micro, here("output_research", "calvert.csv"))
 ```
 
 ```{r}
