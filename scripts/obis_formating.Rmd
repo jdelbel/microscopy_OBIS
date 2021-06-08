@@ -29,10 +29,15 @@ invoice_date <- read_xlsx(here("files", "invoice_date_2016-2018.xlsx"))
 #Ensuring difference in days is always positive (i.e. beginning of period is always before invoice date)
 invoice_date <- invoice_date %>% 
   filter(Results == "Y") %>% 
-  select(hakai_id = `Hakai ID`, sent = Sent, invoice = Invoice, 
+  select(hakai_id = `Hakai ID`, Collected, sent = Sent, invoice = Invoice, 
          analysis_start = Analysis_Start, 
          invoice_date = `Invoice Date`) %>%
-  mutate(date_diff = difftime(invoice_date, analysis_start, units = "days"))
+  mutate(date_diff = difftime(invoice_date, analysis_start, units = "days"),
+         sampled_analyzed = difftime(invoice_date, Collected, units = "days"))
+
+invoice_date_distinct <- invoice_date %>% 
+  distinct(date_diff, .keep_all = TRUE) %>% 
+  mutate(years = sampled_analyzed/365)
   
 #Combining the two columns to create a date range that conforms to ISO 8601-1:2019
 invoice_date_comb <- invoice_date %>% 
