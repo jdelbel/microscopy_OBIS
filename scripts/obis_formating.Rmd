@@ -43,8 +43,32 @@ invoice_date_distinct <- invoice_date %>%
 invoice_date_comb <- invoice_date %>% 
   unite(dateIdentified, analysis_start, invoice_date, sep = "/") %>% 
   select(hakai_id, dateIdentified)
-
 ```
+
+```{r}
+#Fixing small errors in identificationRemarks that are time consuming to fix earlier
+format_flat <- format_flat %>% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            "non-motile", 
+                                            "Non-motile"))
+```
+
+
+```{r}
+#Adding informtation to identification remarks as to why there is a time period for dateIdentified
+format_flat <- format_flat %>% 
+  mutate(idrem2 = case_when(identificationRemark == "Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta" ~ ". Range of dates provided in dateIdentified represent period within which sample was analyzed and identification made. Exact analysis date unknown",
+                            identificationRemark == "Cells too small to identify. Showed equatorial groove and could be Dinophyceae" ~ ". Range of dates provided in dateIdentified represent period within which sample was analyzed and identification made. Exact analysis date unknown",
+                            identificationRemark == "non-motile" ~ ". Range of dates provided in dateIdentified represent period within which sample was analyzed and identification made. Exact analysis date unknown",
+                            identificationRemark == "Unable to distinguish between Chaetoceros cinctus and radicans" ~ ". Range of dates provided in dateIdentified represent period within which sample was analyzed and identification made. Exact analysis date unknown",
+                            is.na(identificationRemark) ~ "Range of dates provided in dateIdentified represent period within which sample was analyzed and identification made. Exact analysis date unknown"))
+
+format_flat <- format_flat %>% 
+  unite("identificationRemark", identificationRemark, idrem2, 
+        remove = FALSE, sep = "", na.rm = TRUE)
+```
+
+
 
 ```{r}
 #In this chunk I work to get the data into the OBIS-DWC format and split it into the eventCore, occurrence and extended measurement of fact (EMoF) extensions. 
@@ -228,10 +252,10 @@ emof_lifeStage <- emof_lifeStage %>%
 
 ```{r}
 #Make sure to alter file names so they are reflective of the dataset being used - change date range as this updates
-write_csv(format_obis, here("output_obis_format", "OBIS_flat_qu39_2016-2018_v2021-06-01.csv"))
+write_csv(format_obis, here("output_obis_format", "OBIS_flat_qu39_2016-2018_v2021-06-14.csv"))
 write_csv(event, here("output_obis_format", "event_qu39_2016-2018_v2021-06-01.csv"))
-write_csv(occurrence, here("output_obis_format", "occurrence_qu39_2016-2018_v2021-06-01.csv"))
-write_csv(emof_lifeStage, here("output_obis_format", "emof_qu39_2016-2018_v2021-06-01.csv"))
+write_csv(occurrence, here("output_obis_format", "occurrence_qu39_2016-2018_v2021-06-14.csv"))
+write_csv(emof_lifeStage, here("output_obis_format", "emof_qu39_2016-2018_v2021-06-14.csv"))
 
 ```
 
