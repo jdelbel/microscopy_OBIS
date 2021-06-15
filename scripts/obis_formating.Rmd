@@ -153,10 +153,7 @@ event <- format_obis %>%
   
 #Addint sampling protocol to EventCore
 event <- event %>% 
-  mutate(samplingProtocol = "Edler, L., and Elbrächter, M. (2010). The utermöhl method for quantitative
-phytoplankton analysis, in Microscopic and Molecular Methods for Quantitative
-Phytoplankton Analysis, eds B. Karlson, C. Cusack, and E. Bresnan (Paris:
-UNESCO), 13–20., https://repository.oceanbestpractices.org/bitstream/handle/11329/303/WKNCT_Handbook_ver5May2010_2.pdf?sequence=1#page=17")
+  mutate(samplingProtocol = "Edler, L., and Elbrächter, M. (2010). The utermöhl method for quantitative phytoplankton analysis, in Microscopic and Molecular Methods for Quantitative Phytoplankton Analysis, eds B. Karlson, C. Cusack, and E. Bresnan (Paris:UNESCO), 13–20., https://repository.oceanbestpractices.org/bitstream/handle/11329/303/WKNCT_Handbook_ver5May2010_2.pdf?sequence=1#page=17")
 ```
 
 
