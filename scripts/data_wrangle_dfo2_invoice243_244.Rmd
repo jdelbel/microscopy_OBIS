@@ -104,7 +104,7 @@ notes <- setNames(data.frame(t(notes[ , -1])), notes [ , 1])
 
 notes <- notes %>%
   rownames_to_column("id") %>%
-  unite("analyst_note", Notes_1:Notes_6, sep = " ", na.rm = TRUE)
+  unite("analyst_note", Notes_1:Notes_5, sep = " ", na.rm = TRUE)
 
 #no notes
 
@@ -116,7 +116,7 @@ notes <- notes %>%
 
 micro <- micro %>% 
   filter(!group == "Notes") %>%
-  filter_at(vars(CPHY403:CPHY470), any_vars(!is.na(.)))
+  filter_at(vars(CPHY522:CPHY539), any_vars(!is.na(.)))
 
 #Unite the random qualifiers (eg. sp., non motile) that are placed in the X and X.1 columns. Again, these columns need to be checked with each new upload to be reflective of data.
 
@@ -320,18 +320,18 @@ size_list <- micro %>%
 #Summing columns with size designation - needs to be updated to size list above - not adaptable (i.e. will fail if not reflective of datasheet), which is why certain things are commetented out
 micro_tp <- micro_tp %>% 
   rowwise() %>% 
-  mutate(#Biddulphiales = sum(`Unidentified centric forms`,
-                             #`Unidentified very small centric forms`, na.rm = TRUE),
+  mutate(Biddulphiales = sum(`Unidentified centric forms`,
+                             `Unidentified very small centric forms`, na.rm = TRUE),
          Pennales = sum(`Unidentified pennate forms`,
                         `Unidentified very small pennate forms`, na.rm = TRUE),
          `Skeletonema marinoi` = sum(`S. marinoi (small cells)`,
                                     `S. marinoi (large cells)`, na.rm = TRUE),
-         `Chaetoceros tenuissimus` = sum(`Chaetoceros tenuissimus (large)`,
-                                         `Chaetoceros tenuissimus (small)`,
-                                         na.rm = TRUE),
-         `Chaetoceros spp_sum.` = sum(`Chaetoceros spp.`,
-                                      `Chaetoeros spp. very small`, na.rm = TRUE ),
-         Oligotrichea = sum(`Elongate form`,
+         # `Chaetoceros tenuissimus` = sum(`Chaetoceros tenuissimus (large)`,
+         #                                 `Chaetoceros tenuissimus (small)`,
+         #                                 na.rm = TRUE),
+         # `Chaetoceros spp_sum.` = sum(`Chaetoceros spp.`,
+         #                              `Chaetoeros spp. very small`, na.rm = TRUE ),
+         Oligotrichea = sum(#`Elongate form`,
                             `Oligotricious forms (large)`,
                             `Oligotricious forms (medium)`, 
                             `Oligotricious forms (small)`, na.rm = TRUE))
@@ -344,58 +344,57 @@ micro_tp <- micro_tp %>%
 
 #Checking that the sums worked. Needs to be updated to reflect sums done above.
 sum_check <- micro_tp %>% 
-  select(#Biddulphiales, 
-         #`Unidentified centric forms`,
-         #`Unidentified very small centric forms`,
+  select(Biddulphiales, 
+         `Unidentified centric forms`,
+         `Unidentified very small centric forms`,
          Pennales,
          `Unidentified pennate forms`,
          `Unidentified very small pennate forms`,
          `Skeletonema marinoi`, 
          `S. marinoi (small cells)`,
          `S. marinoi (large cells)`, 
-         `Chaetoceros tenuissimus`,
-         `Chaetoceros tenuissimus (large)`,
-         `Chaetoceros tenuissimus (small)`,
-         `Chaetoceros spp_sum.`,
-         `Chaetoceros spp.`,
-         `Chaetoeros spp. very small`,
+         # `Chaetoceros tenuissimus`,
+         # `Chaetoceros tenuissimus (large)`,
+         # `Chaetoceros tenuissimus (small)`,
+         # `Chaetoceros spp_sum.`,
+         # `Chaetoceros spp.`,
+         # `Chaetoeros spp. very small`,
          Oligotrichea, 
-         `Elongate form`,
+         # `Elongate form`,
          `Oligotricious forms (large)`,
          `Oligotricious forms (medium)`, 
          `Oligotricious forms (small)`)
 
 #Removing size separated columns that were summed into a single column. Needs to be updated to reflect sums done above.
 micro_tp <- micro_tp %>% 
-  select(#-`Unidentified centric forms`,
-         #-`Unidentified very small centric forms`,
+  select(-`Unidentified centric forms`,
+         -`Unidentified very small centric forms`,
          -`Unidentified pennate forms`,
          -`Unidentified very small pennate forms`,
          -`S. marinoi (small cells)`, 
          -`S. marinoi (large cells)`,
-         -`Chaetoceros tenuissimus (large)`,
-         -`Chaetoceros tenuissimus (small)`,
-         -`Chaetoceros spp.`,
-         -`Chaetoeros spp. very small`,
-         -`Elongate form`,
+         # -`Chaetoceros tenuissimus (large)`,
+         # -`Chaetoceros tenuissimus (small)`,
+         # -`Chaetoceros spp.`,
+         # -`Chaetoeros spp. very small`,
+         # -`Elongate form`,
          -`Oligotricious forms (large)`,
          -`Oligotricious forms (medium)`, 
          -`Oligotricious forms (small)`)
 
 #Changing zeros from sum math back to NA's
 micro_tp  <- micro_tp  %>% 
-  mutate(#Biddulphiales = na_if(Biddulphiales, 0),
+  mutate(Biddulphiales = na_if(Biddulphiales, 0),
          Pennales = na_if(Pennales, 0),
          `Skeletonema marinoi` = na_if(`Skeletonema marinoi`, 0),
-         `Chaetoceros tenuissimus` = na_if(`Chaetoceros tenuissimus`, 0),
-         `Chaetoceros spp_sum.` = na_if(`Chaetoceros spp_sum.`, 0),
+         # `Chaetoceros tenuissimus` = na_if(`Chaetoceros tenuissimus`, 0),
+         # `Chaetoceros spp_sum.` = na_if(`Chaetoceros spp_sum.`, 0),
          Oligotrichea = na_if(Oligotrichea, 0))
 
 #Rename Cheatoceros spp_sum to Cheatoceros spp. Need to check how I did this in my original worksheet for this dataset. It was addressed.
 
 micro_tp <- micro_tp %>%
-  rename(`Chaetoceros spp.` = `Chaetoceros spp_sum.`,
-         Cyanobacteria = `Cyanobacteria (~large cells)`)
+  rename(`Chaetoceros tenuissimus` = `Chaetoceros tenuissimus (small)`)
 ```
 
 ```{r}
@@ -412,7 +411,7 @@ micro_tp <- micro_tp %>%
 micro_tp <- micro_tp %>% 
   select(date, collected, hakai_id, line_out_depth, work_area, site_id,
          lat, long, volume, lugols, collected,
-         `Asterionellopsis glacialis`:Oligotrichea)
+         `Attheya spp.`:Oligotrichea)
 
 #Find rows where there was no metadata match - Check to ensure out is 0, which means all of the data was merged.
 meta_missing <- micro_tp %>%
@@ -424,7 +423,7 @@ meta_missing <- micro_tp %>%
 
 #Making data Tidy 
 micro_tidy <- micro_tp %>% 
-  pivot_longer(c(`Asterionellopsis glacialis`: Oligotrichea),
+  pivot_longer(c(`Attheya spp.`: Oligotrichea),
                names_to = "species", values_to = "counts")
 
 #Drop NAs - species not observed.
@@ -465,7 +464,7 @@ micro_distinct <- micro_tidy %>%
 
 ```{r}
 #Write output to open in matching workbook
-write_csv(micro_tidy, here("cleaned_csv", "dfo2_4.csv"))
+write_csv(micro_tidy, here("cleaned_csv", "dfo2_invoice243-244.csv"))
 ```
 
 
