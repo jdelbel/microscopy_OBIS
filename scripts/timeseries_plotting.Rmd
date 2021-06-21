@@ -15,7 +15,7 @@ library(readr)
 
 ```{r}
 #Upload output from OBIS taxonomy matching/formatting
-micro <- read_csv(here("output_worms_matching", "qu39_2016_2020.csv"))
+micro <- read_csv(here("output_worms_matching", "qu39_2016_2020-Invoice244.csv"))
 
 micro$date <- as.Date(micro$date, "%Y-%m-%d")
 
@@ -328,7 +328,7 @@ p5 <- micro_sum %>%
 
 fig_ts <- p1/p2/p3/p4/p5
 
-ggsave(here("figures", "qu39_ts_column.png"), fig_ts, width=16, height=15, dpi=300)
+ggsave(here("figures", "qu39_ts_column_invoice244.png"), fig_ts, width=16, height=15, dpi=300)
 ```
 
 
@@ -461,7 +461,7 @@ p5 <- micro %>%
 
 fig_diat <- p1/p2/p3/p4/p5
 
-ggsave(here("figures", "qu39_ts_diatom.png"), fig_diat, width=16, height=15, dpi=300)
+ggsave(here("figures", "qu39_ts_diatom_invoice244.png"), fig_diat, width=16, height=15, dpi=300)
 ```
 ```{r}
 micro_diat <- micro %>% 
@@ -494,7 +494,7 @@ micro_diat %>%
   theme(text = element_text(size = 25)) 
 
 
-ggsave(here("figures", "qu39_ts_diatom_julian.png"), width=16, height=15, dpi=300)
+ggsave(here("figures", "qu39_ts_diatom_julian_invoice244.png"), width=16, height=15, dpi=300)
 
 
 
