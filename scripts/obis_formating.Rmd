@@ -187,7 +187,7 @@ occurrence <- format_obis %>%
 
 #Creating EMoF with lifestage included in long (tidy) format.
 emof_lifeStage <- format_obis %>% 
-  select(occurrenceID, measurementValue, lifeStage) %>% 
+  select(eventID, occurrenceID, measurementValue, lifeStage) %>% 
   mutate(measurementValue = as.character(measurementValue)) %>% 
   pivot_longer(c(measurementValue:lifeStage),
                names_to = "measurementType", values_to = "measurementValue")
@@ -227,7 +227,7 @@ emof_lifeStage <- emof_lifeStage %>%
                        "http://vocab.nerc.ac.uk/collection/S11/current/S1134/",
                      measurementValue == "spores" ~
                        "http://vocab.nerc.ac.uk/collection/S11/current/S1135/")) %>% 
-  select(occurrenceID, measurementID, measurementType, measurementTypeID,
+  select(eventID, occurrenceID, measurementID, measurementType, measurementTypeID,
          measurementValue, measurementValueID)
 
 #Setting measurement method as new PO1 term does not include "by optical microscopy"
@@ -257,7 +257,7 @@ emof_lifeStage <- emof_lifeStage %>%
 write_csv(format_obis, here("output_obis_format", "OBIS_flat_qu39_2016-2018_v2021-06-14.csv"))
 write_csv(event, here("output_obis_format", "event_qu39_2016-2018_v2021-06-14.csv"))
 write_csv(occurrence, here("output_obis_format", "occurrence_qu39_2016-2018_v2021-06-14.csv"))
-write_csv(emof_lifeStage, here("output_obis_format", "emof_qu39_2016-2018_v2021-06-14.csv"))
+write_csv(emof_lifeStage, here("output_obis_format", "emof_qu39_2016-2018_v2021-06-21.csv"))
 
 ```
 
