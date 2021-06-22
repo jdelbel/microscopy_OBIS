@@ -3029,3 +3029,721 @@ date,site_id,trophicStatus,group,scientificName,AphiaID,scientificName_accepted,
 2020-09-05,DFO2,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,7978
 2020-09-05,DFO2,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,179968
 2020-09-05,DFO2,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,1320
+2020-04-30,KC10,auto,Bacillariophyta,Cerataulina bicornis,465382,Syringidium bicorne,Species,Chromista,Ochrophyta,Bacillariophyceae,Hemiaulales,Hemiaulaceae,Cerataulina,NA,NA,NA,144
+2020-04-30,KC10,auto,Bacillariophyta,Chaetoceros ceratosporus,149297,Chaetoceros ceratosporus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,720
+2020-04-30,KC10,auto,Bacillariophyta,Chaetoceros cinctus,149622,Chaetoceros cinctus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,121952
+2020-04-30,KC10,auto,Bacillariophyta,Chaetoceros,148985,Chaetoceros,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,resting spores,spp. Indet.,Unable to distinguish between Chaetoceros cinctus and radicans,432
+2020-04-30,KC10,auto,Bacillariophyta,Chaetoceros debilis,149219,Chaetoceros debilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,29400
+2020-04-30,KC10,auto,Bacillariophyta,Chaetoceros laciniosus,149228,Chaetoceros laciniosus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,4464
+2020-04-30,KC10,auto,Bacillariophyta,Chaetoceros radicans,163112,Chaetoceros radicans,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,28800
+2020-04-30,KC10,auto,Bacillariophyta,Chaetoceros seiracanthus,163118,Chaetoceros seiracanthus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,3168
+2020-04-30,KC10,auto,Bacillariophyta,Chaetoceros socialis,149123,Chaetoceros socialis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,79920
+2020-04-30,KC10,auto,Bacillariophyta,Chaetoceros,148985,Chaetoceros,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,spp. Indet.,NA,16416
+2020-04-30,KC10,auto,Bacillariophyta,Chaetoceros,148985,Chaetoceros,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,resting spores,spp. Indet.,NA,720
+2020-04-30,KC10,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,3600
+2020-04-30,KC10,auto,Bacillariophyta,Dactyliosolen fragilissimus,149310,Rhizosolenia fragilissima f. fragilissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,144
+2020-04-30,KC10,auto,Bacillariophyta,Dactyliosolen phuketensis,248064,Rhizosolenia phuketensis,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,864
+2020-04-30,KC10,auto,Bacillariophyta,Detonula pumila,149647,Lauderia pumila,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Detonula,NA,NA,NA,144
+2020-04-30,KC10,auto,Bacillariophyta,Guinardia delicatula,149112,Rhizosolenia delicatula,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Guinardia,NA,NA,NA,2016
+2020-04-30,KC10,auto,Bacillariophyta,Pseudo-nitzschia delicatissima,149153,Pseudo-nitzschia delicatissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,5904
+2020-04-30,KC10,auto,Bacillariophyta,Pseudo-nitzschia multiseries,175738,Pseudo-nitzschia multiseries,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,7344
+2020-04-30,KC10,auto,Bacillariophyta,Pseudo-nitzschia seriata,149152,Pseudo-nitzschia seriata,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,2304
+2020-04-30,KC10,auto,Bacillariophyta,Stephanopyxis turris,149631,Stephanopyxis turris,Species,Chromista,Ochrophyta,Bacillariophyceae,Melosirales,Stephanopyxidaceae,Stephanopyxis,NA,NA,NA,432
+2020-04-30,KC10,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,1872
+2020-04-30,KC10,auto,Bacillariophyta,Thalassiosira nordenskioeldii,148931,Thalassiosira nordenskioeldii,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,59200
+2020-04-30,KC10,auto,Bacillariophyta,Thalassiosira pacifica,148932,Thalassiosira pacifica,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,32033
+2020-04-30,KC10,auto,Bacillariophyta,Thalassiosira rotula,148942,Thalassiosira rotula,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,24600
+2020-04-30,KC10,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,20800
+2020-04-30,KC10,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,Auxospores,sp. Indet.,NA,144
+2020-04-30,KC10,auto,Chlorophyta-Prasinophyta,Pterosperma,160595,Pterosperma,Genus,Plantae,Chlorophyta,Prasinophyceae,Halosphaerales,Pterospermataceae,Pterosperma,NA,spp. Indet.,NA,5834
+2020-04-30,KC10,auto,Chlorophyta-Prasinophyta,Pyramimonas grossii,495352,Pyramimonas subg. Trichocystis grossii,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,5834
+2020-04-30,KC10,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,5834
+2020-04-30,KC10,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,55423
+2020-04-30,KC10,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,55423
+2020-04-30,KC10,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,144
+2020-04-30,KC10,hetero,Ciliophora,Tintinnina,732976,Tintinnina,Suborder,Chromista,Ciliophora,Oligotrichea,Choreotrichida,NA,NA,NA,Indet.,NA,432
+2020-04-30,KC10,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,17502
+2020-04-30,KC10,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,32087
+2020-04-30,KC10,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,144
+2020-04-30,KC10,auto,Dictyochophyta,Meringosphaera mediterranea,248129,Meringosphaera mediterranea,Species,Chromista,Ochrophyta,Xanthophyceae,Mischococcales,Pleurochloridaceae,Meringosphaera,NA,NA,NA,2917
+2020-04-30,KC10,auto,Dinoflagellata,Ceratium lineatum,109963,Tripos lineatus,Species,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Ceratiaceae,Ceratium,NA,NA,NA,144
+2020-04-30,KC10,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,288
+2020-04-30,KC10,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,144
+2020-04-30,KC10,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,8751
+2020-04-30,KC10,auto,Dinoflagellata,Protoperidinium steinii,110257,Protoperidinium steinii,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Protoperidiniaceae,Protoperidinium,NA,NA,NA,432
+2020-04-30,KC10,auto,Dinoflagellata,Pyrocystis lunula,164053,Pyrocystis lunula,Species,Chromista,Myzozoa,Dinophyceae,Pyrocystales,Pyrocystaceae,Pyrocystis,NA,NA,NA,144
+2020-04-30,KC10,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,resting spores,Indet.,NA,476
+2020-04-30,KC10,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,720
+2020-04-30,KC10,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,14585
+2020-04-30,KC10,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,288
+2020-04-30,KC10,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,144
+2020-04-30,KC10,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,131265
+2020-04-30,KC10,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,20419
+2020-04-30,KC10,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,7130
+2020-04-30,KC10,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,496000
+2020-04-30,KC10,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,43750
+2020-04-30,KC10,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,720
+2020-05-01,QCS01,auto,Bacillariophyta,Attheya,160519,Attheya,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Attheyaceae,Attheya,NA,spp. Indet.,NA,3889
+2020-05-01,QCS01,auto,Bacillariophyta,Cerataulina bicornis,465382,Syringidium bicorne,Species,Chromista,Ochrophyta,Bacillariophyceae,Hemiaulales,Hemiaulaceae,Cerataulina,NA,NA,NA,288
+2020-05-01,QCS01,auto,Bacillariophyta,Cerataulina pelagica,149619,Cerataulina bergonii,Species,Chromista,Ochrophyta,Bacillariophyceae,Hemiaulales,Hemiaulaceae,Cerataulina,NA,NA,NA,144
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros ceratosporus,149297,Chaetoceros ceratosporus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,720
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros cinctus,149622,Chaetoceros cinctus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,33899
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros debilis,149219,Chaetoceros debilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,8352
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros decipiens,149126,Chaetoceros decipiens,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1440
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros diadema,149128,Syndendrium diadema,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,576
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros diadema,149128,Syndendrium diadema,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,resting spores,NA,NA,576
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros didymus,149122,Chaetoceros didymus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1008
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros laciniosus,149228,Chaetoceros laciniosus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,4752
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros radicans,163112,Chaetoceros radicans,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,42918
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros seiracanthus,163118,Chaetoceros seiracanthus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,4320
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros similis,149127,Chaetoceros similis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1728
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros socialis,149123,Chaetoceros socialis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,34128
+2020-05-01,QCS01,auto,Bacillariophyta,Coscinodiscus,148917,Coscinodiscus,Genus,Chromista,Ochrophyta,Bacillariophyceae,Coscinodiscales,Coscinodiscaceae,Coscinodiscus,NA,spp. Indet.,NA,144
+2020-05-01,QCS01,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,2160
+2020-05-01,QCS01,auto,Bacillariophyta,Dactyliosolen fragilissimus,149310,Rhizosolenia fragilissima f. fragilissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,1296
+2020-05-01,QCS01,auto,Bacillariophyta,Dactyliosolen phuketensis,248064,Rhizosolenia phuketensis,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,432
+2020-05-01,QCS01,auto,Bacillariophyta,Ditylum brightwellii,149023,Ditylum brightwellii,Species,Chromista,Ochrophyta,Bacillariophyceae,Lithodesmiales,Lithodesmiaceae,Ditylum,NA,NA,NA,576
+2020-05-01,QCS01,auto,Bacillariophyta,Navicula,149142,Navicula,Genus,Chromista,Ochrophyta,Bacillariophyceae,Naviculales,Naviculaceae,Navicula,NA,sp. Indet.,NA,144
+2020-05-01,QCS01,auto,Bacillariophyta,Pleurosigma,149181,Pleurosigma,Genus,Chromista,Ochrophyta,Bacillariophyceae,Naviculales,Pleurosigmataceae,Pleurosigma,NA,spp. Indet.,NA,144
+2020-05-01,QCS01,auto,Bacillariophyta,Pseudo-nitzschia delicatissima,149153,Pseudo-nitzschia delicatissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,2016
+2020-05-01,QCS01,auto,Bacillariophyta,Pseudo-nitzschia multiseries,175738,Pseudo-nitzschia multiseries,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,7632
+2020-05-01,QCS01,auto,Bacillariophyta,Pseudo-nitzschia seriata,149152,Pseudo-nitzschia seriata,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,2016
+2020-05-01,QCS01,auto,Bacillariophyta,Rhizosolenia setigera,149115,Rhizosolenia setigera,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Rhizosolenia,NA,NA,NA,144
+2020-05-01,QCS01,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,2736
+2020-05-01,QCS01,auto,Bacillariophyta,Thalassiosira nordenskioeldii,148931,Thalassiosira nordenskioeldii,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,91760
+2020-05-01,QCS01,auto,Bacillariophyta,Thalassiosira pacifica,148932,Thalassiosira pacifica,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,100000
+2020-05-01,QCS01,auto,Bacillariophyta,Thalassiosira rotula,148942,Thalassiosira rotula,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,26400
+2020-05-01,QCS01,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,69856
+2020-05-01,QCS01,auto,Chlorophyta-Prasinophyta,Pterosperma,160595,Pterosperma,Genus,Plantae,Chlorophyta,Prasinophyceae,Halosphaerales,Pterospermataceae,Pterosperma,NA,spp. Indet.,NA,15556
+2020-05-01,QCS01,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,23334
+2020-05-01,QCS01,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,151671
+2020-05-01,QCS01,hetero,Choanoflagellata,Monosiga marina,105643,Monosiga marina,Species,Protozoa,Choanozoa,Choanoflagellatea,Craspedida,Codonosigaceae,Monosiga,NA,NA,NA,11667
+2020-05-01,QCS01,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,97225
+2020-05-01,QCS01,auto,Chrysophyta,Apedinella spinifera,248098,Apedinella radians,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Apedinella,NA,NA,NA,3889
+2020-05-01,QCS01,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,144
+2020-05-01,QCS01,hetero,Ciliophora,Tintinnina,732976,Tintinnina,Suborder,Chromista,Ciliophora,Oligotrichea,Choreotrichida,NA,NA,NA,Indet.,NA,1008
+2020-05-01,QCS01,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,23334
+2020-05-01,QCS01,auto,Cryptophyta,Teleaulax amphioxeia,106306,Teleaulax amphioxeia,Species,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,NA,NA,3889
+2020-05-01,QCS01,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,62224
+2020-05-01,QCS01,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,144
+2020-05-01,QCS01,auto,Dictyochophyta,Dictyocha,157258,Dictyocha,Genus,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,spores,Indet.,NA,432
+2020-05-01,QCS01,auto,Dictyochophyta,Meringosphaera mediterranea,248129,Meringosphaera mediterranea,Species,Chromista,Ochrophyta,Xanthophyceae,Mischococcales,Pleurochloridaceae,Meringosphaera,NA,NA,NA,3889
+2020-05-01,QCS01,auto,Dinoflagellata,Dinophysis acuminata,109603,Dinophysis acuminata,Species,Chromista,Myzozoa,Dinophyceae,Dinophysiales,Dinophysaceae,Dinophysis,NA,NA,NA,144
+2020-05-01,QCS01,auto,Dinoflagellata,Gonyaulax,109519,Gonyaulax,Genus,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Gonyaulacaceae,Gonyaulax,NA,spp. Indet.,NA,144
+2020-05-01,QCS01,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,720
+2020-05-01,QCS01,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,720
+2020-05-01,QCS01,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,19445
+2020-05-01,QCS01,auto,Dinoflagellata,Protoperidinium conicum,110213,Protoperidinium conicum,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Protoperidiniaceae,Protoperidinium,NA,NA,NA,288
+2020-05-01,QCS01,auto,Dinoflagellata,Protoperidinium,109553,Protoperidinium,Genus,Chromista,Myzozoa,Dinophyceae,Peridiniales,Protoperidiniaceae,Protoperidinium,NA,spp. Indet.,NA,144
+2020-05-01,QCS01,auto,Dinoflagellata,Protoperidinium steinii,110257,Protoperidinium steinii,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Protoperidiniaceae,Protoperidinium,NA,NA,NA,144
+2020-05-01,QCS01,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,resting spores,Indet.,NA,144
+2020-05-01,QCS01,auto,Dinoflagellata,Scrippsiella precaria,110173,Scrippsiella precaria,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Peridiniaceae,Scrippsiella,NA,NA,NA,288
+2020-05-01,QCS01,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,1296
+2020-05-01,QCS01,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,19445
+2020-05-01,QCS01,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,144
+2020-05-01,QCS01,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,144
+2020-05-01,QCS01,hetero,Kinetoplastidea,Metromonas simplex,118059,Metromonas simplex,Species,Chromista,Cercozoa,Metromonadea,Metromonadea incertae sedis,NA,Metromonas,NA,NA,NA,11667
+2020-05-01,QCS01,auto,Prymnesiophyta-Haptophyta,Phaeocystis pouchetii,115106,Phaeocystis pouchetii,Species,Chromista,Haptophyta,Prymnesiophyceae,Phaeocystales,Phaeocystaceae,Phaeocystis,NA,NA,NA,4176
+2020-05-01,QCS01,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,334454
+2020-05-01,QCS01,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,39322
+2020-05-01,QCS01,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,1728
+2020-05-01,QCS01,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,244928
+2020-05-01,QCS01,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,7922
+2020-05-01,QCS01,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,1296
+2020-05-04,DFO2,auto,Bacillariophyta,Attheya,160519,Attheya,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Attheyaceae,Attheya,NA,spp. Indet.,NA,11667
+2020-05-04,DFO2,auto,Bacillariophyta,Cerataulina bicornis,465382,Syringidium bicorne,Species,Chromista,Ochrophyta,Bacillariophyceae,Hemiaulales,Hemiaulaceae,Cerataulina,NA,NA,NA,89
+2020-05-04,DFO2,auto,Bacillariophyta,Chaetoceros cinctus,149622,Chaetoceros cinctus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,979
+2020-05-04,DFO2,auto,Bacillariophyta,Chaetoceros debilis,149219,Chaetoceros debilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1157
+2020-05-04,DFO2,auto,Bacillariophyta,Chaetoceros radicans,163112,Chaetoceros radicans,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1335
+2020-05-04,DFO2,auto,Bacillariophyta,Chaetoceros simplex,149294,Chaetoceros simplex,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,178
+2020-05-04,DFO2,auto,Bacillariophyta,Chaetoceros socialis,149123,Chaetoceros socialis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1157
+2020-05-04,DFO2,auto,Bacillariophyta,Chaetoceros,148985,Chaetoceros,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,spp. Indet.,NA,356
+2020-05-04,DFO2,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,8751
+2020-05-04,DFO2,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,890
+2020-05-04,DFO2,auto,Bacillariophyta,Dactyliosolen fragilissimus,149310,Rhizosolenia fragilissima f. fragilissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,356
+2020-05-04,DFO2,auto,Bacillariophyta,Pseudo-nitzschia delicatissima,149153,Pseudo-nitzschia delicatissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,356
+2020-05-04,DFO2,auto,Bacillariophyta,Pseudo-nitzschia multiseries,175738,Pseudo-nitzschia multiseries,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,979
+2020-05-04,DFO2,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,890
+2020-05-04,DFO2,auto,Bacillariophyta,Thalassiosira nordenskioeldii,148931,Thalassiosira nordenskioeldii,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,8188
+2020-05-04,DFO2,auto,Bacillariophyta,Thalassiosira pacifica,148932,Thalassiosira pacifica,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,11211
+2020-05-04,DFO2,auto,Bacillariophyta,Thalassiosira rotula,148942,Thalassiosira rotula,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,534
+2020-05-04,DFO2,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,24400
+2020-05-04,DFO2,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,70008
+2020-05-04,DFO2,hetero,Choanoflagellata,Parvicorbicula socialis,105588,Parvicorbicula socialis,Species,Protozoa,Choanozoa,Choanoflagellatea,Acanthoecida,Acanthoecidae,Parvicorbicula,NA,NA,NA,2917
+2020-05-04,DFO2,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,26253
+2020-05-04,DFO2,auto,Chrysophyta,Apedinella spinifera,248098,Apedinella radians,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Apedinella,NA,NA,NA,2917
+2020-05-04,DFO2,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,267
+2020-05-04,DFO2,hetero,Ciliophora,Tintinnina,732976,Tintinnina,Suborder,Chromista,Ciliophora,Oligotrichea,Choreotrichida,NA,NA,NA,Indet.,NA,89
+2020-05-04,DFO2,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,40838
+2020-05-04,DFO2,auto,Cryptophyta,Teleaulax acuta,106305,Teleaulax acuta,Species,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,NA,NA,17502
+2020-05-04,DFO2,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,58340
+2020-05-04,DFO2,auto,Dinoflagellata,Corythodinium,109527,Corythodinium,Genus,Chromista,Myzozoa,Dinophyceae,Peridiniales,Oxytoxaceae,Corythodinium,NA,spp. Indet.,NA,11322
+2020-05-04,DFO2,auto,Dinoflagellata,Gonyaulax,109519,Gonyaulax,Genus,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Gonyaulacaceae,Gonyaulax,NA,spp. Indet.,NA,178
+2020-05-04,DFO2,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,445
+2020-05-04,DFO2,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,178
+2020-05-04,DFO2,auto,Dinoflagellata,Katodinium glaucum,109885,Lebouridinium glaucum,Species,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,NA,NA,89
+2020-05-04,DFO2,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,178
+2020-05-04,DFO2,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,resting spores,Indet.,NA,89
+2020-05-04,DFO2,auto,Dinoflagellata,Scrippsiella precaria,110173,Scrippsiella precaria,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Peridiniaceae,Scrippsiella,NA,NA,NA,267
+2020-05-04,DFO2,auto,Dinoflagellata,Scrippsiella trochoidea,110172,Scrippsiella acuminata,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Peridiniaceae,Scrippsiella,NA,NA,NA,2136
+2020-05-04,DFO2,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,3026
+2020-05-04,DFO2,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,2917
+2020-05-04,DFO2,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,178
+2020-05-04,DFO2,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,178
+2020-05-04,DFO2,hetero,Kinetoplastidea,Metromonas simplex,118059,Metromonas simplex,Species,Chromista,Cercozoa,Metromonadea,Metromonadea incertae sedis,NA,Metromonas,NA,NA,NA,2917
+2020-05-04,DFO2,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,271281
+2020-05-04,DFO2,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,3006
+2020-05-04,DFO2,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,4074
+2020-05-04,DFO2,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,244052
+2020-05-04,DFO2,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,1691
+2020-06-04,KC10,auto,Bacillariophyta,Chaetoceros cinctus,149622,Chaetoceros cinctus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1200
+2020-06-04,KC10,auto,Bacillariophyta,Chaetoceros debilis,149219,Chaetoceros debilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,2000
+2020-06-04,KC10,auto,Bacillariophyta,Chaetoceros decipiens,149126,Chaetoceros decipiens,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,200
+2020-06-04,KC10,auto,Bacillariophyta,Chaetoceros socialis,149123,Chaetoceros socialis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1400
+2020-06-04,KC10,auto,Bacillariophyta,Chaetoceros,148985,Chaetoceros,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,spp. Indet.,NA,200
+2020-06-04,KC10,auto,Bacillariophyta,Chaetoceros subtilis,156621,Chaetoceros subtilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,600
+2020-06-04,KC10,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,2000
+2020-06-04,KC10,auto,Bacillariophyta,Dactyliosolen fragilissimus,149310,Rhizosolenia fragilissima f. fragilissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,600
+2020-06-04,KC10,auto,Bacillariophyta,Dactyliosolen phuketensis,248064,Rhizosolenia phuketensis,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,2400
+2020-06-04,KC10,auto,Bacillariophyta,Detonula pumila,149647,Lauderia pumila,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Detonula,NA,NA,NA,1000
+2020-06-04,KC10,auto,Bacillariophyta,Guinardia delicatula,149112,Rhizosolenia delicatula,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Guinardia,NA,NA,NA,800
+2020-06-04,KC10,auto,Bacillariophyta,Leptocylindrus danicus,149106,Leptocylindrus danicus,Species,Chromista,Ochrophyta,Bacillariophyceae,Leptocylindrales,Leptocylindraceae,Leptocylindrus,NA,NA,NA,3600
+2020-06-04,KC10,auto,Bacillariophyta,Pseudo-nitzschia delicatissima,149153,Pseudo-nitzschia delicatissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,5000
+2020-06-04,KC10,auto,Bacillariophyta,Pseudo-nitzschia multiseries,175738,Pseudo-nitzschia multiseries,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,2800
+2020-06-04,KC10,auto,Bacillariophyta,Pseudo-nitzschia seriata,149152,Pseudo-nitzschia seriata,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,2600
+2020-06-04,KC10,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,800
+2020-06-04,KC10,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,8000
+2020-06-04,KC10,auto,Chlorophyta-Prasinophyta,Pterosperma,160595,Pterosperma,Genus,Plantae,Chlorophyta,Prasinophyceae,Halosphaerales,Pterospermataceae,Pterosperma,NA,spp. Indet.,NA,5000
+2020-06-04,KC10,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,20000
+2020-06-04,KC10,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,110000
+2020-06-04,KC10,hetero,Choanoflagellata,Monosiga marina,105643,Monosiga marina,Species,Protozoa,Choanozoa,Choanoflagellatea,Craspedida,Codonosigaceae,Monosiga,NA,NA,NA,5000
+2020-06-04,KC10,hetero,Choanoflagellata,Parvicorbicula socialis,105588,Parvicorbicula socialis,Species,Protozoa,Choanozoa,Choanoflagellatea,Acanthoecida,Acanthoecidae,Parvicorbicula,NA,NA,NA,5000
+2020-06-04,KC10,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,55000
+2020-06-04,KC10,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,1600
+2020-06-04,KC10,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,90000
+2020-06-04,KC10,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,175000
+2020-06-04,KC10,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,1800
+2020-06-04,KC10,auto,Dinoflagellata,Ceratium lineatum,109963,Tripos lineatus,Species,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Ceratiaceae,Ceratium,NA,NA,NA,200
+2020-06-04,KC10,auto,Dinoflagellata,Ceratium furca,109950,Tripos furca,Species,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Ceratiaceae,Ceratium,NA,NA,NA,200
+2020-06-04,KC10,auto,Dinoflagellata,Dinophysis acuminata,109603,Dinophysis acuminata,Species,Chromista,Myzozoa,Dinophyceae,Dinophysiales,Dinophysaceae,Dinophysis,NA,NA,NA,200
+2020-06-04,KC10,auto,Dinoflagellata,Gonyaulax,109519,Gonyaulax,Genus,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Gonyaulacaceae,Gonyaulax,NA,spp. Indet.,NA,1200
+2020-06-04,KC10,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,2400
+2020-06-04,KC10,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,3000
+2020-06-04,KC10,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,20000
+2020-06-04,KC10,auto,Dinoflagellata,Protoperidinium,109553,Protoperidinium,Genus,Chromista,Myzozoa,Dinophyceae,Peridiniales,Protoperidiniaceae,Protoperidinium,NA,spp. Indet.,NA,800
+2020-06-04,KC10,auto,Dinoflagellata,Protoperidinium steinii,110257,Protoperidinium steinii,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Protoperidiniaceae,Protoperidinium,NA,NA,NA,200
+2020-06-04,KC10,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,resting spores,Indet.,NA,200
+2020-06-04,KC10,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,3800
+2020-06-04,KC10,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,5000
+2020-06-04,KC10,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,11600
+2020-06-04,KC10,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,800
+2020-06-04,KC10,NA,Protozoa,Foraminifera,1410,Foraminifera,Phylum,Chromista,Foraminifera,NA,NA,NA,NA,NA,Indet.,NA,800
+2020-06-04,KC10,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,320000
+2020-06-04,KC10,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,25000
+2020-06-04,KC10,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,16000
+2020-06-04,KC10,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,780000
+2020-06-04,KC10,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,5000
+2020-06-04,KC10,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,9200
+2020-06-06,DFO2,auto,Bacillariophyta,Attheya,160519,Attheya,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Attheyaceae,Attheya,NA,spp. Indet.,NA,89
+2020-06-06,DFO2,auto,Bacillariophyta,Chaetoceros ceratosporus,149297,Chaetoceros ceratosporus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,445
+2020-06-06,DFO2,auto,Bacillariophyta,Chaetoceros cinctus,149622,Chaetoceros cinctus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,10858
+2020-06-06,DFO2,auto,Bacillariophyta,Chaetoceros danicus,149120,Chaetoceros danicus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,356
+2020-06-06,DFO2,auto,Bacillariophyta,Chaetoceros debilis,149219,Chaetoceros debilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,979
+2020-06-06,DFO2,auto,Bacillariophyta,Chaetoceros radicans,163112,Chaetoceros radicans,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,175
+2020-06-06,DFO2,auto,Bacillariophyta,Chaetoceros simplex,149294,Chaetoceros simplex,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,89
+2020-06-06,DFO2,auto,Bacillariophyta,Chaetoceros socialis,149123,Chaetoceros socialis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1780
+2020-06-06,DFO2,auto,Bacillariophyta,Chaetoceros,148985,Chaetoceros,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,spp. Indet.,NA,623
+2020-06-06,DFO2,auto,Bacillariophyta,Chaetoceros subtilis,156621,Chaetoceros subtilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,356
+2020-06-06,DFO2,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,42778
+2020-06-06,DFO2,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,3382
+2020-06-06,DFO2,auto,Bacillariophyta,Dactyliosolen fragilissimus,149310,Rhizosolenia fragilissima f. fragilissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,1424
+2020-06-06,DFO2,auto,Bacillariophyta,Dactyliosolen phuketensis,248064,Rhizosolenia phuketensis,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,356
+2020-06-06,DFO2,auto,Bacillariophyta,Detonula pumila,149647,Lauderia pumila,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Detonula,NA,NA,NA,178
+2020-06-06,DFO2,auto,Bacillariophyta,Pseudo-nitzschia delicatissima,149153,Pseudo-nitzschia delicatissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,1157
+2020-06-06,DFO2,auto,Bacillariophyta,Pseudo-nitzschia multiseries,175738,Pseudo-nitzschia multiseries,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,6408
+2020-06-06,DFO2,auto,Bacillariophyta,Pseudo-nitzschia seriata,149152,Pseudo-nitzschia seriata,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,534
+2020-06-06,DFO2,auto,Bacillariophyta,Rhizosolenia setigera,149115,Rhizosolenia setigera,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Rhizosolenia,NA,NA,NA,89
+2020-06-06,DFO2,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,267
+2020-06-06,DFO2,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,1335
+2020-06-06,DFO2,auto,Chlorophyta-Prasinophyta,Pyramimonas grossii,495352,Pyramimonas subg. Trichocystis grossii,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,11667
+2020-06-06,DFO2,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,23334
+2020-06-06,DFO2,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,108892
+2020-06-06,DFO2,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,3889
+2020-06-06,DFO2,auto,Chrysophyta,Apedinella spinifera,248098,Apedinella radians,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Apedinella,NA,NA,NA,7778
+2020-06-06,DFO2,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,356
+2020-06-06,DFO2,hetero,Ciliophora,Tintinnina,732976,Tintinnina,Suborder,Chromista,Ciliophora,Oligotrichea,Choreotrichida,NA,NA,NA,Indet.,NA,356
+2020-06-06,DFO2,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,93336
+2020-06-06,DFO2,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,77780
+2020-06-06,DFO2,auto,Dictyochophyta,Ciliophrys infusionum,375958,Ciliophrys infusionum,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Ciliophrys,NA,NA,NA,178
+2020-06-06,DFO2,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,178
+2020-06-06,DFO2,auto,Dictyochophyta,Dictyocha,157258,Dictyocha,Genus,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,spores,Indet.,NA,267
+2020-06-06,DFO2,auto,Dinoflagellata,Corythodinium,109527,Corythodinium,Genus,Chromista,Myzozoa,Dinophyceae,Peridiniales,Oxytoxaceae,Corythodinium,NA,spp. Indet.,NA,6586
+2020-06-06,DFO2,auto,Dinoflagellata,Dinophysis acuminata,109603,Dinophysis acuminata,Species,Chromista,Myzozoa,Dinophyceae,Dinophysiales,Dinophysaceae,Dinophysis,NA,NA,NA,89
+2020-06-06,DFO2,auto,Dinoflagellata,Dinophysis acuta,109604,Dinophysis acuta,Species,Chromista,Myzozoa,Dinophyceae,Dinophysiales,Dinophysaceae,Dinophysis,NA,NA,NA,89
+2020-06-06,DFO2,auto,Dinoflagellata,Gonyaulax,109519,Gonyaulax,Genus,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Gonyaulacaceae,Gonyaulax,NA,spp. Indet.,NA,178
+2020-06-06,DFO2,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,623
+2020-06-06,DFO2,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,356
+2020-06-06,DFO2,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,89
+2020-06-06,DFO2,auto,Dinoflagellata,Pyrocystis lunula,164053,Pyrocystis lunula,Species,Chromista,Myzozoa,Dinophyceae,Pyrocystales,Pyrocystaceae,Pyrocystis,NA,NA,NA,89
+2020-06-06,DFO2,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,1246
+2020-06-06,DFO2,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,7778
+2020-06-06,DFO2,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,1335
+2020-06-06,DFO2,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,267
+2020-06-06,DFO2,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,330565
+2020-06-06,DFO2,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,3978
+2020-06-06,DFO2,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,6737
+2020-06-06,DFO2,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,301920
+2020-06-06,DFO2,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,2759
+2020-06-08,QCS01,auto,Bacillariophyta,Attheya,160519,Attheya,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Attheyaceae,Attheya,NA,spp. Indet.,NA,3182
+2020-06-08,QCS01,auto,Bacillariophyta,Bacteriastrum delicatulum,164108,Bacteriastrum delicatulum,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Bacteriastrum,NA,NA,NA,8208
+2020-06-08,QCS01,auto,Bacillariophyta,Chaetoceros cinctus,149622,Chaetoceros cinctus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,25400
+2020-06-08,QCS01,auto,Bacillariophyta,Chaetoceros compressus,149129,Chaetoceros compressus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,3600
+2020-06-08,QCS01,auto,Bacillariophyta,Chaetoceros danicus,149120,Chaetoceros danicus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,288
+2020-06-08,QCS01,auto,Bacillariophyta,Chaetoceros debilis,149219,Chaetoceros debilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,2016
+2020-06-08,QCS01,auto,Bacillariophyta,Chaetoceros decipiens,149126,Chaetoceros decipiens,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1152
+2020-06-08,QCS01,auto,Bacillariophyta,Chaetoceros radicans,163112,Chaetoceros radicans,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,2880
+2020-06-08,QCS01,auto,Bacillariophyta,Chaetoceros seiracanthus,163118,Chaetoceros seiracanthus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,2016
+2020-06-08,QCS01,auto,Bacillariophyta,Chaetoceros socialis,149123,Chaetoceros socialis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,24480
+2020-06-08,QCS01,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,1296
+2020-06-08,QCS01,auto,Bacillariophyta,Dactyliosolen fragilissimus,149310,Rhizosolenia fragilissima f. fragilissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,144
+2020-06-08,QCS01,auto,Bacillariophyta,Dactyliosolen phuketensis,248064,Rhizosolenia phuketensis,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,288
+2020-06-08,QCS01,auto,Bacillariophyta,Detonula pumila,149647,Lauderia pumila,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Detonula,NA,NA,NA,2016
+2020-06-08,QCS01,auto,Bacillariophyta,Guinardia delicatula,149112,Rhizosolenia delicatula,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Guinardia,NA,NA,NA,4752
+2020-06-08,QCS01,auto,Bacillariophyta,Leptocylindrus danicus,149106,Leptocylindrus danicus,Species,Chromista,Ochrophyta,Bacillariophyceae,Leptocylindrales,Leptocylindraceae,Leptocylindrus,NA,NA,NA,3024
+2020-06-08,QCS01,auto,Bacillariophyta,Licmophora,149342,Licmophora,Genus,Chromista,Ochrophyta,Bacillariophyceae,Licmophorales,Licmophoraceae,Licmophora,NA,spp. Indet.,NA,144
+2020-06-08,QCS01,auto,Bacillariophyta,Pleurosigma,149181,Pleurosigma,Genus,Chromista,Ochrophyta,Bacillariophyceae,Naviculales,Pleurosigmataceae,Pleurosigma,NA,spp. Indet.,NA,288
+2020-06-08,QCS01,auto,Bacillariophyta,Pseudo-nitzschia delicatissima,149153,Pseudo-nitzschia delicatissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,6624
+2020-06-08,QCS01,auto,Bacillariophyta,Pseudo-nitzschia multiseries,175738,Pseudo-nitzschia multiseries,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,3024
+2020-06-08,QCS01,auto,Bacillariophyta,Pseudo-nitzschia seriata,149152,Pseudo-nitzschia seriata,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,4752
+2020-06-08,QCS01,auto,Bacillariophyta,Rhizosolenia setigera,149115,Rhizosolenia setigera,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Rhizosolenia,NA,NA,NA,432
+2020-06-08,QCS01,auto,Bacillariophyta,Stephanopyxis turris,149631,Stephanopyxis turris,Species,Chromista,Ochrophyta,Bacillariophyceae,Melosirales,Stephanopyxidaceae,Stephanopyxis,NA,NA,NA,288
+2020-06-08,QCS01,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,720
+2020-06-08,QCS01,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,5040
+2020-06-08,QCS01,auto,Chlorophyta-Prasinophyta,Pterosperma,160595,Pterosperma,Genus,Plantae,Chlorophyta,Prasinophyceae,Halosphaerales,Pterospermataceae,Pterosperma,NA,spp. Indet.,NA,9546
+2020-06-08,QCS01,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,111370
+2020-06-08,QCS01,hetero,Choanoflagellata,Monosiga marina,105643,Monosiga marina,Species,Protozoa,Choanozoa,Choanoflagellatea,Craspedida,Codonosigaceae,Monosiga,NA,NA,NA,12728
+2020-06-08,QCS01,hetero,Choanoflagellata,Parvicorbicula socialis,105588,Parvicorbicula socialis,Species,Protozoa,Choanozoa,Choanoflagellatea,Acanthoecida,Acanthoecidae,Parvicorbicula,NA,NA,NA,3182
+2020-06-08,QCS01,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,31820
+2020-06-08,QCS01,auto,Chrysophyta,Apedinella spinifera,248098,Apedinella radians,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Apedinella,NA,NA,NA,3182
+2020-06-08,QCS01,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,288
+2020-06-08,QCS01,hetero,Ciliophora,Tintinnina,732976,Tintinnina,Suborder,Chromista,Ciliophora,Oligotrichea,Choreotrichida,NA,NA,NA,Indet.,NA,864
+2020-06-08,QCS01,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,9546
+2020-06-08,QCS01,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,136826
+2020-06-08,QCS01,auto,Dictyochophyta,Ciliophrys infusionum,375958,Ciliophrys infusionum,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Ciliophrys,NA,NA,NA,144
+2020-06-08,QCS01,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,1008
+2020-06-08,QCS01,auto,Dinoflagellata,Ceratium lineatum,109963,Tripos lineatus,Species,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Ceratiaceae,Ceratium,NA,NA,NA,144
+2020-06-08,QCS01,auto,Dinoflagellata,Dinophysis acuminata,109603,Dinophysis acuminata,Species,Chromista,Myzozoa,Dinophyceae,Dinophysiales,Dinophysaceae,Dinophysis,NA,NA,NA,144
+2020-06-08,QCS01,auto,Dinoflagellata,Gonyaulax,109519,Gonyaulax,Genus,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Gonyaulacaceae,Gonyaulax,NA,spp. Indet.,NA,288
+2020-06-08,QCS01,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,864
+2020-06-08,QCS01,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,1296
+2020-06-08,QCS01,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,22274
+2020-06-08,QCS01,auto,Dinoflagellata,Protoperidinium,109553,Protoperidinium,Genus,Chromista,Myzozoa,Dinophyceae,Peridiniales,Protoperidiniaceae,Protoperidinium,NA,spp. Indet.,NA,144
+2020-06-08,QCS01,auto,Dinoflagellata,Protoperidinium steinii,110257,Protoperidinium steinii,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Protoperidiniaceae,Protoperidinium,NA,NA,NA,864
+2020-06-08,QCS01,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,resting spores,Indet.,NA,720
+2020-06-08,QCS01,auto,Dinoflagellata,Scrippsiella precaria,110173,Scrippsiella precaria,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Peridiniaceae,Scrippsiella,NA,NA,NA,1728
+2020-06-08,QCS01,auto,Dinoflagellata,Scrippsiella trochoidea,110172,Scrippsiella acuminata,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Peridiniaceae,Scrippsiella,NA,NA,NA,144
+2020-06-08,QCS01,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,2448
+2020-06-08,QCS01,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,41366
+2020-06-08,QCS01,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,2304
+2020-06-08,QCS01,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,432
+2020-06-08,QCS01,hetero,Metazoa,Appendicularia,103357,Appendicularia,Genus,Animalia,Chordata,Appendicularia,Copelata,Fritillariidae,Appendicularia,NA,Indet.,NA,144
+2020-06-08,QCS01,auto,Prymnesiophyta-Haptophyta,Phaeocystis pouchetii,115106,Phaeocystis pouchetii,Species,Chromista,Haptophyta,Prymnesiophyceae,Phaeocystales,Phaeocystaceae,Phaeocystis,NA,NA,non-motile,31000
+2020-06-08,QCS01,auto,Prymnesiophyta-Haptophyta,Phaeocystis pouchetii,115106,Phaeocystis pouchetii,Species,Chromista,Haptophyta,Prymnesiophyceae,Phaeocystales,Phaeocystaceae,Phaeocystis,NA,NA,NA,18000
+2020-06-08,QCS01,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,155918
+2020-06-08,QCS01,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,4478
+2020-06-08,QCS01,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,14140
+2020-06-08,QCS01,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,321200
+2020-06-08,QCS01,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,5040
+2020-10-02,QCS01,auto,Bacillariophyta,Cerataulina bicornis,465382,Syringidium bicorne,Species,Chromista,Ochrophyta,Bacillariophyceae,Hemiaulales,Hemiaulaceae,Cerataulina,NA,NA,NA,74
+2020-10-02,QCS01,auto,Bacillariophyta,Chaetoceros cinctus,149622,Chaetoceros cinctus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,6586
+2020-10-02,QCS01,auto,Bacillariophyta,Chaetoceros convolutus,156611,Chaetoceros convolutus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,222
+2020-10-02,QCS01,auto,Bacillariophyta,Chaetoceros danicus,149120,Chaetoceros danicus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1406
+2020-10-02,QCS01,auto,Bacillariophyta,Chaetoceros debilis,149219,Chaetoceros debilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,2146
+2020-10-02,QCS01,auto,Bacillariophyta,Chaetoceros decipiens,149126,Chaetoceros decipiens,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,444
+2020-10-02,QCS01,auto,Bacillariophyta,Chaetoceros didymus,149122,Chaetoceros didymus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,444
+2020-10-02,QCS01,auto,Bacillariophyta,Chaetoceros radicans,163112,Chaetoceros radicans,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,2294
+2020-10-02,QCS01,auto,Bacillariophyta,Chaetoceros seiracanthus,163118,Chaetoceros seiracanthus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,148
+2020-10-02,QCS01,auto,Bacillariophyta,Chaetoceros socialis,149123,Chaetoceros socialis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,222
+2020-10-02,QCS01,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,148
+2020-10-02,QCS01,auto,Bacillariophyta,Dactyliosolen fragilissimus,149310,Rhizosolenia fragilissima f. fragilissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,148
+2020-10-02,QCS01,auto,Bacillariophyta,Dactyliosolen phuketensis,248064,Rhizosolenia phuketensis,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,74
+2020-10-02,QCS01,auto,Bacillariophyta,Ditylum brightwellii,149023,Ditylum brightwellii,Species,Chromista,Ochrophyta,Bacillariophyceae,Lithodesmiales,Lithodesmiaceae,Ditylum,NA,NA,NA,148
+2020-10-02,QCS01,auto,Bacillariophyta,Eucampia groenlandica,157430,Eucampia groenlandica,Species,Chromista,Ochrophyta,Bacillariophyceae,Hemiaulales,Hemiaulaceae,Eucampia,NA,NA,NA,74
+2020-10-02,QCS01,auto,Bacillariophyta,Guinardia delicatula,149112,Rhizosolenia delicatula,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Guinardia,NA,NA,NA,444
+2020-10-02,QCS01,auto,Bacillariophyta,Pseudo-nitzschia multiseries,175738,Pseudo-nitzschia multiseries,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,1036
+2020-10-02,QCS01,auto,Bacillariophyta,Pseudo-nitzschia seriata,149152,Pseudo-nitzschia seriata,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,74
+2020-10-02,QCS01,auto,Bacillariophyta,Rhizosolenia setigera,149115,Rhizosolenia setigera,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Rhizosolenia,NA,NA,NA,148
+2020-10-02,QCS01,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,1110
+2020-10-02,QCS01,auto,Bacillariophyta,Thalassiosira rotula,148942,Thalassiosira rotula,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,444
+2020-10-02,QCS01,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,1332
+2020-10-02,QCS01,auto,Chlorophyta-Prasinophyta,Pterosperma,160595,Pterosperma,Genus,Plantae,Chlorophyta,Prasinophyceae,Halosphaerales,Pterospermataceae,Pterosperma,NA,spp. Indet.,NA,14000
+2020-10-02,QCS01,auto,Chlorophyta-Prasinophyta,Pyramimonas grossii,495352,Pyramimonas subg. Trichocystis grossii,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,7000
+2020-10-02,QCS01,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,3500
+2020-10-02,QCS01,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,143500
+2020-10-02,QCS01,hetero,Choanoflagellata,Monosiga marina,105643,Monosiga marina,Species,Protozoa,Choanozoa,Choanoflagellatea,Craspedida,Codonosigaceae,Monosiga,NA,NA,NA,7000
+2020-10-02,QCS01,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,45500
+2020-10-02,QCS01,auto,Chrysophyta,Apedinella spinifera,248098,Apedinella radians,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Apedinella,NA,NA,NA,3500
+2020-10-02,QCS01,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,518
+2020-10-02,QCS01,hetero,Ciliophora,Tintinnina,732976,Tintinnina,Suborder,Chromista,Ciliophora,Oligotrichea,Choreotrichida,NA,NA,NA,Indet.,NA,148
+2020-10-02,QCS01,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,80500
+2020-10-02,QCS01,auto,Cryptophyta,Teleaulax acuta,106305,Teleaulax acuta,Species,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,NA,NA,3500
+2020-10-02,QCS01,auto,Cryptophyta,Teleaulax amphioxeia,106306,Teleaulax amphioxeia,Species,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,NA,NA,10500
+2020-10-02,QCS01,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,105000
+2020-10-02,QCS01,auto,Dictyochophyta,Ciliophrys infusionum,375958,Ciliophrys infusionum,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Ciliophrys,NA,NA,NA,74
+2020-10-02,QCS01,auto,Dictyochophyta,Dictyocha fibula,157463,Dictyocha fibula,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,74
+2020-10-02,QCS01,auto,Dictyochophyta,Dictyocha octonaria,341584,Octactis octonaria,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,148
+2020-10-02,QCS01,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,1184
+2020-10-02,QCS01,auto,Dictyochophyta,Dictyocha,157258,Dictyocha,Genus,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,spores,Indet.,NA,1110
+2020-10-02,QCS01,auto,Dinoflagellata,Alexandrium catenella,231873,Alexandrium catenella,Species,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Ostreopsidaceae,Alexandrium,NA,NA,NA,296
+2020-10-02,QCS01,auto,Dinoflagellata,Ceratium lineatum,109963,Tripos lineatus,Species,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Ceratiaceae,Ceratium,NA,NA,NA,222
+2020-10-02,QCS01,auto,Dinoflagellata,Ceratium,109506,Ceratium,Genus,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Ceratiaceae,Ceratium,NA,spp. Indet.,NA,74
+2020-10-02,QCS01,auto,Dinoflagellata,Dinophysis acuminata,109603,Dinophysis acuminata,Species,Chromista,Myzozoa,Dinophyceae,Dinophysiales,Dinophysaceae,Dinophysis,NA,NA,NA,370
+2020-10-02,QCS01,auto,Dinoflagellata,Dinophysis fortii,109624,Dinophysis fortii,Species,Chromista,Myzozoa,Dinophyceae,Dinophysiales,Dinophysaceae,Dinophysis,NA,NA,NA,74
+2020-10-02,QCS01,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,2368
+2020-10-02,QCS01,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,1998
+2020-10-02,QCS01,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,962
+2020-10-02,QCS01,auto,Dinoflagellata,Prorocentrum gracile,110300,Prorocentrum gracile,Species,Chromista,Myzozoa,Dinophyceae,Prorocentrales,Prorocentraceae,Prorocentrum,NA,NA,NA,444
+2020-10-02,QCS01,auto,Dinoflagellata,Prorocentrum micans,110303,Prorocentrum micans,Species,Chromista,Myzozoa,Dinophyceae,Prorocentrales,Prorocentraceae,Prorocentrum,NA,NA,NA,148
+2020-10-02,QCS01,auto,Dinoflagellata,Protoperidinium steinii,110257,Protoperidinium steinii,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Protoperidiniaceae,Protoperidinium,NA,NA,NA,222
+2020-10-02,QCS01,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,resting spores,Indet.,NA,740
+2020-10-02,QCS01,auto,Dinoflagellata,Scrippsiella precaria,110173,Scrippsiella precaria,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Peridiniaceae,Scrippsiella,NA,NA,NA,296
+2020-10-02,QCS01,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,1184
+2020-10-02,QCS01,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,3500
+2020-10-02,QCS01,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,296
+2020-10-02,QCS01,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,370
+2020-10-02,QCS01,hetero,Kinetoplastidea,Metromonas simplex,118059,Metromonas simplex,Species,Chromista,Cercozoa,Metromonadea,Metromonadea incertae sedis,NA,Metromonas,NA,NA,NA,3500
+2020-10-02,QCS01,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,220500
+2020-10-02,QCS01,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,7000
+2020-10-02,QCS01,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,962
+2020-10-02,QCS01,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,284152
+2020-10-02,QCS01,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,148
+2020-10-02,QCS01,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,4514
+2020-10-04,DFO2,auto,Bacillariophyta,Chaetoceros ceratosporus,149297,Chaetoceros ceratosporus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,40
+2020-10-04,DFO2,auto,Bacillariophyta,Chaetoceros subtilis,156621,Chaetoceros subtilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,40
+2020-10-04,DFO2,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,80
+2020-10-04,DFO2,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,440
+2020-10-04,DFO2,auto,Chlorophyta-Prasinophyta,Pterosperma,160595,Pterosperma,Genus,Plantae,Chlorophyta,Prasinophyceae,Halosphaerales,Pterospermataceae,Pterosperma,NA,spp. Indet.,NA,6564
+2020-10-04,DFO2,auto,Chlorophyta-Prasinophyta,Pyramimonas grossii,495352,Pyramimonas subg. Trichocystis grossii,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,4376
+2020-10-04,DFO2,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,8752
+2020-10-04,DFO2,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,56888
+2020-10-04,DFO2,auto,Chrysophyta,Apedinella spinifera,248098,Apedinella radians,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Apedinella,NA,NA,NA,2188
+2020-10-04,DFO2,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,520
+2020-10-04,DFO2,hetero,Ciliophora,Tintinnina,732976,Tintinnina,Suborder,Chromista,Ciliophora,Oligotrichea,Choreotrichida,NA,NA,NA,Indet.,NA,80
+2020-10-04,DFO2,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,43760
+2020-10-04,DFO2,auto,Cryptophyta,Teleaulax acuta,106305,Teleaulax acuta,Species,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,NA,NA,8752
+2020-10-04,DFO2,auto,Cryptophyta,Teleaulax amphioxeia,106306,Teleaulax amphioxeia,Species,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,NA,NA,4376
+2020-10-04,DFO2,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,98460
+2020-10-04,DFO2,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,160
+2020-10-04,DFO2,auto,Dictyochophyta,Dictyocha,157258,Dictyocha,Genus,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,spores,Indet.,NA,40
+2020-10-04,DFO2,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,160
+2020-10-04,DFO2,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,160
+2020-10-04,DFO2,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,2188
+2020-10-04,DFO2,auto,Dinoflagellata,Prorocentrum minimum,110304,Prorocentrum cordatum,Species,Chromista,Myzozoa,Dinophyceae,Prorocentrales,Prorocentraceae,Prorocentrum,NA,NA,NA,7068
+2020-10-04,DFO2,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,resting spores,Indet.,NA,40
+2020-10-04,DFO2,auto,Dinoflagellata,Scrippsiella precaria,110173,Scrippsiella precaria,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Peridiniaceae,Scrippsiella,NA,NA,NA,120
+2020-10-04,DFO2,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,80
+2020-10-04,DFO2,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,10940
+2020-10-04,DFO2,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,1040
+2020-10-04,DFO2,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,40
+2020-10-04,DFO2,hetero,Metazoa,Copepoda,1080,Copepoda,Subclass,Animalia,Arthropoda,Hexanauplia,NA,NA,NA,nauplii,Indet.,NA,40
+2020-10-04,DFO2,hetero,Metazoa,Copepoda,1080,Copepoda,Subclass,Animalia,Arthropoda,Hexanauplia,NA,NA,NA,copepodites,Indet.,NA,40
+2020-10-04,DFO2,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,172852
+2020-10-04,DFO2,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,40
+2020-10-04,DFO2,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,40
+2020-10-04,DFO2,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,247200
+2020-10-04,DFO2,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,1360
+2020-11-30,DFO2,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,40
+2020-11-30,DFO2,auto,Bacillariophyta,Pseudo-nitzschia multiseries,175738,Pseudo-nitzschia multiseries,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,80
+2020-11-30,DFO2,auto,Bacillariophyta,Pseudo-nitzschia seriata,149152,Pseudo-nitzschia seriata,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,40
+2020-11-30,DFO2,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,40
+2020-11-30,DFO2,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,1750
+2020-11-30,DFO2,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,8750
+2020-11-30,DFO2,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,3500
+2020-11-30,DFO2,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,80
+2020-11-30,DFO2,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,1750
+2020-11-30,DFO2,auto,Cryptophyta,Teleaulax acuta,106305,Teleaulax acuta,Species,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,NA,NA,1750
+2020-11-30,DFO2,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,10500
+2020-11-30,DFO2,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,120
+2020-11-30,DFO2,auto,Dictyochophyta,Dictyocha,157258,Dictyocha,Genus,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,spores,Indet.,NA,80
+2020-11-30,DFO2,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,40
+2020-11-30,DFO2,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,40
+2020-11-30,DFO2,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,8750
+2020-11-30,DFO2,auto,Dinoflagellata,Prorocentrum gracile,110300,Prorocentrum gracile,Species,Chromista,Myzozoa,Dinophyceae,Prorocentrales,Prorocentraceae,Prorocentrum,NA,NA,NA,40
+2020-11-30,DFO2,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,resting spores,Indet.,NA,120
+2020-11-30,DFO2,auto,Dinoflagellata,Scrippsiella precaria,110173,Scrippsiella precaria,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Peridiniaceae,Scrippsiella,NA,NA,NA,40
+2020-11-30,DFO2,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,40
+2020-11-30,DFO2,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,3500
+2020-11-30,DFO2,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,40
+2020-11-30,DFO2,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,36750
+2020-11-30,DFO2,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,1830
+2020-11-30,DFO2,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,2920
+2020-11-30,DFO2,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,160
+2021-01-11,KC10,auto,Bacillariophyta,Chaetoceros danicus,149120,Chaetoceros danicus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,40
+2021-01-11,KC10,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,280
+2021-01-11,KC10,auto,Bacillariophyta,Ditylum brightwellii,149023,Ditylum brightwellii,Species,Chromista,Ochrophyta,Bacillariophyceae,Lithodesmiales,Lithodesmiaceae,Ditylum,NA,NA,NA,40
+2021-01-11,KC10,auto,Bacillariophyta,Paralia sulcata,149055,Paralia sulcata,Species,Chromista,Ochrophyta,Bacillariophyceae,Paraliales,Paraliaceae,Paralia,NA,NA,NA,720
+2021-01-11,KC10,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,120
+2021-01-11,KC10,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,440
+2021-01-11,KC10,auto,Chlorophyta-Prasinophyta,Pterosperma,160595,Pterosperma,Genus,Plantae,Chlorophyta,Prasinophyceae,Halosphaerales,Pterospermataceae,Pterosperma,NA,spp. Indet.,NA,80
+2021-01-11,KC10,auto,Chlorophyta-Prasinophyta,Pterosperma,160595,Pterosperma,Genus,Plantae,Chlorophyta,Prasinophyceae,Halosphaerales,Pterospermataceae,Pterosperma,resting spores,spp. Indet.,NA,40
+2021-01-11,KC10,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,3500
+2021-01-11,KC10,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,28000
+2021-01-11,KC10,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,3500
+2021-01-11,KC10,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,80
+2021-01-11,KC10,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,14000
+2021-01-11,KC10,auto,Cryptophyta,Teleaulax acuta,106305,Teleaulax acuta,Species,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,NA,NA,1750
+2021-01-11,KC10,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,7000
+2021-01-11,KC10,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,80
+2021-01-11,KC10,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,40
+2021-01-11,KC10,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,120
+2021-01-11,KC10,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,80
+2021-01-11,KC10,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,40
+2021-01-11,KC10,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,1750
+2021-01-11,KC10,hetero,Kinetoplastidea,Metromonas simplex,118059,Metromonas simplex,Species,Chromista,Cercozoa,Metromonadea,Metromonadea incertae sedis,NA,Metromonas,NA,NA,NA,3500
+2021-01-11,KC10,hetero,Kinetoplastidea,Telonema subtilis,118076,Telonema subtile,Species,Chromista,Cryptophyta,Telonemea,Telonemida,NA,Telonema,NA,NA,NA,1750
+2021-01-11,KC10,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,68250
+2021-01-11,KC10,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,3500
+2021-01-11,KC10,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,440
+2021-01-11,KC10,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,280
+2021-01-11,KC10,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,360
+2021-01-12,DFO2,auto,Bacillariophyta,Chaetoceros cinctus,149622,Chaetoceros cinctus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,120
+2021-01-12,DFO2,auto,Bacillariophyta,Chaetoceros similis,149127,Chaetoceros similis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,120
+2021-01-12,DFO2,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,3500
+2021-01-12,DFO2,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,80
+2021-01-12,DFO2,auto,Bacillariophyta,Ditylum brightwellii,149023,Ditylum brightwellii,Species,Chromista,Ochrophyta,Bacillariophyceae,Lithodesmiales,Lithodesmiaceae,Ditylum,NA,NA,NA,40
+2021-01-12,DFO2,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,200
+2021-01-12,DFO2,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,240
+2021-01-12,DFO2,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,8750
+2021-01-12,DFO2,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,280
+2021-01-12,DFO2,hetero,Ciliophora,Tintinnina,732976,Tintinnina,Suborder,Chromista,Ciliophora,Oligotrichea,Choreotrichida,NA,NA,NA,Indet.,NA,40
+2021-01-12,DFO2,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,12250
+2021-01-12,DFO2,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,80
+2021-01-12,DFO2,auto,Dictyochophyta,Dictyocha,157258,Dictyocha,Genus,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,spores,Indet.,NA,40
+2021-01-12,DFO2,auto,Dinoflagellata,Ceratium lineatum,109963,Tripos lineatus,Species,Chromista,Myzozoa,Dinophyceae,Gonyaulacales,Ceratiaceae,Ceratium,NA,NA,NA,40
+2021-01-12,DFO2,auto,Dinoflagellata,Dinophysis fortii,109624,Dinophysis fortii,Species,Chromista,Myzozoa,Dinophyceae,Dinophysiales,Dinophysaceae,Dinophysis,NA,NA,NA,40
+2021-01-12,DFO2,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,160
+2021-01-12,DFO2,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,40
+2021-01-12,DFO2,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,40
+2021-01-12,DFO2,auto,Dinoflagellata,Protoperidinium steinii,110257,Protoperidinium steinii,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Protoperidiniaceae,Protoperidinium,NA,NA,NA,40
+2021-01-12,DFO2,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,40
+2021-01-12,DFO2,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,1750
+2021-01-12,DFO2,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,80
+2021-01-12,DFO2,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,49000
+2021-01-12,DFO2,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,120
+2021-01-12,DFO2,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,12743
+2021-01-12,DFO2,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,200
+2021-02-08,DFO2,auto,Bacillariophyta,Chaetoceros cinctus,149622,Chaetoceros cinctus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,240
+2021-02-08,DFO2,auto,Bacillariophyta,Chaetoceros danicus,149120,Chaetoceros danicus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,40
+2021-02-08,DFO2,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1750
+2021-02-08,DFO2,auto,Bacillariophyta,Coscinodiscus,148917,Coscinodiscus,Genus,Chromista,Ochrophyta,Bacillariophyceae,Coscinodiscales,Coscinodiscaceae,Coscinodiscus,NA,spp. Indet.,NA,40
+2021-02-08,DFO2,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,480
+2021-02-08,DFO2,auto,Bacillariophyta,Fragilariopsis,149313,Fragilariopsis,Genus,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Fragilariopsis,NA,spp. Indet.,NA,160
+2021-02-08,DFO2,auto,Bacillariophyta,Pseudo-nitzschia delicatissima,149153,Pseudo-nitzschia delicatissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,240
+2021-02-08,DFO2,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,240
+2021-02-08,DFO2,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,520
+2021-02-08,DFO2,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,280
+2021-02-08,DFO2,auto,Chlorophyta-Prasinophyta,Pterosperma,160595,Pterosperma,Genus,Plantae,Chlorophyta,Prasinophyceae,Halosphaerales,Pterospermataceae,Pterosperma,NA,spp. Indet.,NA,7000
+2021-02-08,DFO2,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,3500
+2021-02-08,DFO2,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,71750
+2021-02-08,DFO2,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,1750
+2021-02-08,DFO2,auto,Chrysophyta,Dinobryon,157240,Dinobryon,Genus,Chromista,Ochrophyta,Chrysophyceae,Chromulinales,Dinobryaceae,Dinobryon,NA,spp. Indet.,NA,3500
+2021-02-08,DFO2,auto,Chrysophyta,Ochromonas,249725,Ochromonas,Genus,Chromista,Ochrophyta,Chrysophyceae,Chromulinales,Chromulinaceae,Ochromonas,NA,spp. Indet.,NA,1750
+2021-02-08,DFO2,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,2880
+2021-02-08,DFO2,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,31500
+2021-02-08,DFO2,auto,Cryptophyta,Teleaulax acuta,106305,Teleaulax acuta,Species,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,NA,NA,7000
+2021-02-08,DFO2,auto,Cryptophyta,Teleaulax amphioxeia,106306,Teleaulax amphioxeia,Species,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,NA,NA,3500
+2021-02-08,DFO2,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,36750
+2021-02-08,DFO2,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,320
+2021-02-08,DFO2,auto,Dictyochophyta,Dictyocha,157258,Dictyocha,Genus,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,spores,Indet.,NA,160
+2021-02-08,DFO2,auto,Dinoflagellata,Dinophysis acuminata,109603,Dinophysis acuminata,Species,Chromista,Myzozoa,Dinophyceae,Dinophysiales,Dinophysaceae,Dinophysis,NA,NA,NA,40
+2021-02-08,DFO2,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,320
+2021-02-08,DFO2,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,280
+2021-02-08,DFO2,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,640
+2021-02-08,DFO2,auto,Dinoflagellata,Prorocentrum micans,110303,Prorocentrum micans,Species,Chromista,Myzozoa,Dinophyceae,Prorocentrales,Prorocentraceae,Prorocentrum,NA,NA,NA,40
+2021-02-08,DFO2,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,360
+2021-02-08,DFO2,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,200
+2021-02-08,DFO2,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,200
+2021-02-08,DFO2,hetero,Kinetoplastidea,Metromonas simplex,118059,Metromonas simplex,Species,Chromista,Cercozoa,Metromonadea,Metromonadea incertae sedis,NA,Metromonas,NA,NA,NA,1750
+2021-02-08,DFO2,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,131250
+2021-02-08,DFO2,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,1830
+2021-02-08,DFO2,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,518000
+2021-02-08,DFO2,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,2360
+2021-02-10,KC10,auto,Bacillariophyta,Chaetoceros danicus,149120,Chaetoceros danicus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,200
+2021-02-10,KC10,auto,Bacillariophyta,Chaetoceros debilis,149219,Chaetoceros debilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,80
+2021-02-10,KC10,auto,Bacillariophyta,Chaetoceros subtilis,156621,Chaetoceros subtilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,520
+2021-02-10,KC10,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,320
+2021-02-10,KC10,auto,Bacillariophyta,Dactyliosolen fragilissimus,149310,Rhizosolenia fragilissima f. fragilissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,40
+2021-02-10,KC10,auto,Bacillariophyta,Pseudo-nitzschia delicatissima,149153,Pseudo-nitzschia delicatissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,80
+2021-02-10,KC10,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,320
+2021-02-10,KC10,auto,Bacillariophyta,Thalassiosira nordenskioeldii,148931,Thalassiosira nordenskioeldii,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,280
+2021-02-10,KC10,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,1080
+2021-02-10,KC10,auto,Chlorophyta-Prasinophyta,Pterosperma,160595,Pterosperma,Genus,Plantae,Chlorophyta,Prasinophyceae,Halosphaerales,Pterospermataceae,Pterosperma,NA,spp. Indet.,NA,1750
+2021-02-10,KC10,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,8750
+2021-02-10,KC10,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,77000
+2021-02-10,KC10,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,1750
+2021-02-10,KC10,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,280
+2021-02-10,KC10,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,28000
+2021-02-10,KC10,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,24500
+2021-02-10,KC10,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,80
+2021-02-10,KC10,auto,Dictyochophyta,Dictyocha,157258,Dictyocha,Genus,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,spores,Indet.,NA,40
+2021-02-10,KC10,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,120
+2021-02-10,KC10,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,40
+2021-02-10,KC10,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,120
+2021-02-10,KC10,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,80
+2021-02-10,KC10,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,8750
+2021-02-10,KC10,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,80
+2021-02-10,KC10,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,297500
+2021-02-10,KC10,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,40
+2021-02-10,KC10,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,2510
+2021-02-10,KC10,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,4440
+2021-02-10,KC10,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1790
+2021-02-10,KC10,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,1160
+2021-03-14,KC10,auto,Bacillariophyta,Achnanthes,149191,Achnanthes,Genus,Chromista,Ochrophyta,Bacillariophyceae,Achnanthales,Achnanthaceae,Achnanthes,NA,spp. Indet.,NA,40
+2021-03-14,KC10,auto,Bacillariophyta,Chaetoceros subtilis,156621,Chaetoceros subtilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,280
+2021-03-14,KC10,auto,Bacillariophyta,Cocconeis,148989,Cocconeis,Genus,Chromista,Ochrophyta,Bacillariophyceae,Achnanthales,Cocconeidaceae,Cocconeis,NA,spp. Indet.,NA,40
+2021-03-14,KC10,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,440
+2021-03-14,KC10,auto,Bacillariophyta,Pleurosigma,149181,Pleurosigma,Genus,Chromista,Ochrophyta,Bacillariophyceae,Naviculales,Pleurosigmataceae,Pleurosigma,NA,spp. Indet.,NA,40
+2021-03-14,KC10,auto,Bacillariophyta,Pseudo-nitzschia delicatissima,149153,Pseudo-nitzschia delicatissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,640
+2021-03-14,KC10,auto,Bacillariophyta,Pseudo-nitzschia multiseries,175738,Pseudo-nitzschia multiseries,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,200
+2021-03-14,KC10,auto,Bacillariophyta,Rhizosolenia setigera,149115,Rhizosolenia setigera,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Rhizosolenia,NA,NA,NA,40
+2021-03-14,KC10,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,auxospores,NA,NA,80
+2021-03-14,KC10,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,600
+2021-03-14,KC10,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,680
+2021-03-14,KC10,auto,Chlorophyta-Prasinophyta,Pyramimonas grossii,495352,Pyramimonas subg. Trichocystis grossii,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,2917
+2021-03-14,KC10,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,11668
+2021-03-14,KC10,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,128348
+2021-03-14,KC10,hetero,Choanoflagellata,Monosiga marina,105643,Monosiga marina,Species,Protozoa,Choanozoa,Choanoflagellatea,Craspedida,Codonosigaceae,Monosiga,NA,NA,NA,2917
+2021-03-14,KC10,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,40838
+2021-03-14,KC10,auto,Chrysophyta,Ochromonas,249725,Ochromonas,Genus,Chromista,Ochrophyta,Chrysophyceae,Chromulinales,Chromulinaceae,Ochromonas,NA,spp. Indet.,NA,2917
+2021-03-14,KC10,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,2200
+2021-03-14,KC10,hetero,Ciliophora,Tintinnina,732976,Tintinnina,Suborder,Chromista,Ciliophora,Oligotrichea,Choreotrichida,NA,NA,NA,Indet.,NA,40
+2021-03-14,KC10,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,102095
+2021-03-14,KC10,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,61257
+2021-03-14,KC10,auto,Dictyochophyta,Ciliophrys infusionum,375958,Ciliophrys infusionum,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Ciliophrys,NA,NA,NA,80
+2021-03-14,KC10,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,360
+2021-03-14,KC10,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,680
+2021-03-14,KC10,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,320
+2021-03-14,KC10,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,760
+2021-03-14,KC10,auto,Dinoflagellata,Protoperidinium steinii,110257,Protoperidinium steinii,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Protoperidiniaceae,Protoperidinium,NA,NA,NA,40
+2021-03-14,KC10,auto,Dinoflagellata,Scrippsiella precaria,110173,Scrippsiella precaria,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Peridiniaceae,Scrippsiella,NA,NA,NA,80
+2021-03-14,KC10,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,240
+2021-03-14,KC10,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,2917
+2021-03-14,KC10,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,1000
+2021-03-14,KC10,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,2917
+2021-03-14,KC10,auto,Prymnesiophyta-Haptophyta,Phaeocystis pouchetii,115106,Phaeocystis pouchetii,Species,Chromista,Haptophyta,Prymnesiophyceae,Phaeocystales,Phaeocystaceae,Phaeocystis,NA,NA,NA,3400
+2021-03-14,KC10,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,411297
+2021-03-14,KC10,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,2917
+2021-03-14,KC10,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,880
+2021-03-14,KC10,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,12140
+2021-03-14,KC10,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,5953
+2021-03-14,KC10,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,4080
+2021-04-10,KC10,auto,Bacillariophyta,Attheya,160519,Attheya,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Attheyaceae,Attheya,NA,spp. Indet.,NA,3500
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros ceratosporus,149297,Chaetoceros ceratosporus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,666
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros cinctus,149622,Chaetoceros cinctus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,7881
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros debilis,149219,Chaetoceros debilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,60334
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros decipiens,149126,Chaetoceros decipiens,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1110
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros diadema,149128,Syndendrium diadema,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,3108
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros didymus,149122,Chaetoceros didymus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,666
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros laciniosus,149228,Chaetoceros laciniosus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,777
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros radicans,163112,Chaetoceros radicans,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1554
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros seiracanthus,163118,Chaetoceros seiracanthus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,2664
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros similis,149127,Chaetoceros similis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,666
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros socialis,149123,Chaetoceros socialis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,2331
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros,148985,Chaetoceros,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,spp. Indet.,NA,1332
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros subtilis,156621,Chaetoceros subtilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,555
+2021-04-10,KC10,auto,Bacillariophyta,Coscinodiscus,148917,Coscinodiscus,Genus,Chromista,Ochrophyta,Bacillariophyceae,Coscinodiscales,Coscinodiscaceae,Coscinodiscus,NA,spp. Indet.,NA,111
+2021-04-10,KC10,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,2220
+2021-04-10,KC10,auto,Bacillariophyta,Dactyliosolen fragilissimus,149310,Rhizosolenia fragilissima f. fragilissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,333
+2021-04-10,KC10,auto,Bacillariophyta,Detonula pumila,149647,Lauderia pumila,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Detonula,NA,NA,NA,111
+2021-04-10,KC10,auto,Bacillariophyta,Pleurosigma,149181,Pleurosigma,Genus,Chromista,Ochrophyta,Bacillariophyceae,Naviculales,Pleurosigmataceae,Pleurosigma,NA,spp. Indet.,NA,111
+2021-04-10,KC10,auto,Bacillariophyta,Pseudo-nitzschia multiseries,175738,Pseudo-nitzschia multiseries,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,666
+2021-04-10,KC10,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,1332
+2021-04-10,KC10,auto,Bacillariophyta,Thalassiosira nordenskioeldii,148931,Thalassiosira nordenskioeldii,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,37000
+2021-04-10,KC10,auto,Bacillariophyta,Thalassiosira pacifica,148932,Thalassiosira pacifica,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,59200
+2021-04-10,KC10,auto,Bacillariophyta,Thalassiosira rotula,148942,Thalassiosira rotula,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,666
+2021-04-10,KC10,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,28600
+2021-04-10,KC10,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,14000
+2021-04-10,KC10,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,42000
+2021-04-10,KC10,hetero,Choanoflagellata,Calliacantha natans,105561,Calliacantha natans,Species,Protozoa,Choanozoa,Choanoflagellatea,Acanthoecida,Acanthoecidae,Calliacantha,NA,NA,NA,10500
+2021-04-10,KC10,hetero,Choanoflagellata,Monosiga marina,105643,Monosiga marina,Species,Protozoa,Choanozoa,Choanoflagellatea,Craspedida,Codonosigaceae,Monosiga,NA,NA,NA,14000
+2021-04-10,KC10,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,70000
+2021-04-10,KC10,auto,Chrysophyta,Apedinella spinifera,248098,Apedinella radians,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Apedinella,NA,NA,NA,3500
+2021-04-10,KC10,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,333
+2021-04-10,KC10,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,91000
+2021-04-10,KC10,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,52500
+2021-04-10,KC10,auto,Dictyochophyta,Ciliophrys infusionum,375958,Ciliophrys infusionum,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Ciliophrys,NA,NA,NA,111
+2021-04-10,KC10,auto,Dictyochophyta,Meringosphaera mediterranea,248129,Meringosphaera mediterranea,Species,Chromista,Ochrophyta,Xanthophyceae,Mischococcales,Pleurochloridaceae,Meringosphaera,NA,NA,NA,3500
+2021-04-10,KC10,auto,Dinoflagellata,Dinophysis acuminata,109603,Dinophysis acuminata,Species,Chromista,Myzozoa,Dinophyceae,Dinophysiales,Dinophysaceae,Dinophysis,NA,NA,NA,111
+2021-04-10,KC10,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,1332
+2021-04-10,KC10,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,1332
+2021-04-10,KC10,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,1665
+2021-04-10,KC10,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,resting spores,Indet.,NA,111
+2021-04-10,KC10,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,333
+2021-04-10,KC10,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,7000
+2021-04-10,KC10,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,111
+2021-04-10,KC10,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,333
+2021-04-10,KC10,hetero,Metazoa,Copepoda,1080,Copepoda,Subclass,Animalia,Arthropoda,Hexanauplia,NA,NA,NA,nauplii,Indet.,NA,111
+2021-04-10,KC10,auto,Prymnesiophyta-Haptophyta,Phaeocystis pouchetii,115106,Phaeocystis pouchetii,Species,Chromista,Haptophyta,Prymnesiophyceae,Phaeocystales,Phaeocystaceae,Phaeocystis,NA,NA,non-motile,3500
+2021-04-10,KC10,auto,Prymnesiophyta-Haptophyta,Phaeocystis pouchetii,115106,Phaeocystis pouchetii,Species,Chromista,Haptophyta,Prymnesiophyceae,Phaeocystales,Phaeocystaceae,Phaeocystis,NA,NA,NA,39888
+2021-04-10,KC10,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,343000
+2021-04-10,KC10,auto,Bacillariophyta,Biddulphiales,148965,Biddulphiales,Order,Chromista,Ochrophyta,Bacillariophyceae,Biddulphiales,NA,NA,NA,Indet.,NA,52500
+2021-04-10,KC10,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,1443
+2021-04-10,KC10,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,283360
+2021-04-10,KC10,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,14111
+2021-04-10,KC10,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,2775
+2021-04-12,DFO2,auto,Bacillariophyta,Chaetoceros ceratosporus,149297,Chaetoceros ceratosporus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,222
+2021-04-12,DFO2,auto,Bacillariophyta,Chaetoceros cinctus,149622,Chaetoceros cinctus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,777
+2021-04-12,DFO2,auto,Bacillariophyta,Chaetoceros debilis,149219,Chaetoceros debilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,26400
+2021-04-12,DFO2,auto,Bacillariophyta,Chaetoceros radicans,163112,Chaetoceros radicans,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,1776
+2021-04-12,DFO2,auto,Bacillariophyta,Chaetoceros simplex,149294,Chaetoceros simplex,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,4375
+2021-04-12,DFO2,auto,Bacillariophyta,Chaetoceros socialis,149123,Chaetoceros socialis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,24000
+2021-04-12,DFO2,auto,Bacillariophyta,Chaetoceros,148985,Chaetoceros,Genus,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,spp. Indet.,NA,555
+2021-04-12,DFO2,auto,Bacillariophyta,Chaetoceros subtilis,156621,Chaetoceros subtilis,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,111
+2021-04-12,DFO2,auto,Bacillariophyta,Chaetoceros tenuissimus,156623,Chaetoceros tenuissimus,Species,Chromista,Ochrophyta,Bacillariophyceae,Chaetocerotanae incertae sedis,Chaetocerotaceae,Chaetoceros,NA,NA,NA,13125
+2021-04-12,DFO2,auto,Bacillariophyta,Cylindrotheca closterium,149004,Cylindrotheca closterium,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Cylindrotheca,NA,NA,NA,3774
+2021-04-12,DFO2,auto,Bacillariophyta,Dactyliosolen fragilissimus,149310,Rhizosolenia fragilissima f. fragilissima,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,444
+2021-04-12,DFO2,auto,Bacillariophyta,Dactyliosolen phuketensis,248064,Rhizosolenia phuketensis,Species,Chromista,Ochrophyta,Bacillariophyceae,Rhizosoleniales,Rhizosoleniaceae,Dactyliosolen,NA,NA,NA,555
+2021-04-12,DFO2,auto,Bacillariophyta,Ditylum brightwellii,149023,Ditylum brightwellii,Species,Chromista,Ochrophyta,Bacillariophyceae,Lithodesmiales,Lithodesmiaceae,Ditylum,NA,NA,NA,222
+2021-04-12,DFO2,auto,Bacillariophyta,Melosira,149042,Melosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Melosirales,Melosiraceae,Melosira,NA,sp. Indet.,NA,555
+2021-04-12,DFO2,auto,Bacillariophyta,Pleurosigma,149181,Pleurosigma,Genus,Chromista,Ochrophyta,Bacillariophyceae,Naviculales,Pleurosigmataceae,Pleurosigma,NA,spp. Indet.,NA,111
+2021-04-12,DFO2,auto,Bacillariophyta,Pseudo-nitzschia seriata,149152,Pseudo-nitzschia seriata,Species,Chromista,Ochrophyta,Bacillariophyceae,Bacillariales,Bacillariaceae,Pseudo-nitzschia,NA,NA,NA,555
+2021-04-12,DFO2,auto,Bacillariophyta,Stephanopyxis turris,149631,Stephanopyxis turris,Species,Chromista,Ochrophyta,Bacillariophyceae,Melosirales,Stephanopyxidaceae,Stephanopyxis,NA,NA,NA,888
+2021-04-12,DFO2,auto,Bacillariophyta,Thalassionema nitzschioides,149093,Synedra nitzschioides f. nitzschioides,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassionematales,Thalassionemataceae,Thalassionema,NA,NA,NA,777
+2021-04-12,DFO2,auto,Bacillariophyta,Thalassiosira anguste-lineata,148914,Coscinodiscus angustelineatus,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,444
+2021-04-12,DFO2,auto,Bacillariophyta,Thalassiosira nordenskioeldii,148931,Thalassiosira nordenskioeldii,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,13320
+2021-04-12,DFO2,auto,Bacillariophyta,Thalassiosira pacifica,148932,Thalassiosira pacifica,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,52559
+2021-04-12,DFO2,auto,Bacillariophyta,Thalassiosira rotula,148942,Thalassiosira rotula,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,NA,NA,1554
+2021-04-12,DFO2,auto,Bacillariophyta,Thalassiosira,148912,Thalassiosira,Genus,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Thalassiosiraceae,Thalassiosira,NA,spp. Indet.,NA,29200
+2021-04-12,DFO2,auto,Bacillariophyta,Pennales,1304629,Pennales,Order,Chromista,Ochrophyta,Bacillariophyceae,Pennales,NA,NA,NA,Indet.,NA,1443
+2021-04-12,DFO2,auto,Chlorophyta-Prasinophyta,Pyramimonas grossii,495352,Pyramimonas subg. Trichocystis grossii,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,8750
+2021-04-12,DFO2,auto,Chlorophyta-Prasinophyta,Pyramimonas orientalis,547692,Pyramimonas orientalis,Species,Plantae,Chlorophyta,Pyramimonadophyceae,Pyramimonadales,Pyramimonadaceae,Pyramimonas,NA,NA,NA,8750
+2021-04-12,DFO2,auto,Unknown_Chlorophyta?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta,65625
+2021-04-12,DFO2,hetero,Choanoflagellata,Parvicorbicula socialis,105588,Parvicorbicula socialis,Species,Protozoa,Choanozoa,Choanoflagellatea,Acanthoecida,Acanthoecidae,Parvicorbicula,NA,NA,NA,8750
+2021-04-12,DFO2,hetero,Choanoflagellata,Choanozoa,562870,Choanozoa,Phylum,Protozoa,Choanozoa,NA,NA,NA,NA,NA,Indet.,NA,144375
+2021-04-12,DFO2,auto,Chrysophyta,Apedinella spinifera,248098,Apedinella radians,Species,Chromista,Ochrophyta,Dictyochophyceae,Pedinellales,Pedinellaceae,Apedinella,NA,NA,NA,13125
+2021-04-12,DFO2,auto,Chrysophyta,Ochromonas,249725,Ochromonas,Genus,Chromista,Ochrophyta,Chrysophyceae,Chromulinales,Chromulinaceae,Ochromonas,NA,spp. Indet.,NA,4375
+2021-04-12,DFO2,hetero,Ciliophora,Myrionecta rubra,292896,Mesodinium rubrum,Species,Chromista,Ciliophora,Litostomatea,Cyclotrichiida,Mesodiniidae,Myrionecta,NA,NA,NA,111
+2021-04-12,DFO2,auto,Cryptophyta,Hillea,178565,Hillea,Genus,Chromista,Cryptophyta,Cryptophyceae,Cryptomonadales,Hilleaceae,Hillea,NA,sp. Indet.,NA,140000
+2021-04-12,DFO2,auto,Cryptophyta,Teleaulax,106285,Teleaulax,Genus,Chromista,Cryptophyta,Cryptophyceae,Pyrenomonadales,Geminigeraceae,Teleaulax,NA,spp. Indet.,NA,26250
+2021-04-12,DFO2,auto,Dictyochophyta,Dictyocha speculum,157260,Octactis speculum,Species,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,NA,NA,NA,111
+2021-04-12,DFO2,auto,Dictyochophyta,Dictyocha,157258,Dictyocha,Genus,Chromista,Ochrophyta,Dictyochophyceae,Dictyochales,Dictyochaceae,Dictyocha,spores,Indet.,NA,1665
+2021-04-12,DFO2,auto,Dinoflagellata,Corythodinium,109527,Corythodinium,Genus,Chromista,Myzozoa,Dinophyceae,Peridiniales,Oxytoxaceae,Corythodinium,NA,spp. Indet.,NA,1110
+2021-04-12,DFO2,auto,Dinoflagellata,Dinophysis acuminata,109603,Dinophysis acuminata,Species,Chromista,Myzozoa,Dinophyceae,Dinophysiales,Dinophysaceae,Dinophysis,NA,NA,NA,111
+2021-04-12,DFO2,auto,Dinoflagellata,Gymnodinium,109475,Gymnodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gymnodinium,NA,spp. Indet.,NA,999
+2021-04-12,DFO2,auto,Dinoflagellata,Gyrodinium,109476,Gyrodinium,Genus,Chromista,Myzozoa,Dinophyceae,Gymnodiniales,Gymnodiniaceae,Gyrodinium,NA,spp. Indet.,NA,444
+2021-04-12,DFO2,auto,Dinoflagellata,Katodinium,109477,Katodinium,Genus,Chromista,Myzozoa,Dinophyceae,Tovelliales,Tovelliaceae,Katodinium,NA,spp. Indet.,NA,4375
+2021-04-12,DFO2,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,resting spores,Indet.,NA,111
+2021-04-12,DFO2,auto,Dinoflagellata,Scrippsiella precaria,110173,Scrippsiella precaria,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Peridiniaceae,Scrippsiella,NA,NA,NA,111
+2021-04-12,DFO2,auto,Dinoflagellata,Scrippsiella trochoidea,110172,Scrippsiella acuminata,Species,Chromista,Myzozoa,Dinophyceae,Peridiniales,Peridiniaceae,Scrippsiella,NA,NA,NA,555
+2021-04-12,DFO2,auto,Dinoflagellata,Dinophyceae,19542,Dinophyceae,Class,Chromista,Myzozoa,Dinophyceae,NA,NA,NA,NA,Indet.,NA,444
+2021-04-12,DFO2,auto,Unknown_Dinophyceae?,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,Cells too small to identify. Showed equatorial groove and could be Dinophyceae,21875
+2021-04-12,DFO2,hetero,Ebriidea,Ebria tripartita,118051,Ebria tripartita,Species,Protozoa,NA,Ebriophyceae,Ebriales,Ebriaceae,Ebria,NA,NA,NA,777
+2021-04-12,DFO2,auto,Euglenophyta,Euglenozoa,536202,Euglenozoa,Phylum,Protozoa,Euglenozoa,NA,NA,NA,NA,NA,Indet.,NA,8750
+2021-04-12,DFO2,hetero,Kinetoplastidea,Metromonas simplex,118059,Metromonas simplex,Species,Chromista,Cercozoa,Metromonadea,Metromonadea incertae sedis,NA,Metromonas,NA,NA,NA,13125
+2021-04-12,DFO2,hetero,Kinetoplastidea,Telonema subtilis,118076,Telonema subtile,Species,Chromista,Cryptophyta,Telonemea,Telonemida,NA,Telonema,NA,NA,NA,8750
+2021-04-12,DFO2,hetero,Kinetoplastidea,Kinetoplastea,562565,Kinetoplastea,Class,Protozoa,Euglenozoa,Kinetoplastea,NA,NA,NA,NA,Indet.,NA,4375
+2021-04-12,DFO2,hetero,Metazoa,Copepoda,1080,Copepoda,Subclass,Animalia,Arthropoda,Hexanauplia,NA,NA,NA,nauplii,Indet.,NA,111
+2021-04-12,DFO2,auto,Prymnesiophyta-Haptophyta,Phaeocystis pouchetii,115106,Phaeocystis pouchetii,Species,Chromista,Haptophyta,Prymnesiophyceae,Phaeocystales,Phaeocystaceae,Phaeocystis,NA,NA,NA,8325
+2021-04-12,DFO2,auto,Unknown_flagellate,Protozoa,5,Protozoa,Kingdom,Protozoa,NA,NA,NA,NA,NA,NA,Indet.,NA,533750
+2021-04-12,DFO2,auto,Bacillariophyta,Skeletonema marinoi,376667,Skeletonema marinoi,Species,Chromista,Ochrophyta,Bacillariophyceae,Thalassiosirales,Skeletonemaceae,Skeletonema,NA,NA,NA,517841
+2021-04-12,DFO2,hetero,Ciliophora,Oligotrichea,732974,Oligotrichea,Class,Chromista,Ciliophora,Oligotrichea,NA,NA,NA,NA,Indet.,NA,1887

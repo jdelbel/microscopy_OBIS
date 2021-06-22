@@ -1,0 +1,248 @@
+---
+title: "QU39 Phytoplankton Microscopy OBIS submission"
+output: html_notebook
+---
+
+This notebook uploads phytoplankton microscopy data from excel based analyst results, which include taxonomic names and abundance counts for each data collection event. In this notebook, only data collected at QU39 are considered: At this station, phytoplankton microscopy samples are collected at a single depth on a weekly to bi-weekly basis. Data collection is ongoing, but here, only data between 2016 and the end of 2018 have been uploaded.
+
+After initial data transformation, the data are converted to tidy (long) format and taxonomic information is matched to taxonomic names within the WoRMs database (using both the obisTools and Worrms R packages). This matching corrects for spelling errors, allows for selection of the appropriate taxonomic information where multiple matches are returned, provides a WoRMs aphiaID and outputs taxonomic hierarchies. Considerable consultation was done with the analyst to ensure that the taxonomic matches corresponded to the original analyst designations. As a result, the final scientificNames have been updated to the most recent accepted names within the WoRMs database.
+
+Care was taken to ensure that matches were done to the lowest taxonomic level possible. At times, taxonomic designations were downgraded to higher taxonomic levels due to analyst uncertainties. These downgrades are documented within the code below. Additionally, identificationRemarks were used to explain decisions and analyst notes.
+
+
+```{r}
+#Load packages - Ran script with some packages turned off and it work, but need to try with more
+library(tidyverse)
+library(janitor) #Where do I use this? Test running without
+library(hutils) #Used to drop empty columns 
+library(obistools) #Used for initial species matches to WoRMs - good for cleaning taxonomic names
+library(worrms) #Used to derive accepted names and taxonomic hierarchies
+library(curl) #??? Test running without.
+library(stringr) #Used to remove white-space after strings from regex work
+library(here) 
+
+#library('taxizesoap') #not working. 
+#library(fuzzyjoin) #I don't know if I use this anymore
+#library(devtools) #This was to try to get taxizesoap to work, but think it is unused.
+#library(remotes) #I think this was to try to get taxizesoap to work, but think it is unused.
+#library(XML) #I think this was to try to get taxizesoap to work, but think it is unused.
+```
+
+```{r}
+#upload cleaned data - when new data comes in, good to bind it here as it should be formatted the same way at this stage
+
+#2020 and 2021 data.
+micro <- read_csv(here("cleaned_csv", "microscopy_calvert_bind_invoice244.csv"))
+
+```
+
+
+```{r}
+#This chunk of code runs the obistools and worrms tools on a truncated distinct species list rather than the entire data-sheet. This step is important because it helps to isolate species match issues on a small data-set. Furthermore, the worrms::wm_record_names provides the accepted scientificName, aphiaID and taxonomic hierarchy - these are not provided by the obistools:match_taxa. 
+
+#For error checking, limit species to unique species names. For whatever reason, this is throwing duplicates - must be something from my above filtering/renaming (i.e. a space after the name?). Not certain yet if it is necessary to fix this as it will depend on if it affects the data when I apply functions to the full dataset, which is not a unique subset. For unique subset, I deal with this later after the match_taxa has been performed - apply distinct to the scientificName output.
+
+unique_list <- micro %>%
+  distinct(species) %>%
+  arrange(species) %>%
+  mutate(id = row_number())
+
+#Take unique list of species and search for them within the WoRMs database. Add a unique row number for matching with the original species name list, so that species with poor or no matches can be identified
+
+worm_match <- unique_list$species %>%
+  match_taxa() %>%
+  mutate(id = row_number())
+
+#Testing to see if only using  worrms:wm_match_taxa provides the same results as first using obistools::match_taxa. It didn't pick up names where there was spelling errors or small differences and I think this was because the fuzzy matching default is FALSE. When I tried turning it on, it threw: Error: (500) Internal Server Error - AphiaRecordsByNames. Conflicted here because what I have works (even if it is more convoluted) and adds additional failsafe in that species names are more thoroughly checked.
+
+# test <- unique_list$species %>%
+#   wm_records_names(fuzzy = TRUE) %>%
+#   bind_rows() %>%
+#   rename(scientificName = scientificname)
+# 
+# test2 <- worm_match %>%
+#   left_join(test, by = "scientificName")
+
+
+#Join WoRMS species scientificName and scientificID with original species names from datasheet
+
+worm_match <- worm_match %>%
+  full_join(unique_list) %>%
+  rename(orig_name = species)
+
+#Filter for species where there was a poor match. Cross check matches to see if correct. After cross checking, the near_3 match is incorrect - Pleurotoma gracile, which was matched to Pleurostomum gracile. The near_2 matches are correct.
+
+worm_poor_match <- worm_match %>%
+  filter(match_type %in% c("near_2", "near_3", na.rm = "FALSE"))
+
+#Filter for species with no WoRMs matches. See next note.
+
+worm_na_match <- worm_match %>%
+  filter(is.na(match_type))
+
+# This step uses the WoRMs scientificName to create a list of distinct species and then it removes species with incorrect or no matches as these complicate the following database search using the worrms::wm_records_name tool. I can't find a match for Meringosphaerae tenerrima, but I could go to genus level for this species. For the other two species, I can't even find a genus level match. The analyst said that these species occur so infrequently and at such low numbers that he suggests just removing them instead of going through the work of adding them. Pleurostomum gracile, Phyllomitus yorkeensis, Meringosphaerae tenerrima
+worm_match_clean <- worm_match %>% 
+  filter(!(str_detect(orig_name, "Pleurostomum gracile") |  
+           str_detect(orig_name, "Phyllomitus yorkeensis") |  
+           str_detect(orig_name, "Meringosphaerae tenerrima") |  
+           str_detect(orig_name, "Jacobia iberia"))) %>% 
+  distinct(scientificName, .keep_all = TRUE) 
+
+#This tool uses the worrms::wm_records_names tool to attach taxonomic hierarchies and accepted scientificNames to the scientificNames derived above from the obistools::match_taxa (provides direct matches, not accepted). Unfortunately, it re-adds duplicates (Appendicularia and Euglenozoa) where I was able to make selections in obistools::match_taxa and I need to manually remove these later. The worrms::wm_record_names is described here: https://cran.r-project.org/web/packages/worrms/worrms.pdf
+worm_hierarchy <- worm_match_clean$scientificName %>% 
+  wm_records_names() %>% 
+  bind_rows() %>% 
+  rename(scientificName = scientificname)
+
+#Joins the worrms::wm_records_names output with the obistools::taxon_match output so that unaccepted names can be found and traced back to the analysts original name and other issues can be identified. 
+worm_join <- worm_hierarchy %>% 
+  full_join(worm_match_clean, by = "scientificName")
+
+#finds duplicate species names created using wormms::wm_name_records. The worrms::wm_name_records tool reintroduces potential duplicate taxonomic designations that were selected and removed in obistools::taxon_match. This list is used to remove/rename duplicated entries when working with the full data-set in the next chunk.
+worm_join_dup <- worm_join %>% 
+     group_by(scientificName) %>% 
+     mutate(num_dups = n(), 
+            dup_id = row_number()) %>% 
+     ungroup() %>% 
+     mutate(is_duplicated = dup_id > 1) %>% 
+     filter(num_dups > 1)
+
+  #Current duplicates - if there are more than this, code will need to be altered below.
+    #Appendicularia
+    #Dinophysis rotundata
+    #Euglenozoa
+
+#this finds all of the taxonomic designations that are not accepted. After consultation with the analyst, I decided to go forward with the accepted scientificName from the worrms::wm_records_names output. It is suggested that the analyst original name, even if it is a synonym, is retained and used, but I since I cross checked with the analyst,  There is nothing I can do to corrected for uncertain names. 
+worm_join_unaccept <- worm_join %>% 
+  filter(!status == "accepted")
+
+```
+
+```{r}
+#This chunk adds taxonomic information to the full dataset, rather than just a distinct list. The distinct list is still important because the worrms::wm_records_names tool will only run on a small number of records. Therefore, I needed to use the distinct list from above to join to the larger dataset here. I don't really like my naming conventions here.
+
+#Performs obistools::match_taxa on full dataset. When prompted in console, select y, 2, 2. As the output is a single scientificName column, this step also gives an id so that this can be merged back with the metadata in the next step.
+complete <- micro$species %>% 
+  match_taxa() %>% 
+  mutate(id = row_number())
+
+#Gives the full data sheet an id for merging with 
+micro <- micro %>% 
+  mutate(id = row_number())
+
+
+#Removes species names that I decided to remove from the data based on the analysts suggestion. I could also do this earlier before the matching is done.
+complete <- complete %>% 
+  full_join(micro) %>% 
+  rename(orig_name = species) %>% 
+  filter(!(str_detect(orig_name, "Pleurostomum gracile") |  
+           str_detect(orig_name, "Phyllomitus yorkeensis") |  
+           str_detect(orig_name, "Meringosphaerae tenerrima") |  
+           str_detect(orig_name, "Jakobia iberia"))) 
+
+
+#This removes the double hierarchy matches (as seen in worm_join_dup data-sheet). Consultation was done to ensure the removal of the incorrect match and to leave the correct match. It might be better to do this in the last chunk where I develop this sheet - would probably flow better, rather than jumping back here.
+worm_hierarchy_clean <- worm_hierarchy %>% 
+  filter(!((scientificName == "Appendicularia" & is.na(authority)) |
+          (scientificName == "Dinophysis rotundata" & authority == "Levander, 1894") |
+          (scientificName == "Euglenozoa" & is.na(authority))))
+
+#Joins the worrms:wm_records_names derived taxonomic hierarchies and accepted ScientificName (and other information) to the full datasheet with all occurrences. 
+complete_join <- complete %>% 
+  left_join(worm_hierarchy_clean, by = "scientificName")
+
+#Arrange by date as I combined multiple files from different dates
+complete_join <- complete_join %>% 
+  arrange(date)
+
+```
+
+```{r}
+#With Calvert data, quite a few mistakes and species with no match.
+#Lets see where:
+
+mistake_1 <- complete_join %>% 
+  filter(orig_name == "Phaeocystis pouchetii non flagella")
+#DFO 2 - 2019 - 2020 - This can likely be dealt with once the data is bound (fixed in bound sheet)
+
+mistake_2 <- complete_join %>% 
+  filter(orig_name == "Radiolaria")
+#DFO2 and KC10 - Should be changed to Radiozoa (fixed in bound sheet) - Might have been better to just fix in here... ridiculous the amount of back and forth.
+
+mistake_3 <- complete_join %>% 
+  filter(orig_name == "Raphidiophyta")
+#KC10 - 2019-01-01 - change to Raphidophyceae (can fix in bound sheet)
+
+mistake_4 <- complete_join %>% 
+  filter(orig_name == "Unidentified centric forms")
+#QCS01 - 2018 - remove from original sheet (should troubleshoot this at source - was in _3, should be fixed)
+
+mistake_5 <- complete_join %>% 
+  filter(orig_name == "Unknown species")
+#KC10 - 2020 - remove from original sheet - Issue - there is a count under rapidophyta group row. Fixed and put count in species row.
+
+#going to try to fix these once the data is bound....
+
+```
+
+
+
+
+```{r}
+#Adding Indet. to all classifications that did not go to species level and do not have sp. or spp. This wasn't done in the previous data_wrangle worksheet as it requires the taxonomic hierarchy from the worms species match.
+complete_join <- complete_join %>% 
+  mutate(identificationQualifier = case_when(!rank == "Species" & 
+                                               is.na(identificationQualifier) ~
+                                               "Indet.",
+                                             TRUE ~ as.character
+                                             (identificationQualifier)))
+
+
+
+
+
+#For whatever reason, this wasn't removed previously. So doing it here, but need to troubleshoot when submitting to OBIS.
+complete_join <- complete_join %>% 
+  filter(!orig_name == "Jacobia iberia")
+
+complete_join <- complete_join %>% 
+  mutate(group = case_when(orig_name == "Chaetoceros" & is.na(group) ~ "Bacillariophyta",
+                           orig_name == "Cyanobacteria" & is.na(group) ~ "Cyanobacteria",
+                           TRUE ~ as.character(group)))
+
+complete_join <- complete_join %>% 
+  mutate(group = case_when(orig_name == "Protozoa" & 
+                           group == "Unknown very small flagellated species" ~ 
+                           "Unknown flagellae-bearing cells",
+                           TRUE ~ as.character(group)))
+
+#Unknown flagellae-bearing cells and Unknown very small flagellated species need to be combined. I will fix here for now
+
+complete_distinct <-  complete_join %>% 
+  distinct(valid_name, orig_name, group, lifeStage, 
+           identificationQualifier, identificationRemark)
+```
+
+#Likely worth outputting the data here and then uploading the file for formatting into OBIS format - limits the amount of time I need to run the data through the worms database matching queries.
+
+```{r}
+
+write_csv(complete_join, here("output_worms_matching", "calvert_Invoice244.csv"))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
