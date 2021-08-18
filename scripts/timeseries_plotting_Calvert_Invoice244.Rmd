@@ -29,7 +29,7 @@ micro$date <- as.Date(micro$date, "%Y-%m-%d")
 ```{r}
 #Selecting pertinent columns.
 micro <- micro %>% 
-  select(date, site_id, group, scientificName, AphiaID, 
+  select(date, site_id, group, scientificName, AphiaID, orig_name, 
          scientificName_accepted = valid_name, 
          rank, kingdom:genus, lifeStage:identificationRemark,
          count = counts)
@@ -126,7 +126,7 @@ micro <- micro %>%
                                    group == "Unknown_Chlorophyta?" ~ "auto",
                                    group == "Unknown_Dinophyceae?" ~ "auto")) %>% 
   select(date, site_id, trophicStatus, group, scientificName, 
-         AphiaID, scientificName_accepted:count)
+         AphiaID, orig_name, scientificName_accepted:count)
 
 trophic_check <- micro %>% 
   distinct(group, trophicStatus) %>% 

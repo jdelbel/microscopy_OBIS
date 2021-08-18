@@ -1775,44 +1775,231 @@ library(here)
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3VwbG9hZCBjbGVhbmVkIGRhdGEgLSB3aGVuIG5ldyBkYXRhIGNvbWVzIGluLCBnb29kIHRvIGJpbmQgaXQgaGVyZSBhcyBpdCBzaG91bGQgYmUgZm9ybWF0dGVkIHRoZSBzYW1lIHdheSBhdCB0aGlzIHN0YWdlXG5cbiMyMDIwIGFuZCAyMDIxIGRhdGEuXG5taWNybyA8LSByZWFkX2NzdihoZXJlKFwiY2xlYW5lZF9jc3ZcIiwgXCJtaWNyb3Njb3B5X2NhbHZlcnRfYmluZF9pbnZvaWNlMjQ0LmNzdlwiKSlcblxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3VwbG9hZCBjbGVhbmVkIGRhdGEgLSB3aGVuIG5ldyBkYXRhIGNvbWVzIGluLCBnb29kIHRvIGJpbmQgaXQgaGVyZSBhcyBpdCBzaG91bGQgYmUgZm9ybWF0dGVkIHRoZSBzYW1lIHdheSBhdCB0aGlzIHN0YWdlXG5cbiMyMDIwIGFuZCAyMDIxIGRhdGEuXG5taWNybyA8LSByZWFkX2NzdihoZXJlKFwiY2xlYW5lZF9jc3ZcIiwgXCJtaWNyb3Njb3B5X2NhbHZlcnRfYmluZF9pbnZvaWNlMjQ0LmNzdlwiKSlcbmBgYCJ9 -->
 <pre class="r"><code>#upload cleaned data - when new data comes in, good to bind it here as it should be formatted the same way at this stage
 
 #2020 and 2021 data.
-micro &lt;- read_csv(here(&quot;cleaned_csv&quot;, &quot;microscopy_calvert_bind_invoice244.csv&quot;))
-</code></pre>
+micro &lt;- read_csv(here(&quot;cleaned_csv&quot;, &quot;microscopy_calvert_bind_invoice244.csv&quot;))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud29ybV9tYXRjaCA8LSB3b3JtX21hdGNoICU+JVxuICBmdWxsX2pvaW4odW5pcXVlX2xpc3QpICU+JVxuICByZW5hbWUob3JpZ19uYW1lID0gc3BlY2llcylcblxuYGBgIn0= -->
-<pre class="r"><code>worm_match &lt;- worm_match %&gt;%
-  full_join(unique_list) %&gt;%
-  rename(orig_name = species)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImlkXCJcbiJ9 -->
-<pre><code>Joining, by = &quot;id&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG4tLSBDb2x1bW4gc3BlY2lmaWNhdGlvbiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuY29scyhcbiAgZGF0ZSA9IGNvbF9kYXRlKGZvcm1hdCA9IFwiXCIpLFxuICBjb2xsZWN0ZWQgPSBjb2xfZGF0ZXRpbWUoZm9ybWF0ID0gXCJcIiksXG4gIGhha2FpX2lkID0gY29sX2NoYXJhY3RlcigpLFxuICBsaW5lX291dF9kZXB0aCA9IGNvbF9kb3VibGUoKSxcbiAgd29ya19hcmVhID0gY29sX2NoYXJhY3RlcigpLFxuICBzaXRlX2lkID0gY29sX2NoYXJhY3RlcigpLFxuICBsYXQgPSBjb2xfZG91YmxlKCksXG4gIGxvbmcgPSBjb2xfZG91YmxlKCksXG4gIHZvbHVtZSA9IGNvbF9kb3VibGUoKSxcbiAgbHVnb2xzID0gY29sX2xvZ2ljYWwoKSxcbiAgc3BlY2llcyA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgY291bnRzID0gY29sX2RvdWJsZSgpLFxuICBncm91cCA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgbGlmZVN0YWdlID0gY29sX2NoYXJhY3RlcigpLFxuICBpZGVudGlmaWNhdGlvblF1YWxpZmllciA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgaWRlbnRpZmljYXRpb25SZW1hcmsgPSBjb2xfY2hhcmFjdGVyKClcbilcbiJ9 -->
+<pre><code>
+-- Column specification -----------------------------------------------------------------------
+cols(
+  date = col_date(format = &quot;&quot;),
+  collected = col_datetime(format = &quot;&quot;),
+  hakai_id = col_character(),
+  line_out_depth = col_double(),
+  work_area = col_character(),
+  site_id = col_character(),
+  lat = col_double(),
+  long = col_double(),
+  volume = col_double(),
+  lugols = col_logical(),
+  species = col_character(),
+  counts = col_double(),
+  group = col_character(),
+  lifeStage = col_character(),
+  identificationQualifier = col_character(),
+  identificationRemark = col_character()
+)</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1JlbW92ZXMgc3BlY2llcyBuYW1lcyB0aGF0IEkgZGVjaWRlZCB0byByZW1vdmUgZnJvbSB0aGUgZGF0YSBiYXNlZCBvbiB0aGUgYW5hbHlzdHMgc3VnZ2VzdGlvbi4gSSBjb3VsZCBhbHNvIGRvIHRoaXMgZWFybGllciBiZWZvcmUgdGhlIG1hdGNoaW5nIGlzIGRvbmUuXG5jb21wbGV0ZSA8LSBjb21wbGV0ZSAlPiUgXG4gIGZ1bGxfam9pbihtaWNybykgJT4lIFxuICByZW5hbWUob3JpZ19uYW1lID0gc3BlY2llcykgJT4lIFxuICBmaWx0ZXIoIShzdHJfZGV0ZWN0KG9yaWdfbmFtZSwgXCJQbGV1cm9zdG9tdW0gZ3JhY2lsZVwiKSB8ICBcbiAgICAgICAgICAgc3RyX2RldGVjdChvcmlnX25hbWUsIFwiUGh5bGxvbWl0dXMgeW9ya2VlbnNpc1wiKSB8ICBcbiAgICAgICAgICAgc3RyX2RldGVjdChvcmlnX25hbWUsIFwiTWVyaW5nb3NwaGFlcmFlIHRlbmVycmltYVwiKSB8ICBcbiAgICAgICAgICAgc3RyX2RldGVjdChvcmlnX25hbWUsIFwiSmFrb2JpYSBpYmVyaWFcIikpKSBcblxuYGBgIn0= -->
-<pre class="r"><code>#Removes species names that I decided to remove from the data based on the analysts suggestion. I could also do this earlier before the matching is done.
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1RoaXMgY2h1bmsgb2YgY29kZSBydW5zIHRoZSBvYmlzdG9vbHMgYW5kIHdvcnJtcyB0b29scyBvbiBhIHRydW5jYXRlZCBkaXN0aW5jdCBzcGVjaWVzIGxpc3QgcmF0aGVyIHRoYW4gdGhlIGVudGlyZSBkYXRhLXNoZWV0LiBUaGlzIHN0ZXAgaXMgaW1wb3J0YW50IGJlY2F1c2UgaXQgaGVscHMgdG8gaXNvbGF0ZSBzcGVjaWVzIG1hdGNoIGlzc3VlcyBvbiBhIHNtYWxsIGRhdGEtc2V0LiBGdXJ0aGVybW9yZSwgdGhlIHdvcnJtczo6d21fcmVjb3JkX25hbWVzIHByb3ZpZGVzIHRoZSBhY2NlcHRlZCBzY2llbnRpZmljTmFtZSwgYXBoaWFJRCBhbmQgdGF4b25vbWljIGhpZXJhcmNoeSAtIHRoZXNlIGFyZSBub3QgcHJvdmlkZWQgYnkgdGhlIG9iaXN0b29sczptYXRjaF90YXhhLiBcblxuI0ZvciBlcnJvciBjaGVja2luZywgbGltaXQgc3BlY2llcyB0byB1bmlxdWUgc3BlY2llcyBuYW1lcy4gRm9yIHdoYXRldmVyIHJlYXNvbiwgdGhpcyBpcyB0aHJvd2luZyBkdXBsaWNhdGVzIC0gbXVzdCBiZSBzb21ldGhpbmcgZnJvbSBteSBhYm92ZSBmaWx0ZXJpbmcvcmVuYW1pbmcgKGkuZS4gYSBzcGFjZSBhZnRlciB0aGUgbmFtZT8pLiBOb3QgY2VydGFpbiB5ZXQgaWYgaXQgaXMgbmVjZXNzYXJ5IHRvIGZpeCB0aGlzIGFzIGl0IHdpbGwgZGVwZW5kIG9uIGlmIGl0IGFmZmVjdHMgdGhlIGRhdGEgd2hlbiBJIGFwcGx5IGZ1bmN0aW9ucyB0byB0aGUgZnVsbCBkYXRhc2V0LCB3aGljaCBpcyBub3QgYSB1bmlxdWUgc3Vic2V0LiBGb3IgdW5pcXVlIHN1YnNldCwgSSBkZWFsIHdpdGggdGhpcyBsYXRlciBhZnRlciB0aGUgbWF0Y2hfdGF4YSBoYXMgYmVlbiBwZXJmb3JtZWQgLSBhcHBseSBkaXN0aW5jdCB0byB0aGUgc2NpZW50aWZpY05hbWUgb3V0cHV0LlxuXG51bmlxdWVfbGlzdCA8LSBtaWNybyAlPiVcbiAgZGlzdGluY3Qoc3BlY2llcykgJT4lXG4gIGFycmFuZ2Uoc3BlY2llcykgJT4lXG4gIG11dGF0ZShpZCA9IHJvd19udW1iZXIoKSlcblxuI1Rha2UgdW5pcXVlIGxpc3Qgb2Ygc3BlY2llcyBhbmQgc2VhcmNoIGZvciB0aGVtIHdpdGhpbiB0aGUgV29STXMgZGF0YWJhc2UuIEFkZCBhIHVuaXF1ZSByb3cgbnVtYmVyIGZvciBtYXRjaGluZyB3aXRoIHRoZSBvcmlnaW5hbCBzcGVjaWVzIG5hbWUgbGlzdCwgc28gdGhhdCBzcGVjaWVzIHdpdGggcG9vciBvciBubyBtYXRjaGVzIGNhbiBiZSBpZGVudGlmaWVkXG5cbndvcm1fbWF0Y2ggPC0gdW5pcXVlX2xpc3Qkc3BlY2llcyAlPiVcbiAgbWF0Y2hfdGF4YSgpICU+JVxuICBtdXRhdGUoaWQgPSByb3dfbnVtYmVyKCkpXG5gYGAifQ== -->
+<pre class="r"><code>#This chunk of code runs the obistools and worrms tools on a truncated distinct species list rather than the entire data-sheet. This step is important because it helps to isolate species match issues on a small data-set. Furthermore, the worrms::wm_record_names provides the accepted scientificName, aphiaID and taxonomic hierarchy - these are not provided by the obistools:match_taxa. 
+
+#For error checking, limit species to unique species names. For whatever reason, this is throwing duplicates - must be something from my above filtering/renaming (i.e. a space after the name?). Not certain yet if it is necessary to fix this as it will depend on if it affects the data when I apply functions to the full dataset, which is not a unique subset. For unique subset, I deal with this later after the match_taxa has been performed - apply distinct to the scientificName output.
+
+unique_list &lt;- micro %&gt;%
+  distinct(species) %&gt;%
+  arrange(species) %&gt;%
+  mutate(id = row_number())
+
+#Take unique list of species and search for them within the WoRMs database. Add a unique row number for matching with the original species name list, so that species with poor or no matches can be identified
+
+worm_match &lt;- unique_list$species %&gt;%
+  match_taxa() %&gt;%
+  mutate(id = row_number())</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiMTExIG5hbWVzLCAwIHdpdGhvdXQgbWF0Y2hlcywgMiB3aXRoIG11bHRpcGxlIG1hdGNoZXNcbiJ9 -->
+<pre><code>111 names, 0 without matches, 2 with multiple matches</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueVxuYGBgIn0= -->
+<pre class="r"><code>y</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6NX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJuVlJ3VXJEUUJDZHJrMXJBbFhCSC9BRGJLQ3RvdUNwV0FSdjRxazNHVGRiczVqdUxza0UyNXYvNFBmNFdWNWJKMmtXMm9nTHU1bDUreWJ6M3V6emJENko1aEVBSEVFWEJCd0ZIRUx2L21rMHZoNERkQVZuSGI0SnErK0tXZWNjVkp3QmJ3SGk3Z2M2WDk4Y245WDVqbmd5ZFU2WlJNc3l3MXpqUDZpdkFRaTN2QnBXK0dDenk0dlI3YzFWNjZmSEtLVnlwSkkvK1NFdlVDdVVkSmdjK2dnTUxsWFJsQVVOMkorNlZPUGp6SXN0cEZhRzlFTExpdTNGWVVtcHpUV3RHNkJYRUZKWk5GbTBSSkxwQzYyZGFyVU1jL3NSKzdiMTZENzVZTmVidGphWlllRzFlVEJLa0RCZTVKVVFnSFpKM3pyUzFuQ1I4SSt6WDl6Slc4QnBhU29seVZDbXBYa2ZUcW9HOWZWdURacFk3TVhCcnFYWXRvYldVK1pOR3orZElNTlhsZmtCc3VQYWNPeHliZng3Ukl3V01WbEN6NHVrelR4U2U0UE5MeC9wUXhPVUFnQUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["AphiaID"],"name":[1],"type":["int"],"align":["right"]},{"label":["scientificname"],"name":[2],"type":["chr"],"align":["left"]},{"label":["authority"],"name":[3],"type":["chr"],"align":["left"]},{"label":["status"],"name":[4],"type":["chr"],"align":["left"]},{"label":["match_type"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"146421","2":"Appendicularia","3":"NA","4":"accepted","5":"exact"},{"1":"103357","2":"Appendicularia","3":"Fol, 1874","4":"accepted","5":"exact"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiQXBwZW5kaWN1bGFyaWFcbiJ9 -->
+<pre><code>Appendicularia</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMlxuYGBgIn0= -->
+<pre class="r"><code>2</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6NX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJtMVJUVS9DUUJBZENnWGFCRCtpUDhBZklFMkFtT2pSZ0FkdlJpL2N6TGdzZEdQWmJkcXBnaWZQL0V4L0NEZ3R1d2xVTjludG03ZHZPdk5tbnlmVFVUZ05BYUFKTGZDZzZUT0U5dmhwTUx3WkFyUThqaHA4RTVUZkZhc3VHSlNhSG04UHVqL24wSTAyak0rcWVDOE1INHBGSXJYNU12Z1A0N1FBd1k2WFZWeU84UU1USmJQK3kxSlJmSDAxdUxzZDFQN2JSU0ZrU25MMkp6N1crWEtGZ282RFl5dSt4cVhNYlpwdnljNTlHaXQ4bk5qd0pCZEthbEp6SlVxMVpRTXNLRGFab3JVbDJqa2hGYmt6dWtRUzhTdXRVMWtyR1dUbU0zSmxxK2w5ODhFRDJOWjdFd25tcmpkSGhqTWtqT1paMlFoQVBhVmpVbEpHYzVMbjN1Y3d1WkhWaU5OQ2w1M00raUl1OUh0L1ZCYW9ydmVyWjdGM2dQMTlTVzlYRzFwYjZvWFNianArZ204eWNRTmt4NVhoS00yVWR1OFJNcHRIWkFpZExoUW1jVXpsRGJhL3B1NmlvcGNDQUFBPSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["AphiaID"],"name":[1],"type":["int"],"align":["right"]},{"label":["scientificname"],"name":[2],"type":["chr"],"align":["left"]},{"label":["authority"],"name":[3],"type":["chr"],"align":["left"]},{"label":["status"],"name":[4],"type":["chr"],"align":["left"]},{"label":["match_type"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"582161","2":"Euglenozoa","3":"NA","4":"accepted","5":"exact"},{"1":"536202","2":"Euglenozoa","3":"Cavalier-Smith, 1981","4":"accepted","5":"exact"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXVnbGVub3pvYVxuIn0= -->
+<pre><code>Euglenozoa</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMlxuXG4jVGVzdGluZyB0byBzZWUgaWYgb25seSB1c2luZyAgd29ycm1zOndtX21hdGNoX3RheGEgcHJvdmlkZXMgdGhlIHNhbWUgcmVzdWx0cyBhcyBmaXJzdCB1c2luZyBvYmlzdG9vbHM6Om1hdGNoX3RheGEuIEl0IGRpZG4ndCBwaWNrIHVwIG5hbWVzIHdoZXJlIHRoZXJlIHdhcyBzcGVsbGluZyBlcnJvcnMgb3Igc21hbGwgZGlmZmVyZW5jZXMgYW5kIEkgdGhpbmsgdGhpcyB3YXMgYmVjYXVzZSB0aGUgZnV6enkgbWF0Y2hpbmcgZGVmYXVsdCBpcyBGQUxTRS4gV2hlbiBJIHRyaWVkIHR1cm5pbmcgaXQgb24sIGl0IHRocmV3OiBFcnJvcjogKDUwMCkgSW50ZXJuYWwgU2VydmVyIEVycm9yIC0gQXBoaWFSZWNvcmRzQnlOYW1lcy4gQ29uZmxpY3RlZCBoZXJlIGJlY2F1c2Ugd2hhdCBJIGhhdmUgd29ya3MgKGV2ZW4gaWYgaXQgaXMgbW9yZSBjb252b2x1dGVkKSBhbmQgYWRkcyBhZGRpdGlvbmFsIGZhaWxzYWZlIGluIHRoYXQgc3BlY2llcyBuYW1lcyBhcmUgbW9yZSB0aG9yb3VnaGx5IGNoZWNrZWQuXG5cbiMgdGVzdCA8LSB1bmlxdWVfbGlzdCRzcGVjaWVzICU+JVxuIyAgIHdtX3JlY29yZHNfbmFtZXMoZnV6enkgPSBUUlVFKSAlPiVcbiMgICBiaW5kX3Jvd3MoKSAlPiVcbiMgICByZW5hbWUoc2NpZW50aWZpY05hbWUgPSBzY2llbnRpZmljbmFtZSlcbiMgXG4jIHRlc3QyIDwtIHdvcm1fbWF0Y2ggJT4lXG4jICAgbGVmdF9qb2luKHRlc3QsIGJ5ID0gXCJzY2llbnRpZmljTmFtZVwiKVxuXG5cbiNKb2luIFdvUk1TIHNwZWNpZXMgc2NpZW50aWZpY05hbWUgYW5kIHNjaWVudGlmaWNJRCB3aXRoIG9yaWdpbmFsIHNwZWNpZXMgbmFtZXMgZnJvbSBkYXRhc2hlZXRcblxud29ybV9tYXRjaCA8LSB3b3JtX21hdGNoICU+JVxuICBmdWxsX2pvaW4odW5pcXVlX2xpc3QpICU+JVxuICByZW5hbWUob3JpZ19uYW1lID0gc3BlY2llcylcbmBgYCJ9 -->
+<pre class="r"><code>2
+
+#Testing to see if only using  worrms:wm_match_taxa provides the same results as first using obistools::match_taxa. It didn&#39;t pick up names where there was spelling errors or small differences and I think this was because the fuzzy matching default is FALSE. When I tried turning it on, it threw: Error: (500) Internal Server Error - AphiaRecordsByNames. Conflicted here because what I have works (even if it is more convoluted) and adds additional failsafe in that species names are more thoroughly checked.
+
+# test &lt;- unique_list$species %&gt;%
+#   wm_records_names(fuzzy = TRUE) %&gt;%
+#   bind_rows() %&gt;%
+#   rename(scientificName = scientificname)
+# 
+# test2 &lt;- worm_match %&gt;%
+#   left_join(test, by = &quot;scientificName&quot;)
+
+
+#Join WoRMS species scientificName and scientificID with original species names from datasheet
+
+worm_match &lt;- worm_match %&gt;%
+  full_join(unique_list) %&gt;%
+  rename(orig_name = species)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImlkXCJcbiJ9 -->
+<pre><code>Joining, by = &quot;id&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0ZpbHRlciBmb3Igc3BlY2llcyB3aGVyZSB0aGVyZSB3YXMgYSBwb29yIG1hdGNoLiBDcm9zcyBjaGVjayBtYXRjaGVzIHRvIHNlZSBpZiBjb3JyZWN0LiBBZnRlciBjcm9zcyBjaGVja2luZywgdGhlIG5lYXJfMyBtYXRjaCBpcyBpbmNvcnJlY3QgLSBQbGV1cm90b21hIGdyYWNpbGUsIHdoaWNoIHdhcyBtYXRjaGVkIHRvIFBsZXVyb3N0b211bSBncmFjaWxlLiBUaGUgbmVhcl8yIG1hdGNoZXMgYXJlIGNvcnJlY3QuXG5cbndvcm1fcG9vcl9tYXRjaCA8LSB3b3JtX21hdGNoICU+JVxuICBmaWx0ZXIobWF0Y2hfdHlwZSAlaW4lIGMoXCJuZWFyXzJcIiwgXCJuZWFyXzNcIiwgbmEucm0gPSBcIkZBTFNFXCIpKVxuXG4jRmlsdGVyIGZvciBzcGVjaWVzIHdpdGggbm8gV29STXMgbWF0Y2hlcy4gU2VlIG5leHQgbm90ZS5cblxud29ybV9uYV9tYXRjaCA8LSB3b3JtX21hdGNoICU+JVxuICBmaWx0ZXIoaXMubmEobWF0Y2hfdHlwZSkpXG5cbiMgVGhpcyBzdGVwIHVzZXMgdGhlIFdvUk1zIHNjaWVudGlmaWNOYW1lIHRvIGNyZWF0ZSBhIGxpc3Qgb2YgZGlzdGluY3Qgc3BlY2llcyBhbmQgdGhlbiBpdCByZW1vdmVzIHNwZWNpZXMgd2l0aCBpbmNvcnJlY3Qgb3Igbm8gbWF0Y2hlcyBhcyB0aGVzZSBjb21wbGljYXRlIHRoZSBmb2xsb3dpbmcgZGF0YWJhc2Ugc2VhcmNoIHVzaW5nIHRoZSB3b3JybXM6OndtX3JlY29yZHNfbmFtZSB0b29sLiBJIGNhbid0IGZpbmQgYSBtYXRjaCBmb3IgTWVyaW5nb3NwaGFlcmFlIHRlbmVycmltYSwgYnV0IEkgY291bGQgZ28gdG8gZ2VudXMgbGV2ZWwgZm9yIHRoaXMgc3BlY2llcy4gRm9yIHRoZSBvdGhlciB0d28gc3BlY2llcywgSSBjYW4ndCBldmVuIGZpbmQgYSBnZW51cyBsZXZlbCBtYXRjaC4gVGhlIGFuYWx5c3Qgc2FpZCB0aGF0IHRoZXNlIHNwZWNpZXMgb2NjdXIgc28gaW5mcmVxdWVudGx5IGFuZCBhdCBzdWNoIGxvdyBudW1iZXJzIHRoYXQgaGUgc3VnZ2VzdHMganVzdCByZW1vdmluZyB0aGVtIGluc3RlYWQgb2YgZ29pbmcgdGhyb3VnaCB0aGUgd29yayBvZiBhZGRpbmcgdGhlbS4gUGxldXJvc3RvbXVtIGdyYWNpbGUsIFBoeWxsb21pdHVzIHlvcmtlZW5zaXMsIE1lcmluZ29zcGhhZXJhZSB0ZW5lcnJpbWFcbndvcm1fbWF0Y2hfY2xlYW4gPC0gd29ybV9tYXRjaCAlPiUgXG4gIGZpbHRlcighKHN0cl9kZXRlY3Qob3JpZ19uYW1lLCBcIlBsZXVyb3N0b211bSBncmFjaWxlXCIpIHwgIFxuICAgICAgICAgICBzdHJfZGV0ZWN0KG9yaWdfbmFtZSwgXCJQaHlsbG9taXR1cyB5b3JrZWVuc2lzXCIpIHwgIFxuICAgICAgICAgICBzdHJfZGV0ZWN0KG9yaWdfbmFtZSwgXCJNZXJpbmdvc3BoYWVyYWUgdGVuZXJyaW1hXCIpIHwgIFxuICAgICAgICAgICBzdHJfZGV0ZWN0KG9yaWdfbmFtZSwgXCJKYWNvYmlhIGliZXJpYVwiKSkpICU+JSBcbiAgZGlzdGluY3Qoc2NpZW50aWZpY05hbWUsIC5rZWVwX2FsbCA9IFRSVUUpIFxuXG4jVGhpcyB0b29sIHVzZXMgdGhlIHdvcnJtczo6d21fcmVjb3Jkc19uYW1lcyB0b29sIHRvIGF0dGFjaCB0YXhvbm9taWMgaGllcmFyY2hpZXMgYW5kIGFjY2VwdGVkIHNjaWVudGlmaWNOYW1lcyB0byB0aGUgc2NpZW50aWZpY05hbWVzIGRlcml2ZWQgYWJvdmUgZnJvbSB0aGUgb2Jpc3Rvb2xzOjptYXRjaF90YXhhIChwcm92aWRlcyBkaXJlY3QgbWF0Y2hlcywgbm90IGFjY2VwdGVkKS4gVW5mb3J0dW5hdGVseSwgaXQgcmUtYWRkcyBkdXBsaWNhdGVzIChBcHBlbmRpY3VsYXJpYSBhbmQgRXVnbGVub3pvYSkgd2hlcmUgSSB3YXMgYWJsZSB0byBtYWtlIHNlbGVjdGlvbnMgaW4gb2Jpc3Rvb2xzOjptYXRjaF90YXhhIGFuZCBJIG5lZWQgdG8gbWFudWFsbHkgcmVtb3ZlIHRoZXNlIGxhdGVyLiBUaGUgd29ycm1zOjp3bV9yZWNvcmRfbmFtZXMgaXMgZGVzY3JpYmVkIGhlcmU6IGh0dHBzOi8vY3Jhbi5yLXByb2plY3Qub3JnL3dlYi9wYWNrYWdlcy93b3JybXMvd29ycm1zLnBkZlxud29ybV9oaWVyYXJjaHkgPC0gd29ybV9tYXRjaF9jbGVhbiRzY2llbnRpZmljTmFtZSAlPiUgXG4gIHdtX3JlY29yZHNfbmFtZXMoKSAlPiUgXG4gIGJpbmRfcm93cygpICU+JSBcbiAgcmVuYW1lKHNjaWVudGlmaWNOYW1lID0gc2NpZW50aWZpY25hbWUpXG5cbiNKb2lucyB0aGUgd29ycm1zOjp3bV9yZWNvcmRzX25hbWVzIG91dHB1dCB3aXRoIHRoZSBvYmlzdG9vbHM6OnRheG9uX21hdGNoIG91dHB1dCBzbyB0aGF0IHVuYWNjZXB0ZWQgbmFtZXMgY2FuIGJlIGZvdW5kIGFuZCB0cmFjZWQgYmFjayB0byB0aGUgYW5hbHlzdHMgb3JpZ2luYWwgbmFtZSBhbmQgb3RoZXIgaXNzdWVzIGNhbiBiZSBpZGVudGlmaWVkLiBcbndvcm1fam9pbiA8LSB3b3JtX2hpZXJhcmNoeSAlPiUgXG4gIGZ1bGxfam9pbih3b3JtX21hdGNoX2NsZWFuLCBieSA9IFwic2NpZW50aWZpY05hbWVcIilcblxuI2ZpbmRzIGR1cGxpY2F0ZSBzcGVjaWVzIG5hbWVzIGNyZWF0ZWQgdXNpbmcgd29ybW1zOjp3bV9uYW1lX3JlY29yZHMuIFRoZSB3b3JybXM6OndtX25hbWVfcmVjb3JkcyB0b29sIHJlaW50cm9kdWNlcyBwb3RlbnRpYWwgZHVwbGljYXRlIHRheG9ub21pYyBkZXNpZ25hdGlvbnMgdGhhdCB3ZXJlIHNlbGVjdGVkIGFuZCByZW1vdmVkIGluIG9iaXN0b29sczo6dGF4b25fbWF0Y2guIFRoaXMgbGlzdCBpcyB1c2VkIHRvIHJlbW92ZS9yZW5hbWUgZHVwbGljYXRlZCBlbnRyaWVzIHdoZW4gd29ya2luZyB3aXRoIHRoZSBmdWxsIGRhdGEtc2V0IGluIHRoZSBuZXh0IGNodW5rLlxud29ybV9qb2luX2R1cCA8LSB3b3JtX2pvaW4gJT4lIFxuICAgICBncm91cF9ieShzY2llbnRpZmljTmFtZSkgJT4lIFxuICAgICBtdXRhdGUobnVtX2R1cHMgPSBuKCksIFxuICAgICAgICAgICAgZHVwX2lkID0gcm93X251bWJlcigpKSAlPiUgXG4gICAgIHVuZ3JvdXAoKSAlPiUgXG4gICAgIG11dGF0ZShpc19kdXBsaWNhdGVkID0gZHVwX2lkID4gMSkgJT4lIFxuICAgICBmaWx0ZXIobnVtX2R1cHMgPiAxKVxuXG4gICNDdXJyZW50IGR1cGxpY2F0ZXMgLSBpZiB0aGVyZSBhcmUgbW9yZSB0aGFuIHRoaXMsIGNvZGUgd2lsbCBuZWVkIHRvIGJlIGFsdGVyZWQgYmVsb3cuXG4gICAgI0FwcGVuZGljdWxhcmlhXG4gICAgI0Rpbm9waHlzaXMgcm90dW5kYXRhXG4gICAgI0V1Z2xlbm96b2FcblxuI3RoaXMgZmluZHMgYWxsIG9mIHRoZSB0YXhvbm9taWMgZGVzaWduYXRpb25zIHRoYXQgYXJlIG5vdCBhY2NlcHRlZC4gQWZ0ZXIgY29uc3VsdGF0aW9uIHdpdGggdGhlIGFuYWx5c3QsIEkgZGVjaWRlZCB0byBnbyBmb3J3YXJkIHdpdGggdGhlIGFjY2VwdGVkIHNjaWVudGlmaWNOYW1lIGZyb20gdGhlIHdvcnJtczo6d21fcmVjb3Jkc19uYW1lcyBvdXRwdXQuIEl0IGlzIHN1Z2dlc3RlZCB0aGF0IHRoZSBhbmFseXN0IG9yaWdpbmFsIG5hbWUsIGV2ZW4gaWYgaXQgaXMgYSBzeW5vbnltLCBpcyByZXRhaW5lZCBhbmQgdXNlZCwgYnV0IEkgc2luY2UgSSBjcm9zcyBjaGVja2VkIHdpdGggdGhlIGFuYWx5c3QsICBUaGVyZSBpcyBub3RoaW5nIEkgY2FuIGRvIHRvIGNvcnJlY3RlZCBmb3IgdW5jZXJ0YWluIG5hbWVzLiBcbndvcm1fam9pbl91bmFjY2VwdCA8LSB3b3JtX2pvaW4gJT4lIFxuICBmaWx0ZXIoIXN0YXR1cyA9PSBcImFjY2VwdGVkXCIpXG5cbmBgYCJ9 -->
+<pre class="r"><code>#Filter for species where there was a poor match. Cross check matches to see if correct. After cross checking, the near_3 match is incorrect - Pleurotoma gracile, which was matched to Pleurostomum gracile. The near_2 matches are correct.
+
+worm_poor_match &lt;- worm_match %&gt;%
+  filter(match_type %in% c(&quot;near_2&quot;, &quot;near_3&quot;, na.rm = &quot;FALSE&quot;))
+
+#Filter for species with no WoRMs matches. See next note.
+
+worm_na_match &lt;- worm_match %&gt;%
+  filter(is.na(match_type))
+
+# This step uses the WoRMs scientificName to create a list of distinct species and then it removes species with incorrect or no matches as these complicate the following database search using the worrms::wm_records_name tool. I can&#39;t find a match for Meringosphaerae tenerrima, but I could go to genus level for this species. For the other two species, I can&#39;t even find a genus level match. The analyst said that these species occur so infrequently and at such low numbers that he suggests just removing them instead of going through the work of adding them. Pleurostomum gracile, Phyllomitus yorkeensis, Meringosphaerae tenerrima
+worm_match_clean &lt;- worm_match %&gt;% 
+  filter(!(str_detect(orig_name, &quot;Pleurostomum gracile&quot;) |  
+           str_detect(orig_name, &quot;Phyllomitus yorkeensis&quot;) |  
+           str_detect(orig_name, &quot;Meringosphaerae tenerrima&quot;) |  
+           str_detect(orig_name, &quot;Jacobia iberia&quot;))) %&gt;% 
+  distinct(scientificName, .keep_all = TRUE) 
+
+#This tool uses the worrms::wm_records_names tool to attach taxonomic hierarchies and accepted scientificNames to the scientificNames derived above from the obistools::match_taxa (provides direct matches, not accepted). Unfortunately, it re-adds duplicates (Appendicularia and Euglenozoa) where I was able to make selections in obistools::match_taxa and I need to manually remove these later. The worrms::wm_record_names is described here: https://cran.r-project.org/web/packages/worrms/worrms.pdf
+worm_hierarchy &lt;- worm_match_clean$scientificName %&gt;% 
+  wm_records_names() %&gt;% 
+  bind_rows() %&gt;% 
+  rename(scientificName = scientificname)
+
+#Joins the worrms::wm_records_names output with the obistools::taxon_match output so that unaccepted names can be found and traced back to the analysts original name and other issues can be identified. 
+worm_join &lt;- worm_hierarchy %&gt;% 
+  full_join(worm_match_clean, by = &quot;scientificName&quot;)
+
+#finds duplicate species names created using wormms::wm_name_records. The worrms::wm_name_records tool reintroduces potential duplicate taxonomic designations that were selected and removed in obistools::taxon_match. This list is used to remove/rename duplicated entries when working with the full data-set in the next chunk.
+worm_join_dup &lt;- worm_join %&gt;% 
+     group_by(scientificName) %&gt;% 
+     mutate(num_dups = n(), 
+            dup_id = row_number()) %&gt;% 
+     ungroup() %&gt;% 
+     mutate(is_duplicated = dup_id &gt; 1) %&gt;% 
+     filter(num_dups &gt; 1)
+
+  #Current duplicates - if there are more than this, code will need to be altered below.
+    #Appendicularia
+    #Dinophysis rotundata
+    #Euglenozoa
+
+#this finds all of the taxonomic designations that are not accepted. After consultation with the analyst, I decided to go forward with the accepted scientificName from the worrms::wm_records_names output. It is suggested that the analyst original name, even if it is a synonym, is retained and used, but I since I cross checked with the analyst,  There is nothing I can do to corrected for uncertain names. 
+worm_join_unaccept &lt;- worm_join %&gt;% 
+  filter(!status == &quot;accepted&quot;)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1RoaXMgY2h1bmsgYWRkcyB0YXhvbm9taWMgaW5mb3JtYXRpb24gdG8gdGhlIGZ1bGwgZGF0YXNldCwgcmF0aGVyIHRoYW4ganVzdCBhIGRpc3RpbmN0IGxpc3QuIFRoZSBkaXN0aW5jdCBsaXN0IGlzIHN0aWxsIGltcG9ydGFudCBiZWNhdXNlIHRoZSB3b3JybXM6OndtX3JlY29yZHNfbmFtZXMgdG9vbCB3aWxsIG9ubHkgcnVuIG9uIGEgc21hbGwgbnVtYmVyIG9mIHJlY29yZHMuIFRoZXJlZm9yZSwgSSBuZWVkZWQgdG8gdXNlIHRoZSBkaXN0aW5jdCBsaXN0IGZyb20gYWJvdmUgdG8gam9pbiB0byB0aGUgbGFyZ2VyIGRhdGFzZXQgaGVyZS4gSSBkb24ndCByZWFsbHkgbGlrZSBteSBuYW1pbmcgY29udmVudGlvbnMgaGVyZS5cblxuI1BlcmZvcm1zIG9iaXN0b29sczo6bWF0Y2hfdGF4YSBvbiBmdWxsIGRhdGFzZXQuIFdoZW4gcHJvbXB0ZWQgaW4gY29uc29sZSwgc2VsZWN0IHksIDIsIDIuIEFzIHRoZSBvdXRwdXQgaXMgYSBzaW5nbGUgc2NpZW50aWZpY05hbWUgY29sdW1uLCB0aGlzIHN0ZXAgYWxzbyBnaXZlcyBhbiBpZCBzbyB0aGF0IHRoaXMgY2FuIGJlIG1lcmdlZCBiYWNrIHdpdGggdGhlIG1ldGFkYXRhIGluIHRoZSBuZXh0IHN0ZXAuXG5jb21wbGV0ZSA8LSBtaWNybyRzcGVjaWVzICU+JSBcbiAgbWF0Y2hfdGF4YSgpICU+JSBcbiAgbXV0YXRlKGlkID0gcm93X251bWJlcigpKVxuYGBgIn0= -->
+<pre class="r"><code>#This chunk adds taxonomic information to the full dataset, rather than just a distinct list. The distinct list is still important because the worrms::wm_records_names tool will only run on a small number of records. Therefore, I needed to use the distinct list from above to join to the larger dataset here. I don&#39;t really like my naming conventions here.
+
+#Performs obistools::match_taxa on full dataset. When prompted in console, select y, 2, 2. As the output is a single scientificName column, this step also gives an id so that this can be merged back with the metadata in the next step.
+complete &lt;- micro$species %&gt;% 
+  match_taxa() %&gt;% 
+  mutate(id = row_number())</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiMTExIG5hbWVzLCAwIHdpdGhvdXQgbWF0Y2hlcywgMiB3aXRoIG11bHRpcGxlIG1hdGNoZXNcbiJ9 -->
+<pre><code>111 names, 0 without matches, 2 with multiple matches</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueVxuYGBgIn0= -->
+<pre class="r"><code>y</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6NX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJuVlJTMDdETUJDZHVFMUxMQldRdUFBSG9KRmFRQ0N4cXFpUTJDRlczYUhCY1lsRmFsdUpJOW9kZCtBOEhJdHR5K1JqcVEzQ2twMlo1emVaOThiUDg4VWxYM0FBNkVFZkdQUkNDbUZ3L3pTWlhrOEIrb3l5Z0c2aTZyc20xaGtGRldkRW13RzcrNEhnNjV2aTB6cHZpTWN6YTZWT2xDZ3p6QlgrZy9vYWdHaEhxMlZGRHlhN09KL2MzbHgxZm5xRVFranJaUEluUCtTRmNvM0NIU2FIUGtLTksxbTBaV0VMRG1jMlZmZzQ5MklMb2FSMmFxbEV4ZmJpc0hTcHlaWGJ0TUNnY09qS29zMzRDcDFJWDl6R3lrN0xLRGNmc1c5YmorNlREbks5N1dvVEdSWmVtd2Q1Z2c3alpWNEpBZWlXREkxMXltZ3FZdjV4OW91RHZBT2NsTHBTa294Rld1cjNjVFZuWGw4M2E5VEdiQzhPbTVaczF4bmFRT28zcGYxMHdneGZaZVlIU0k1cnc3SE5sZmJ2d1FrdFltY2NlaDRYSnZOSTdRMjJ2N0FCcU9DVUFnQUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["AphiaID"],"name":[1],"type":["int"],"align":["right"]},{"label":["scientificname"],"name":[2],"type":["chr"],"align":["left"]},{"label":["authority"],"name":[3],"type":["chr"],"align":["left"]},{"label":["status"],"name":[4],"type":["chr"],"align":["left"]},{"label":["match_type"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"146421","2":"Appendicularia","3":"NA","4":"accepted","5":"exact"},{"1":"103357","2":"Appendicularia","3":"Fol, 1874","4":"accepted","5":"exact"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiQXBwZW5kaWN1bGFyaWFcbiJ9 -->
+<pre><code>Appendicularia</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMlxuYGBgIn0= -->
+<pre class="r"><code>2</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6NX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJtMVJUVS9DUUJBZENnWGFCRCtpUDhBZklFMUFUZlJvd0lNM294ZHVabHdXdXJIc051MVV3Uk5uZjZZL0JKeVczUVNxbSt6MnpkczNuWG16eitQSlZUZ0pBYUFKTGZDZzZUT0U5dWhwTUx3WkFyUThqaHA4RTVUZkphdk9HSlNhSG04UHVqK24wSTIrR1o5VThVNFlQaFR6UkdyelpmQWZ4bWtCZ2kwdnF6Z2Y0UWNtU21iOWw0V2krUEppY0hjN3FQMjNpMExJbE9UMFQzeW84K1VTQlIwR2gxWjhqUXVaMnpUZmtwMzdORmI0T0xiaFVTNlUxS1JtU3BScXl3WllVR3d5UlN0THRITkNLbkpuZElFazRsZGFwYkpXTXNqTVorVEtWdE5iODhFRDJOUjdFd25tcmpkSGhsTWtqR1paMlFoQVBhVmpVbEpHYzVMbjNtYy91WkhWaU9OQ2w1MU0reUl1OUh2L3VpeFFYZTlXejJKdkQvdTdrdDYyTnJTMjFIT2wzWFQ4Qk45azRnYklqaXZEVVpvcDdkNGpaRGFQeUJBNlhTaE00cGpLRzJ4K0FRa0dTVkdYQWdBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["AphiaID"],"name":[1],"type":["int"],"align":["right"]},{"label":["scientificname"],"name":[2],"type":["chr"],"align":["left"]},{"label":["authority"],"name":[3],"type":["chr"],"align":["left"]},{"label":["status"],"name":[4],"type":["chr"],"align":["left"]},{"label":["match_type"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"582161","2":"Euglenozoa","3":"NA","4":"accepted","5":"exact"},{"1":"536202","2":"Euglenozoa","3":"Cavalier-Smith, 1981","4":"accepted","5":"exact"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXVnbGVub3pvYVxuIn0= -->
+<pre><code>Euglenozoa</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMlxuXG4jR2l2ZXMgdGhlIGZ1bGwgZGF0YSBzaGVldCBhbiBpZCBmb3IgbWVyZ2luZyB3aXRoIFxubWljcm8gPC0gbWljcm8gJT4lIFxuICBtdXRhdGUoaWQgPSByb3dfbnVtYmVyKCkpXG5cblxuI1JlbW92ZXMgc3BlY2llcyBuYW1lcyB0aGF0IEkgZGVjaWRlZCB0byByZW1vdmUgZnJvbSB0aGUgZGF0YSBiYXNlZCBvbiB0aGUgYW5hbHlzdHMgc3VnZ2VzdGlvbi4gSSBjb3VsZCBhbHNvIGRvIHRoaXMgZWFybGllciBiZWZvcmUgdGhlIG1hdGNoaW5nIGlzIGRvbmUuXG5jb21wbGV0ZSA8LSBjb21wbGV0ZSAlPiUgXG4gIGZ1bGxfam9pbihtaWNybykgJT4lIFxuICByZW5hbWUob3JpZ19uYW1lID0gc3BlY2llcykgJT4lIFxuICBmaWx0ZXIoIShzdHJfZGV0ZWN0KG9yaWdfbmFtZSwgXCJQbGV1cm9zdG9tdW0gZ3JhY2lsZVwiKSB8ICBcbiAgICAgICAgICAgc3RyX2RldGVjdChvcmlnX25hbWUsIFwiUGh5bGxvbWl0dXMgeW9ya2VlbnNpc1wiKSB8ICBcbiAgICAgICAgICAgc3RyX2RldGVjdChvcmlnX25hbWUsIFwiTWVyaW5nb3NwaGFlcmFlIHRlbmVycmltYVwiKSB8ICBcbiAgICAgICAgICAgc3RyX2RldGVjdChvcmlnX25hbWUsIFwiSmFrb2JpYSBpYmVyaWFcIikpKSBcbmBgYCJ9 -->
+<pre class="r"><code>2
+
+#Gives the full data sheet an id for merging with 
+micro &lt;- micro %&gt;% 
+  mutate(id = row_number())
+
+
+#Removes species names that I decided to remove from the data based on the analysts suggestion. I could also do this earlier before the matching is done.
 complete &lt;- complete %&gt;% 
   full_join(micro) %&gt;% 
   rename(orig_name = species) %&gt;% 
   filter(!(str_detect(orig_name, &quot;Pleurostomum gracile&quot;) |  
            str_detect(orig_name, &quot;Phyllomitus yorkeensis&quot;) |  
            str_detect(orig_name, &quot;Meringosphaerae tenerrima&quot;) |  
-           str_detect(orig_name, &quot;Jakobia iberia&quot;))) 
-</code></pre>
+           str_detect(orig_name, &quot;Jakobia iberia&quot;))) </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImlkXCJcbiJ9 -->
 <pre><code>Joining, by = &quot;id&quot;</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1RoaXMgcmVtb3ZlcyB0aGUgZG91YmxlIGhpZXJhcmNoeSBtYXRjaGVzIChhcyBzZWVuIGluIHdvcm1fam9pbl9kdXAgZGF0YS1zaGVldCkuIENvbnN1bHRhdGlvbiB3YXMgZG9uZSB0byBlbnN1cmUgdGhlIHJlbW92YWwgb2YgdGhlIGluY29ycmVjdCBtYXRjaCBhbmQgdG8gbGVhdmUgdGhlIGNvcnJlY3QgbWF0Y2guIEl0IG1pZ2h0IGJlIGJldHRlciB0byBkbyB0aGlzIGluIHRoZSBsYXN0IGNodW5rIHdoZXJlIEkgZGV2ZWxvcCB0aGlzIHNoZWV0IC0gd291bGQgcHJvYmFibHkgZmxvdyBiZXR0ZXIsIHJhdGhlciB0aGFuIGp1bXBpbmcgYmFjayBoZXJlLlxud29ybV9oaWVyYXJjaHlfY2xlYW4gPC0gd29ybV9oaWVyYXJjaHkgJT4lIFxuICBmaWx0ZXIoISgoc2NpZW50aWZpY05hbWUgPT0gXCJBcHBlbmRpY3VsYXJpYVwiICYgaXMubmEoYXV0aG9yaXR5KSkgfFxuICAgICAgICAgIChzY2llbnRpZmljTmFtZSA9PSBcIkRpbm9waHlzaXMgcm90dW5kYXRhXCIgJiBhdXRob3JpdHkgPT0gXCJMZXZhbmRlciwgMTg5NFwiKSB8XG4gICAgICAgICAgKHNjaWVudGlmaWNOYW1lID09IFwiRXVnbGVub3pvYVwiICYgaXMubmEoYXV0aG9yaXR5KSkpKVxuXG4jSm9pbnMgdGhlIHdvcnJtczp3bV9yZWNvcmRzX25hbWVzIGRlcml2ZWQgdGF4b25vbWljIGhpZXJhcmNoaWVzIGFuZCBhY2NlcHRlZCBTY2llbnRpZmljTmFtZSAoYW5kIG90aGVyIGluZm9ybWF0aW9uKSB0byB0aGUgZnVsbCBkYXRhc2hlZXQgd2l0aCBhbGwgb2NjdXJyZW5jZXMuIFxuY29tcGxldGVfam9pbiA8LSBjb21wbGV0ZSAlPiUgXG4gIGxlZnRfam9pbih3b3JtX2hpZXJhcmNoeV9jbGVhbiwgYnkgPSBcInNjaWVudGlmaWNOYW1lXCIpXG5cbiNBcnJhbmdlIGJ5IGRhdGUgYXMgSSBjb21iaW5lZCBtdWx0aXBsZSBmaWxlcyBmcm9tIGRpZmZlcmVudCBkYXRlc1xuY29tcGxldGVfam9pbiA8LSBjb21wbGV0ZV9qb2luICU+JSBcbiAgYXJyYW5nZShkYXRlKVxuXG5gYGAifQ== -->
+<pre class="r"><code>#This removes the double hierarchy matches (as seen in worm_join_dup data-sheet). Consultation was done to ensure the removal of the incorrect match and to leave the correct match. It might be better to do this in the last chunk where I develop this sheet - would probably flow better, rather than jumping back here.
+worm_hierarchy_clean &lt;- worm_hierarchy %&gt;% 
+  filter(!((scientificName == &quot;Appendicularia&quot; &amp; is.na(authority)) |
+          (scientificName == &quot;Dinophysis rotundata&quot; &amp; authority == &quot;Levander, 1894&quot;) |
+          (scientificName == &quot;Euglenozoa&quot; &amp; is.na(authority))))
+
+#Joins the worrms:wm_records_names derived taxonomic hierarchies and accepted ScientificName (and other information) to the full datasheet with all occurrences. 
+complete_join &lt;- complete %&gt;% 
+  left_join(worm_hierarchy_clean, by = &quot;scientificName&quot;)
+
+#Arrange by date as I combined multiple files from different dates
+complete_join &lt;- complete_join %&gt;% 
+  arrange(date)
+</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -1887,9 +2074,9 @@ complete_distinct &lt;-  complete_join %&gt;%
 <p>#Likely worth outputting the data here and then uploading the file for formatting into OBIS format - limits the amount of time I need to run the data through the worms database matching queries.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG53cml0ZV9jc3YoY29tcGxldGVfam9pbiwgaGVyZShcIm91dHB1dF93b3Jtc19tYXRjaGluZ1wiLCBcImNhbHZlcnRfMjAxOF8yMDIwLmNzdlwiKSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG53cml0ZV9jc3YoY29tcGxldGVfam9pbiwgaGVyZShcIm91dHB1dF93b3Jtc19tYXRjaGluZ1wiLCBcImNhbHZlcnRfSW52b2ljZTI0NC5jc3ZcIikpXG5gYGAifQ== -->
 <pre class="r"><code>
-write_csv(complete_join, here(&quot;output_worms_matching&quot;, &quot;calvert_2018_2020.csv&quot;))</code></pre>
+write_csv(complete_join, here(&quot;output_worms_matching&quot;, &quot;calvert_Invoice244.csv&quot;))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->

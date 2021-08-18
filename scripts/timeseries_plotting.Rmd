@@ -15,7 +15,7 @@ library(readr)
 
 ```{r}
 #Upload output from OBIS taxonomy matching/formatting
-micro <- read_csv(here("output_worms_matching", "qu39_2016_2020-Invoice244.csv"))
+micro <- read_csv(here("output_worms_matching", "qu39_2016_2020-Invoice245.csv"))
 
 micro$date <- as.Date(micro$date, "%Y-%m-%d")
 
@@ -26,10 +26,12 @@ test <- micro %>%
 
 ```{r}
 #Selecting pertinent columns.
+
 micro <- micro %>% 
-  select(date, group, scientificName, AphiaID, scientificName_accepted = valid_name, 
+  select(date, site_id, group, scientificName, AphiaID, orig_name, 
+         scientificName_accepted = valid_name, 
          rank, kingdom:genus, lifeStage:identificationRemark,
-        count = counts)
+         count = counts)
 ```
 
 ```{r}
@@ -122,8 +124,8 @@ micro <- micro %>%
                                    group == "Unknown_flagellate" ~ "auto",
                                    group == "Unknown_Chlorophyta?" ~ "auto",
                                    group == "Unknown_Dinophyceae?" ~ "auto")) %>% 
-  select(date, trophicStatus, group, scientificName, 
-         AphiaID, scientificName_accepted:count)
+  select(date, site_id, trophicStatus, group, scientificName, 
+         AphiaID, orig_name, scientificName_accepted:count)
 
 trophic_check <- micro %>% 
   distinct(group, trophicStatus) %>% 
@@ -330,7 +332,8 @@ p5 <- micro_sum %>%
 
 fig_ts <- p1/p2/p3/p4/p5
 
-ggsave(here("figures", "qu39_ts_column_invoice244.png"), fig_ts, width=16, height=15, dpi=300)
+ggsave(here("figures", "qu39_ts_column_invoice245
+            .png"), fig_ts, width=16, height=15, dpi=300)
 ```
 
 

@@ -116,7 +116,7 @@ notes <- notes %>%
 
 micro <- micro %>% 
   filter(!group == "Notes") %>%
-  filter_at(vars(CPHY521:CPHY548), any_vars(!is.na(.)))
+  filter_at(vars(CPHY521:CPHY540), any_vars(!is.na(.)))
 
 #Unite the random qualifiers (eg. sp., non motile) that are placed in the X and X.1 columns. Again, these columns need to be checked with each new upload to be reflective of data.
 micro <- micro %>%
