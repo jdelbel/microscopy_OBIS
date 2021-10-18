@@ -23,6 +23,9 @@ micro <- rbind(micro_1, micro_2)
 
 micro$date <- as.Date(micro$date, "%Y-%m-%d")
 
+#For some reason, Ebria tripartita is included as a photosynthetic dinoflagellate for 5 DFO records. Tried to back track this issue and couldn't find the source.
+ebria_issue <- micro %>% 
+  filter(scientificName == "Ebria tripartita" & group == "Dinoflagellata")
 ```
 
 
