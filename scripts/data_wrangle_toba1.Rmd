@@ -1,0 +1,542 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Testing upload methods for new data
+
+```{r}
+#Load packages - Ran script with some packages turned off and it work, but need to try with more
+library(tidyverse)
+library(janitor) #Where do I use this? Test running without - removing empty rows/NArows
+library(hutils) #Used to drop empty columns 
+library(obistools) #Used for initial species matches to WoRMs - good for cleaning taxonomic names
+library(worrms) #Used to derive accepted names and taxonomic hierarchies
+library(curl) #??? Test running without.
+library(stringr) #Used to remove white-space after 
+library(here)
+```
+
+```{r}
+#Uploading data with no headers as header information spread over multiple rows - goal is go get HakaiID as header. Better to use read_csv, but doesn't work for transpose stage later as I have it set for a data frame, not tibble. Will fix, but works as it is for now.
+micro <- read.csv(here("files", "toba_2022-04-07.csv"), na.strings = c("","NA"))
+
+#Thinks this works - replaces read.csv commented out above. Caused errors in Notes DF
+#micro <- read_csv(here("upload_2020.csv"), na = "")
+
+#removing empty rows and columns 
+micro <- micro %>% 
+  janitor::remove_empty()
+
+#Rename first column as species as contains species information
+micro <- micro %>%
+  rename(species = ï..species)
+```
+
+
+```{r}
+#List of Louis group names to associate with each species (right now group names in species list above species names) - list needs to be updated if there are differences or new groups added - hopefully encompassing eventually, but use caution as Louis makes small changes regularly.
+group_name <- c("Bacillariophyta", "Chlorophyta-Prasinophyta" , "Chlorophyta", 
+                "Choanoflagellata", "Chrysophyta", "Ciliophora", "Cryptophyta", 
+                "Cyanobacteria", "Dictyochophyta", "Dinoflagellata", "Ebriidea",
+                "Euglenophyta", "Kinetoplastidea", "Metazoa", "Protozoa",
+                "Prymnesiophyta-Haptophyta", "Raphidiophyta", 
+                "Unknown very small flagellated species",
+                "Unknown very small non-flagellated cells", "Unknown cells",
+                "Unknown flagellae-bearing cells",
+                "Notes") %>% 
+  str_c(collapse = "|")
+
+#Searching group names and adding to new column to the left of species - after this step, check to see that new column with group names match with those in the species column
+micro <- micro %>% 
+  mutate(group = str_match(species, group_name)) %>% 
+  relocate(group, .after = species)
+
+#Filling down the group names so each species is associated with a group 
+micro <- micro %>% 
+  fill(group)
+```
+
+
+```{r}
+#Dealing with analyst notes -  removed notes for this upload.
+
+#Need to separate and deal with notes before further work can be done - want to save and possibly reincorporate notes.
+
+#Separating notes for re-introduction later - if needed.
+
+# notes <- micro %>% 
+#   filter(group == "Notes") %>%
+#   janitor::remove_empty() %>% 
+#   mutate(id = row_number()) %>% 
+#   unite("note_num", group, id, sep = "_") %>% 
+#   select(!species) 
+
+# notes <- setNames(data.frame(t(notes[ , -1])), notes [ , 1])
+
+#With different sheets this will fail as they have different numbers of notes - will need to look at notes datasheet and see how many Notes_1, Notes_2 columns there are.
+
+# notes <- notes %>% 
+#   rownames_to_column("id") %>% 
+#   unite("analyst_note", Notes_1:Notes_5, sep = " ", na.rm = TRUE)
+```
+
+
+```{r}
+#Removing notes and then any rows that only have NAs for abundance counts - Needs to be changed to reflect Hakai IDs (columns) - Update with new data.
+micro <- micro %>% 
+  filter(!group == "Notes") %>% 
+  filter_at(vars(QPHY1462:QPHY1494), any_vars(!is.na(.)))
+
+#Unite the random qualifiers (eg. sp., non motile) that are placed in the X and X.1 columns. Again, these columns need to be checked with each new upload to be reflective of data.
+micro <- micro %>% 
+  unite("species", species, X.1, sep = " ", na.rm = TRUE)
+```
+
+
+```{r}
+#Renaming and/or removing unknown species.
+
+#Finding taxonomic information currently combined with the species names containing unknown and unidentified. When uploading new data, check that this captures all rows without taxonomic designations. If not add new terms to code in next step.
+unknown <- micro %>% 
+  filter(str_detect(species, "Unknown") |
+         str_detect(species, "Unidentified") |
+         str_detect(species, "Resting"))
+
+#Renaming unknown and unidentified taxonomic designations. When uploading new data, check that all rows with unknown designations have been captured and fixed.  If not, add terms to the code below. I do this work here, because I can use Louis' groupings to help guide the new names. Note, unidentified diatoms with size designations are not dealt with here, so species_fix will show NAs.  Fixed later when data transposed and then size groups are summed and the new column is renamed. Unknown cells also not dealt with as data are not carried forward (species_fix will show NA, these data removed later). This list/fixes can grow and include terms not included in the datasheet and will still work - become more encompassing, but be sure to cross-check
+unknown <- unknown %>% 
+  mutate(species_fix = case_when(species == "Unknown forms" &
+                             group == "Bacillariophyta" ~
+                               "Bacillariophyceae",
+                             species == "Unknown species" &
+                             group == "Chlorophyta-Prasinophyta" ~
+                               "Protozoa (alpha-starch, Chlorophyta?)",
+                             species == "Unknown species" &
+                             group == "Chlorophyta" ~
+                               "Protozoa (alpha-starch, Chlorophyta?)",
+                             species == "Unknown species" &
+                             group == "Choanoflagellata" ~
+                                "Choanozoa",
+                             species == "Unknown species" &
+                             group == "Dinoflagellata" ~
+                               "Dinophyceae",
+                             species == "Resting stages" &
+                             group == "Dinoflagellata" ~
+                               "Dinophyceae (resting stages)",
+                             species == "Unknown very small species (dino??)" &
+                             group == "Dinoflagellata" ~
+                               "Protozoa (equatorial groove, Dinophyceae?)",
+                             species == "Unknown species" &
+                             group == "Euglenophyta" ~
+                               "Euglenozoa",
+                             species == "Unknown species" &
+                             group == "Kinetoplastidea" ~
+                               "Kinetoplastea",
+                             species == "Unknown very small flagellated species" &
+                             group == "Unknown very small flagellated species" ~
+                               "Protozoa",
+                             species == "Unknown flagellae-bearing cells" &
+                             group == "Unknown flagellae-bearing cells" ~
+                               "Protozoa",
+                             species == "banana" &
+                             group == "pineapple" ~
+                               "Protozoa")) %>% 
+  relocate(species_fix, .after = species)
+                             
+#Now that we know that all unknown taxonomic designations have been accounted for, we can apply the above code to the full data-set. If there are changes, make sure to bring the above list down to be applied to the full dataset.
+
+micro <- micro %>% 
+  mutate(species = case_when(species == "Unknown forms" &
+                             group == "Bacillariophyta" ~
+                               "Bacillariophyceae",
+                             species == "Unknown species" &
+                             group == "Chlorophyta-Prasinophyta" ~
+                               "Protozoa (alpha-starch, Chlorophyta?)",
+                             species == "Unknown species" &
+                             group == "Chlorophyta" ~
+                               "Protozoa (alpha-starch, Chlorophyta?)",
+                             species == "Unknown species" &
+                             group == "Choanoflagellata" ~
+                                "Choanozoa",
+                             species == "Unknown species" &
+                             group == "Dinoflagellata" ~
+                               "Dinophyceae",
+                             species == "Resting stages" &
+                             group == "Dinoflagellata" ~
+                               "Dinophyceae (resting stages)",
+                             species == "Unknown very small species (dino??)" &
+                             group == "Dinoflagellata" ~
+                               "Protozoa (equatorial groove, Dinophyceae?)",
+                             species == "Unknown species" &
+                             group == "Euglenophyta" ~
+                               "Euglenozoa",
+                             species == "Unknown species" &
+                             group == "Kinetoplastidea" ~
+                               "Kinetoplastea",
+                             species == "Unknown very small flagellated species" &
+                             group == "Unknown very small flagellated species" ~
+                               "Protozoa",
+                             species == "Unknown flagellae-bearing cells" &
+                             group == "Unknown flagellae-bearing cells" ~
+                               "Protozoa",
+                             species == "banana" &
+                             group == "pineapple" ~
+                               "Protozoa",
+                             TRUE ~ as.character (species)))
+
+#Was thinking of doing qualifier/lifestage separations here, but really makes it tough to transpose and convert to long/tidy format, so leaving it until after converted to tidy.
+
+#Remove total cells (diatoms), unknown cells (can't use these as not possible to assign taxonomy) and non-taxonomic information.With new data, be sure to look down species list and check for new terms.
+non_tax_list <- micro %>%
+  filter(str_detect(species, "Eggs") |
+         str_detect(species, "pieces") |
+         str_detect(species, "Fecal") |
+         str_detect(species, "ejecta") |
+         str_detect(species, "Crab zoea") |
+         str_detect(species, "Total Cells/L") |
+         str_detect(species, "Unknown cells"))
+
+#Remove non-taxonomic rows/designations.
+micro <- micro %>%
+  filter(!(str_detect(species, "Eggs") |
+         str_detect(species, "pieces") |
+         str_detect(species, "Fecal") |
+         str_detect(species, "ejecta") |
+         str_detect(species, "Crab zoea") |
+         str_detect(species, "Total Cells/L") |
+         str_detect(species, "Unknown cells")))
+```
+
+
+```{r}
+#Make additional fixes to species names -  don't want to go too crazy here, but things need to be able to be found by the WoRMs database searches. If database search doesn't find something, can come back here and fix. Ignoring small/large designations as they will be summed once data is transposed. 
+micro <- micro %>% 
+  mutate(species = str_replace(species, "Copepodids", "Copepoda (copepodites)"))
+
+ micro <- micro %>% 
+   mutate(species = str_replace(species, "Copepod nauplii/ekdysis", "Copepoda (nauplii/ekdysis)"))
+
+micro <- micro %>% 
+  mutate(species = str_replace(species, "S. marinoi auxospores", "Skeletonema marinoi auxospores"))
+
+#Won't fuzzy match Louis name for this species - need to fix here.
+micro <- micro %>% 
+  mutate(species = str_replace(species, "Thalassiosira nordenskioldii", "Thalassiosira nordenskioeldii"))
+
+micro <- micro %>% 
+  mutate(species = str_replace(species, "Tintinnid forms", "Tintinnina"))
+```
+
+
+```{r}
+#Transpose the data so that the Hakai ID is a column and species names are column headers
+
+#Separate Louis group/species for tidy/long reintroduction using a join
+groups <- micro %>% 
+  select(group, species)
+
+#Creating a new datasheet to perform transpose on - remove groups column
+micro_tp <- micro %>% 
+  select(!group)
+
+micro_tp <- setNames(data.frame(t(micro_tp[ , -1])), micro_tp[ , 1])
+
+#For some reason, my abundance counts are characters - converting to numeric
+micro_tp <- micro_tp %>% 
+  mutate_if(is.character, as.numeric)
+
+#Pushes rownames to their own column
+#Pushes the hakaiID rownames into a column with a header.
+#check that the format is correct
+micro_tp <- rownames_to_column(micro_tp, "hakai_id")
+```
+
+
+```{r}
+#Working to sum size class abundance counts into single groups. This is tricky, because not consistent between data outputs. Here, I had to comment out Chaetoceros spp_sum because the small designation did not occur. Not really sure how to get around this. 
+
+
+#list of species names from the non-tranformed datasheet of anything with small/medium/large designations
+size_list <- micro %>%
+  filter(str_detect(species, "small") |
+         str_detect(species, "medium") |
+         str_detect(species, "large"))
+         
+micro_tp <- micro_tp %>% 
+  rowwise() %>% 
+  mutate(Biddulphiales = sum(`Unidentified centric forms`, 
+                   `Unidentified very small centric forms`, na.rm = TRUE),
+         Pennales = sum(`Unidentified pennate forms`,
+                        `Unidentified very small pennate forms`, na.rm = TRUE),
+         `Skeletonema marinoi` = sum(`S. marinoi (small cells)`,
+                                    `S. marinoi (large cells)`, na.rm = TRUE),
+         `Chaetoceros tenuissimus` = sum(`Chaetoceros tenuissimus (small)`, 
+                                         na.rm = TRUE),
+         #`Chaetoceros spp_sum.` = sum(`Chaetoceros spp.`,
+         #                        `Chaetoeros spp. very small`, na.rm = TRUE ),
+         Oligotrichea = sum(`Elongate form`, `Oligotricious forms (large)`,
+                            `Oligotricious forms (medium)`, 
+                            `Oligotricious forms (small)`, na.rm = TRUE))
+
+#Checking that the sums worked.
+sum_check <- micro_tp %>% 
+  select(Biddulphiales, `Unidentified centric forms`, 
+         `Unidentified very small centric forms`, Pennales, 
+         `Unidentified pennate forms`, `Unidentified very small pennate forms`,
+         `Skeletonema marinoi`, `S. marinoi (small cells)`,
+         `S. marinoi (large cells)`, `Chaetoceros tenuissimus`, 
+         # `Chaetoceros tenuissimus (large)`, 
+         `Chaetoceros tenuissimus (small)`,
+         #`Chaetoceros spp_sum.`, `Chaetoceros spp.`, `Chaetoeros spp. very small`,
+         Oligotrichea, `Elongate form`, `Oligotricious forms (large)`,
+         `Oligotricious forms (medium)`, `Oligotricious forms (small)`)
+
+#Removing size separated columns that were summed into a single column.
+micro_tp <- micro_tp %>% 
+  select(-`Unidentified centric forms`, -`Unidentified very small centric forms`,
+         -`Unidentified pennate forms`, -`Unidentified very small pennate forms`,
+         -`S. marinoi (small cells)`, -`S. marinoi (large cells)`,
+         # -`Chaetoceros tenuissimus (large)`, 
+         -`Chaetoceros tenuissimus (small)`,
+         #-`Chaetoceros spp.`, -`Chaetoeros spp. very small`, 
+         -`Elongate form`, -`Oligotricious forms (large)`, 
+         -`Oligotricious forms (medium)`, -`Oligotricious forms (small)`)
+
+#Changing zeros from sum math back to NA's
+micro_tp  <- micro_tp  %>% 
+  mutate(Biddulphiales = na_if(Biddulphiales, 0),
+         Pennales = na_if(Pennales, 0),
+         `Skeletonema marinoi` = na_if(`Skeletonema marinoi`, 0),
+         `Chaetoceros tenuissimus` = na_if(`Chaetoceros tenuissimus`, 0),
+         #`Chaetoceros spp_sum.` = na_if(`Chaetoceros spp_sum.`, 0),
+         Oligotrichea = na_if(Oligotrichea, 0))
+```
+
+```{r}
+#Merging with metadata
+
+#Upload metadata - update to API when possible
+metadata <- read_csv(here("files", "toba_meta.csv"))
+
+#Join with microscopy data metadata
+micro_tp <- micro_tp %>% 
+  left_join(metadata)
+
+#reorganizing and eliminating unused columns
+micro_tp <- micro_tp %>% 
+  select(date, collected, hakai_id, line_out_depth, work_area, site_id,
+         lat, long, volume, lugols, collected,
+         `Asterionellopsis glacialis`:Oligotrichea)
+
+#Find rows where there was no metadata match - Check to ensure out is 0, which means all of the data was merged.
+meta_missing <- micro_tp %>%
+  filter(is.na(collected))
+```
+
+```{r}
+#Convert data to tidy
+
+#Making data Tidy 
+micro_tidy <- micro_tp %>% 
+  pivot_longer(c(`Asterionellopsis glacialis`: Oligotrichea),
+               names_to = "species", values_to = "counts")
+
+#Drop NAs - species not observed.
+micro_tidy <- micro_tidy %>%
+  drop_na(counts)
+```
+
+```{r}
+#Trying to re-add Louis' group designations
+micro_tidy <- micro_tidy %>% 
+  left_join(groups) %>% 
+  relocate(.before = species )
+
+#Works with exception to columns I summed/changed. I guess I can just manually re-add here.
+micro_tidy <- micro_tidy %>% 
+  mutate(group = case_when(species == "Biddulphiales" ~ "Bacillariophyta",
+                            species == "Pennales" ~ "Bacillariophyta",
+                            species == "Skeletonema marinoi" ~ "Bacillariophyta",
+                            species == "Chaetoceros tenuissimus" ~ "Bacillariophyta",
+                            species == "Oligotrichea" ~ "Ciliophora", 
+                            TRUE ~ as.character (group)))
+```
+
+
+```{r}
+#Further cleaning of data not done before making the data tidy - was too complicated with having to transpose the data for merging with metadata.
+
+
+#For the below regex string search lists, make sure to look at the original data to ensure all qualifiers/lifestages have been accounted for.
+
+#This creates regex list that will be used to add these terms to lifeStage column.
+lifeStage_regex <- c("resting stages", "resting stage", "r\\.s", 
+                     "nauplii/ekdysis", "\\bspore", "Auxospore",
+                     "auxospore", "Auxospores", "auxospores", "copepodites") %>% 
+  str_c(collapse = "|")
+
+#This creates regex list that will be used to add these terms to the identificationRemark column. 
+identificationRemark_regex <- c("alpha-starch, Chlorophyta\\?",
+                                "equatorial groove, Dinophyceae\\?",
+                                "cinctus/radicans",
+                                "non-motile stg") %>% 
+  str_c(collapse = "|")
+
+#This creates regex list that will be used to add these terms to the identificationQualifier column. I could likely make the search easier and eliminate [:blank:]spp$ by using stringr::str_trim to remove whitespace before or after.
+identificationQ_regex <- c("[:blank:]spp$", "spp\\.", "sp\\.") %>% 
+  str_c(collapse = "|")
+
+#This step uses the regular expression lists defined above to find matches within the taxonomic column and for these matches, writes the specified terms to either lifeStage, indentificationQualifier or identificationRemark columns.
+micro_tidy <- micro_tidy %>%
+  mutate(lifeStage = str_match(species, lifeStage_regex)) %>%
+  mutate(identificationQualifier = str_match(species, identificationQ_regex)) %>%
+  mutate(identificationRemark = str_match(species, identificationRemark_regex))
+
+#Adding spp. where I moved cinctus/radicans to identificationRemark. The last term in the case_when function makes sure that the other identificationQualifiers are not overwritten. Cinctus/Radicans not included in all sheets, but doesn't matter, can be run anyways so it is picked up when run.
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationQualifier = case_when(identificationRemark == 
+                                               "cinctus/radicans" ~ "spp.",
+                                             TRUE ~ as.character
+                                             (identificationQualifier)))
+
+#Rename lifeStage terms to match accepted vocabulary and fix a weird identificationQualifier spp that has white space making regex work difficult. 
+micro_tidy <- micro_tidy %>% 
+  mutate(lifeStage = str_replace(lifeStage, "spore", "spores")) %>%
+  mutate(lifeStage = str_replace(lifeStage, "resting stages", "resting spores")) %>% 
+  mutate(lifeStage = str_replace(lifeStage, "resting stage", "resting spores")) %>%  
+  mutate(lifeStage = str_replace(lifeStage, "r\\.s", "resting spores")) %>% 
+  mutate(lifeStage = str_replace(lifeStage, "nauplii/ekdysis", "nauplii")) %>% 
+  mutate(identificationQualifier = str_replace(identificationQualifier,
+                                                "[:blank:]spp$", "spp."))
+
+#Make IdentificationQualifiers more encompassing
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            "alpha-starch, Chlorophyta\\?", 
+"Cells too small to identify. Stained blue indicating alpha starch and could be Chlorophyta"))
+
+#Unknown protozoa that could be Dinophyceae
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            "equatorial groove, Dinophyceae\\?", 
+"Cells too small to identify. Showed equatorial groove and could be Dinophyceae"))
+
+#Couldn't tell between resting stage cinctus and radicans
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            "cinctus/radicans", 
+"Unable to distinguish between Chaetoceros cinctus and radicans"))
+
+#Would non-motile be an identification remark? Or something else?
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationRemark = str_replace(identificationRemark,
+                                            "non-motile stg", 
+                                            "Non-motile"))
+
+#Adding reason why classification was stopped at sp., spp according to Horten et al. In theory, shouldn't this Qualifier be put on any occurrence that stops before species level? Based on figure 1 in Horten et al., I think that the qualifier should be added even when there is no sp. or spp. I will add this after the taxonomic hierarchy has been applied so that I can filter for it.
+micro_tidy <- micro_tidy %>% 
+  mutate(identificationQualifier = case_when(identificationQualifier == 
+                                               "spp." ~ "spp. Indet.",
+                                             identificationQualifier ==
+                                               "sp." ~ "sp. Indet.",
+                                             TRUE ~ as.character
+                                             (identificationQualifier)))
+
+
+#This step is time consuming to run, but removes any white-space before/after strings created through regex work.
+micro_tidy <- micro_tidy %>% 
+  mutate(species = stringr::str_trim(species, side = "right"))
+```
+
+```{r}
+#Remove any identifiers from the species designations in the species column - make sure to update if the data has new identifiers/qualifiers/lifestages etc. Unfortunately, order matters when there are similar words with slight variations. For instance, the plural auxospores need to be before singular. If singular is first, it leaves the s behind and then this is hard to remove on it's own. Having plural first removes only the plural and then the singular after removes only the singular. How can this be better done?
+micro_tidy <- micro_tidy %>% 
+  mutate(species = str_replace(species, "\\(resting stages\\)", "")) %>% 
+  mutate(species = str_replace(species, "resting stage", "")) %>%
+  mutate(species = str_replace(species, "resting stages", "")) %>%
+  mutate(species = str_replace(species, "r\\.s", "")) %>%
+  mutate(species = str_replace(species, "Auxospores", "")) %>%
+  mutate(species = str_replace(species, "auxospores", "")) %>%
+  mutate(species = str_replace(species, "Auxospore", "")) %>%
+  mutate(species = str_replace(species, "auxospore", "")) %>%
+  mutate(species = str_replace(species, "non-motile stg", "")) %>%
+  mutate(species = str_replace(species, "\\(copepodites\\)", "")) %>%
+  mutate(species = str_replace(species, "\\(nauplii/ekdysis\\)", "")) %>%
+  mutate(species = str_replace(species, "nauplii/ekdysis", "")) %>%
+  mutate(species = str_replace(species, "spp\\.", "")) %>%
+  mutate(species = str_replace(species, "\\bspp", "")) %>%
+  mutate(species = str_replace(species, "sp\\.", "")) %>%
+  mutate(species = str_replace(species, "spore forms", "")) %>% 
+  mutate(species = str_replace(species, "cinctus/radicans", "")) %>%
+  mutate(species = str_replace(species, "\\(elongate form\\)", "")) %>% 
+  mutate(species = str_replace(species, "Pterosperma  s", "Pterosperma")) %>% 
+  mutate(species = str_replace(species, "\\(equatorial groove, Dinophyceae\\?\\)","")) %>%
+  mutate(species = str_replace(species, "\\(alpha-starch, Chlorophyta\\?\\)", "")) %>% 
+  mutate(species = str_replace(species, "[:blank:]spp$", "")) %>% 
+  mutate(species = str_replace(species, "\\.", "")) 
+
+```
+
+
+```{r}
+#These steps are crosschecks to ensure that all of the above string work was done correctly. Carefully examine the data as after this, the data are exported and then matched with the WoRMs database.
+
+#This step/sheet is a quality check to ensure that all of the lifeStage-taxonomic combinations are present 
+lifeStage_check <- micro_tidy %>% 
+  distinct(across(c(species, lifeStage))) %>% 
+  filter(!is.na(lifeStage)) 
+
+#Check that all the identificationQualifier combinations are present
+identificationQ_check <- micro_tidy %>% 
+  distinct(across(c(species, identificationQualifier))) %>% 
+  filter(!is.na(identificationQualifier)) 
+
+#Check that all of the identificationRemark combinations are present
+identificationRemark_check <- micro_tidy %>% 
+  distinct(across(c(species, identificationRemark))) %>% 
+  filter(!is.na(identificationRemark)) 
+
+micro_distinct <- micro_tidy %>%
+  distinct(species, lifeStage, identificationQualifier, identificationRemark, 
+           .keep_all = TRUE)
+```
+
+
+```{r}
+#Errors from string matching - kept as an example of errors that should be checked in future files
+
+#For an example of what should be looked for, below is a list of errors I found in the species list of the micro_distinct datasheet. They were not captured by the string/regex work. Every new upload will likely have new errors like this that will need to be added to the string expression searches, which is annoying, but how can you standardize this if things keep changing? Eventually the regex searches will become more extensive.
+
+#List of things not being captured and removed from the species names:
+#Phaeocystis poucheteii non-motile stg (would likely go in identificationRemark) (fixed)
+#Guinardia delicatula auxospore (fixed)
+#Rhizosolenia setigera . (fixed)
+#Ditylum brightwellii . (fixed)
+
+#This is interesting for p.p non-motile - http://vocab.nerc.ac.uk/collection/S13/current/
+#Where would this be incorporated
+
+#Another issue
+#S. marinoi Auxospores (fixed)
+```
+
+```{r}
+#errors from worms matching - returned from next step/workbook
+
+#didn't find:
+#copepod - fixed
+#Phyllomitus yorkeensis - decided to just remove because very infrequent and low abundance - but will keep this in the next phase.
+#Thalassiosira nordenskioldii - had to fix in earlier work. (fixed)
+
+```
+
+
+
+```{r}
+#Write output to open in matching workbook
+write_csv(micro_tidy, here("cleaned_csv", "microscopy_toba_2022-04-07.csv"))
+
+
+```
+
+

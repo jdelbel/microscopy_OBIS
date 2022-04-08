@@ -1,0 +1,587 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Plot the time-series to check for errors and show results.
+
+```{r}
+#Load packages
+library(tidyverse)
+library(patchwork)
+library(here)
+library(readr)
+```
+
+```{r}
+#Upload output from OBIS taxonomy matching/formatting
+micro <- read_csv(here("output_worms_matching", "toba_2021.csv"))
+
+micro$date <- as.Date(micro$date, "%Y-%m-%d")
+
+#For some reason, Ebria tripartita is included as a photosynthetic dinoflagellate for 5 DFO records. Tried to back track this issue and couldn't find the source.
+ebria_issue <- micro %>% 
+  filter(scientificName == "Ebria tripartita" & group == "Dinoflagellata")
+```
+
+
+```{r}
+#Selecting pertinent columns.
+micro <- micro %>% 
+  select(date, site_id, group, scientificName, AphiaID, orig_name, 
+         scientificName_accepted = valid_name, 
+         rank, kingdom:genus, lifeStage:identificationRemark,
+         count = counts)
+```
+
+```{r}
+#Chaetoceros is missing Louis group - adding here but need to go back and fix in original file
+
+micro <- micro %>% 
+  mutate(group = case_when(scientificName == "Chaetoceros" ~
+                             "Bacillariophyta",
+                           TRUE ~ as.character(group)))
+
+micro <- micro %>% 
+  mutate(group = case_when(scientificName == "Apedinella spinifera" ~
+                             "Dictyochophyta",
+                           TRUE ~ as.character(group)))
+
+#Checking distinct group/species
+micro_distinct <- micro %>% 
+  distinct(group, scientificName) %>% 
+  arrange(group)
+
+#Interesting - unknown flagallete bearing and unknown very small flagellate should probably be summed/grouped in original sheets. I wonder if this is a difference between sheets or if both existed, and I didn't account for this. Only the 2020 qu39 data had any counts for this - so they would have been removed from the other sheets, but kept here. I need to fix this - although it might not be an issue, as I class it as protozoa, so wouldn't it just be grouped in the obis matching stage? Hmm need to think about this.
+
+
+#making group for protozoa chlorophyta as unknown
+micro_distinct_fix <- micro_distinct %>%
+  mutate(group = case_when(scientificName == "Protozoa" & 
+                             group == "Unknown flagellae-bearing cells" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Unknown very small flagellated species" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Dinoflagellata" ~
+                             "Unknown_Dinophyceae?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta" ~
+                             "Unknown_Chlorophyta?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta-Prasinophyta" ~
+                             "Unknown_Chlorophyta?",
+                           TRUE ~ as.character(group)))
+
+micro <- micro %>%
+  mutate(group = case_when(scientificName == "Protozoa" & 
+                             group == "Unknown flagellae-bearing cells" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Unknown very small flagellated species" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Dinoflagellata" ~
+                             "Unknown_Dinophyceae?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta" ~
+                             "Unknown_Chlorophyta?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta-Prasinophyta" ~
+                             "Unknown_Chlorophyta?",
+                           TRUE ~ as.character(group)))
+
+micro <- micro %>%
+  mutate(group = case_when(group == "Chlorophyta" ~ "Chlorophyta-Prasinophyta",
+                           group == "Dictyophyta" ~ "Dictyochophyta",
+                           group == "Haptophyta" ~ "Prymnesiophyta-Haptophyta",
+                           TRUE ~ as.character(group)))
+
+```
+
+```{r}
+#Designating photosynthetic species - Dictyochophyta was different in one sheet and needed to be added also:
+  #Prymnesiophyta-Haptophyta
+  #Chlorophyta-Prasinophyta
+
+#Actually, need to fix these things earlier as I sum groups and these differences will not let thier counts be summed.
+
+micro <- micro %>% 
+  mutate(trophicStatus = case_when(group == "Bacillariophyta" ~ "auto",
+                                   group == "Chlorophyta" ~ "auto",
+                                   group == "Chlorophyta-Prasinophyta" ~ "auto",
+                                   group == "Choanoflagellata" ~ "hetero",
+                                   group == "Chrysophyta" ~ "auto",
+                                   group == "Ciliophora" ~ "hetero",
+                                   group == "Cryptophyta" ~ "auto",
+                                   group == "Cyanobacteria" ~ "auto",
+                                   group == "Dictyophyta" ~ "auto",
+                                   group == "Dictyochophyta" ~ "auto",
+                                   group == "Dinoflagellata" ~ "auto",
+                                   group == "Ebriidea" ~ "hetero",
+                                   group == "Euglenophyta" ~ "auto",
+                                   group == "Haptophyta" ~ "auto",
+                                   group == "Prymnesiophyta-Haptophyta" ~ "auto",
+                                   group == "Kinetoplastidea" ~ "hetero",
+                                   group == "Metazoa" ~ "hetero",
+                                   group == "Raphidiophyta" ~ "auto",
+                                   group == "Unknown_flagellate" ~ "auto",
+                                   group == "Unknown_Chlorophyta?" ~ "auto",
+                                   group == "Unknown_Dinophyceae?" ~ "auto")) %>% 
+  select(date, site_id, trophicStatus, group, scientificName, 
+         AphiaID, orig_name, scientificName_accepted:count)
+
+trophic_check <- micro %>% 
+  distinct(group, trophicStatus) %>% 
+  arrange(trophicStatus)
+
+write_csv(micro, here("output_research", "toba.csv"))
+```
+
+```{r}
+#Selecting autotrophic groups from class level specifications above. Too coarse for dinos.
+
+
+#Can't figure out how to make this work with multiple stations. Trying each separately and binding
+micro_sum <- micro %>%
+  filter(trophicStatus == "auto" &
+          site_id == "TO4A") %>% 
+  complete(date, group) %>% # make each day have all species, even if not observed (for joining)
+  group_by(date, group) %>% 
+  summarise(sum = sum(count)) %>% #sum counts for each grouping/class
+  ungroup() %>% 
+  arrange(date, group) %>% 
+  mutate(sum = replace_na(sum, 0),
+         site_id = "TO4A") #replace NAs, created by complete, with 0s
+
+# micro_sum_kc10 <- micro %>%
+#   filter(trophicStatus == "auto" &
+#           site_id == "KC10") %>% 
+#   complete(date, group) %>% # make each day have all species, even if not observed (for joining)
+#   group_by(date, group) %>% 
+#   summarise(sum = sum(count)) %>% #sum counts for each grouping/class
+#   ungroup() %>% 
+#   arrange(date, group) %>% 
+#   mutate(sum = replace_na(sum, 0),
+#          site_id = "KC10") #replace NAs, created by complete, with 0s
+
+# micro_sum_qcs01 <- micro %>%
+#   filter(trophicStatus == "auto" &
+#           site_id == "QCS01") %>% 
+#   complete(date, group) %>% # make each day have all species, even if not observed (for joining)
+#   group_by(date, group) %>% 
+#   summarise(sum = sum(count)) %>% #sum counts for each grouping/class
+#   ungroup() %>% 
+#   arrange(date, group) %>% 
+#   mutate(sum = replace_na(sum, 0),
+#          site_id = "QCS01") #replace NAs, created by complete, with 0s
+
+
+# micro_sum <- rbind(micro_sum_dfo2, micro_sum_kc10, micro_sum_qcs01)
+```
+
+```{r}
+#Set order or groups for plotting
+
+micro_sum$group <- factor(micro_sum$group,
+                         levels = c("Bacillariophyta", #Y
+                                    "Chrysophyta", #Y
+                                    "Dictyochophyta", #Y
+                                    "Raphidiophyta", #Y
+                                    "Dinoflagellata", #Y
+                                    "Cryptophyta",#Y
+                                    "Chlorophyta-Prasinophyta", #Y 
+                                    "Euglenophyta", #Y
+                                    "Prymnesiophyta-Haptophyta", #Y 
+                                    "Cyanobacteria", #Y
+                                    "Unknown_Chlorophyta?", #Y
+                                    "Unknown_Dinophyceae?", #Y
+                                    "Unknown_flagellate" #Y
+                                    ))
+```
+
+```{r}
+#Setting colour pallete for microscopy data - roughly comparable to chemtax data
+color_palette_micro <- c("#ff8000", #Diatoms 
+                   "#2642D5", #Chrysophytes
+                   "#ff99c7", #Dicto (same color as chryso as same pig. group)
+                   "#4d6600", #Raph
+                   "#ff0000", #Dino
+                   "#ffff00", #Crypto
+                   "#00ff00", #Chloro (chloro and eugleno same colour, same pig. group)
+                   "#93FFCA", #Eugleno
+                   "#7d4dcc", #Hapto
+                   "#000000"  #Cyano
+                   )
+
+#Set month labels for plot
+month_labels_5 <- rep(c('J','F','M','A','M','J','J','A','S','O','N','D'), 5)
+
+month_labels <- c('J','F','M','A','M','J','J','A','S','O','N','D')
+```
+
+```{r}
+startTime <- as.Date("2021-01-10")
+endTime <- as.Date("2021-11-20")
+startEnd <- c(startTime, endTime)
+```
+
+
+```{r}
+micro_sum %>% 
+  filter(!group == "Unknown_Chlorophyta?" &
+         !group == "Unknown_Dinophyceae?" &
+         !group == "Unknown_flagellate") %>%
+  group_by(date, site_id) %>% 
+  mutate(sum_all = sum(sum, na.rm = TRUE)) %>% 
+  ggplot(aes(x = date, y = sum, group = group, fill = group)) +
+  geom_area(position = "stack", alpha = 0.8, size = 0.5, colour = "black") +
+  geom_point(aes(x = date, y = sum_all), size = 2) +
+  scale_fill_manual(values = color_palette_micro) +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Date",
+           y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25)) 
+
+ggsave(here("figures", "toba_test.png"), width = 17, height = 6, dpi = 300)
+
+```
+```{r}
+micro_sum %>% 
+  filter(!group == "Unknown_Chlorophyta?" &
+         !group == "Unknown_Dinophyceae?" &
+         !group == "Unknown_flagellate") %>%
+  group_by(date, site_id) %>% 
+  mutate(sum_all = sum(sum, na.rm = TRUE)) %>% 
+  ggplot(aes(x = date, y = sum/1000, group = group, fill = group)) +
+  geom_area(position = "stack", alpha = 0.8, size = 0.5, colour = "black") +
+  geom_point(aes(x = date, y = sum_all/1000), size = 2) +
+  scale_fill_manual(values = color_palette_micro) +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("1 month"),
+               labels = scales::date_format("%m")) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Date",
+           y = bquote("Abundance (cells" ~ mL^-1*")")) +
+  theme(text = element_text(size = 25)) 
+
+ggsave(here("figures", "toba_test_ml.png"), width = 17, height = 6, dpi = 300)
+
+```
+
+
+
+
+
+```{r}
+micro_diat_dfo <- micro %>% 
+  filter(site_id == "DFO2" &
+           group == "Bacillariophyta" & count > 20000 & !is.na(genus)) %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  arrange(date, count_sum) %>% 
+  mutate(site_id = "DFO2")
+
+micro_diat_kc10 <- micro %>% 
+  filter(site_id == "KC10" &
+           group == "Bacillariophyta" & count > 20000 & !is.na(genus)) %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  arrange(date, count_sum) %>% 
+  mutate(site_id = "KC10")
+
+micro_diat_qcs01 <- micro %>% 
+  filter(site_id == "QCS01" &
+           group == "Bacillariophyta" & count > 20000 & !is.na(genus)) %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  arrange(date, count_sum) %>% 
+  mutate(site_id = "QCS01")
+
+micro_diat <- rbind(micro_diat_dfo, micro_diat_kc10, micro_diat_qcs01)
+
+micro_diat %>% 
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25)) 
+  
+ggsave(here("figures", "Calvert_diat_species_inv244.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+
+
+
+
+```{r}
+#Chorophytes
+micro %>%
+  filter(group == "Chlorophyta-Prasinophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_chloro_species_inv244.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+
+```{r}
+#Chrysophytes
+micro %>%
+  filter(group == "Chrysophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_chryso_species_inv244.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+```{r}
+#Cryptophytes
+micro %>%
+  filter(group == "Cryptophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_cryto_species_inv244.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+
+```{r}
+#Dictyos
+micro %>%
+  filter(group == "Dictyochophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_dictyo_species_inv244.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+```{r}
+#Dinos - found an error here - Ebria Tripartita is not a Dinoflagellate - how did this happen? Need to look into this and fix...
+micro_dino_dfo <- micro %>% 
+  filter(site_id == "DFO2" &
+           group == "Dinoflagellata" & count > 2000 & !is.na(genus) &
+           !scientificName == "Ebria tripartita") %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  arrange(date, count_sum) %>% 
+  mutate(site_id = "DFO2")
+
+micro_dino_kc10 <- micro %>% 
+  filter(site_id == "KC10" &
+           group == "Dinoflagellata" & count > 2000 & !is.na(genus) &
+           !scientificName == "Ebria tripartita") %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  arrange(date, count_sum) %>% 
+  mutate(site_id = "KC10")
+
+micro_dino_qcs01 <- micro %>% 
+  filter(site_id == "QCS01" &
+           group == "Dinoflagellata" & count > 2000 & !is.na(genus) &
+           !scientificName == "Ebria tripartita") %>% 
+  group_by(date, genus) %>% 
+  summarise(count_sum = sum(count)) %>% 
+  ungroup() %>% 
+  complete(date, genus) %>% 
+  arrange(date, count_sum) %>% 
+  mutate(site_id = "QCS01")
+
+micro_dino <- rbind(micro_dino_dfo, micro_dino_kc10, micro_dino_qcs01)
+
+micro_dino %>%
+  ggplot(aes(date, count_sum, fill = genus)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_dinos_species_inv244.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+```{r}
+#Euglenos
+micro %>%
+  filter(group == "Euglenophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_euglenos_species_inv244.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+```{r}
+#Haptos
+micro %>%
+  filter(group == "Prymnesiophyta-Haptophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_haptos_species_inv244.png"), 
+        width = 17, height = 15, dpi = 300)
+```
+
+```{r}
+#Raphidos
+micro %>%
+  filter(group == "Raphidiophyta") %>% 
+  ggplot(aes(date, count, fill = scientificName)) +
+  geom_bar(position = "stack", stat = "identity", color = "black", width = 10) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(limits = startEnd,
+               breaks = scales::date_breaks("3 month"),
+               labels = scales::date_format("%m-%y")) +
+  facet_wrap(~ site_id, ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        text = element_text(size = 11),
+        strip.background = element_blank(),
+        strip.text = element_blank()) + 
+  labs(x = "Month",
+       y = bquote("Abundance (cells" ~ L^-1*")")) +
+  theme(text = element_text(size = 25))
+
+ggsave(here("figures", "Calvert_raphidos_species_inv244.png"), 
+        width = 17, height = 15, dpi = 300)
+```
