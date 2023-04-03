@@ -1,0 +1,398 @@
+---
+title: "OBIS MATCHING"
+output: html_notebook
+---
+
+This notebook uploads phytoplankton microscopy data from excel based analyst results, which include taxonomic names and abundance counts for each data collection event. 
+
+After initial data transformation, the data are converted to tidy (long) format and taxonomic information is matched to taxonomic names within the WoRMs database (using both the obisTools and Worrms R packages). This matching corrects for spelling errors, allows for selection of the appropriate taxonomic information where multiple matches are returned, provides a WoRMs aphiaID and outputs taxonomic hierarchies. Considerable consultation was done with the analyst to ensure that the taxonomic matches corresponded to the original analyst designations. As a result, the final scientificNames have been updated to the most recent accepted names within the WoRMs database.
+
+Care was taken to ensure that matches were done to the lowest taxonomic level possible. At times, taxonomic designations were downgraded to higher taxonomic levels due to analyst uncertainties. These downgrades are documented within the code below. Additionally, identificationRemarks were used to explain decisions and analyst notes.
+
+
+```{r}
+#Load packages - Ran script with some packages turned off and it work, but need to try with more
+library(tidyverse)
+library(janitor) #Where do I use this? Test running without
+library(hutils) #Used to drop empty columns 
+library(obistools) #Used for initial species matches to WoRMs - good for cleaning taxonomic names
+library(worrms) #Used to derive accepted names and taxonomic hierarchies
+library(curl) #??? Test running without.
+library(stringr) #Used to remove white-space after strings from regex work
+library(here) 
+
+#library('taxizesoap') #not working. 
+#library(fuzzyjoin) #I don't know if I use this anymore
+#library(devtools) #This was to try to get taxizesoap to work, but think it is unused.
+#library(remotes) #I think this was to try to get taxizesoap to work, but think it is unused.
+#library(XML) #I think this was to try to get taxizesoap to work, but think it is unused.
+```
+
+```{r}
+#upload cleaned data
+micro <- read_csv(here("cleaned_csv", "microscopy_qu39_2021_254.csv"))
+```
+
+
+```{r}
+#This chunk of code runs the obistools and worrms tools on a truncated distinct species list rather than the entire data-sheet. This step is important because it helps to isolate species match issues on a small data-set. Furthermore, the worrms::wm_record_names provides the accepted scientificName, aphiaID and taxonomic hierarchy - these are not provided by the obistools:match_taxa. 
+
+#For error checking, limit species to unique species names. For whatever reason, this is throwing duplicates - must be something from my above filtering/renaming (i.e. a space after the name?). Not certain yet if it is necessary to fix this as it will depend on if it affects the data when I apply functions to the full dataset, which is not a unique subset. For unique subset, I deal with this later after the match_taxa has been performed - apply distinct to the scientificName output.
+
+unique_list <- micro %>%
+  distinct(species) %>%
+  arrange(species) %>%
+  mutate(id = row_number())
+
+#Take unique list of species and search for them within the WoRMs database. Add a unique row number for matching with the original species name list, so that species with poor or no matches can be identified
+
+worm_match <- unique_list$species %>%
+  match_taxa() %>%
+  mutate(id = row_number())
+
+#Testing to see if only using  worrms:wm_match_taxa provides the same results as first using obistools::match_taxa. It didn't pick up names where there was spelling errors or small differences and I think this was because the fuzzy matching default is FALSE. When I tried turning it on, it threw: Error: (500) Internal Server Error - AphiaRecordsByNames. Conflicted here because what I have works (even if it is more convoluted) and adds additional failsafe in that species names are more thoroughly checked.
+
+# test <- unique_list$species %>%
+#   wm_records_names(fuzzy = TRUE) %>%
+#   bind_rows() %>%
+#   rename(scientificName = scientificname)
+# 
+# test2 <- worm_match %>%
+#   left_join(test, by = "scientificName")
+
+
+#Join WoRMS species scientificName and scientificID with original species names from datasheet
+
+worm_match <- worm_match %>%
+  full_join(unique_list) %>%
+  rename(orig_name = species)
+
+#Filter for species where there was a poor match. Cross check matches to see if correct. After cross checking, the near_3 match is incorrect - Pleurotoma gracile, which was matched to Pleurostomum gracile. The near_2 matches are correct.
+
+worm_poor_match <- worm_match %>%
+  filter(match_type %in% c("near_2", "near_3", na.rm = "FALSE"))
+
+#Filter for species with no WoRMs matches. See next note.
+
+worm_na_match <- worm_match %>%
+  filter(is.na(match_type))
+
+# This step uses the WoRMs scientificName to create a list of distinct species and then it removes species with incorrect or no matches as these complicate the following database search using the worrms::wm_records_name tool. I can't find a match for Meringosphaerae tenerrima, but I could go to genus level for this species. For the other two species, I can't even find a genus level match. The analyst said that these species occur so infrequently and at such low numbers that he suggests just removing them instead of going through the work of adding them. Pleurostomum gracile, Phyllomitus yorkeensis, Meringosphaerae tenerrima
+worm_match_clean <- worm_match %>% 
+  filter(!(str_detect(orig_name, "Pleurostomum gracile") |  
+           str_detect(orig_name, "Phyllomitus yorkeensis") |  
+           str_detect(orig_name, "Meringosphaerae tenerrima") |
+           str_detect(orig_name, "Polylchaete larvae") | 
+           str_detect(orig_name, "Polylchaete"))) %>%   
+  distinct(scientificName, .keep_all = TRUE) 
+
+#This tool uses the worrms::wm_records_names tool to attach taxonomic hierarchies and accepted scientificNames to the scientificNames derived above from the obistools::match_taxa (provides direct matches, not accepted). Unfortunately, it re-adds duplicates (Appendicularia and Euglenozoa) where I was able to make selections in obistools::match_taxa and I need to manually remove these later. The worrms::wm_record_names is described here: https://cran.r-project.org/web/packages/worrms/worrms.pdf
+worm_hierarchy <- worm_match_clean$scientificName %>% 
+  wm_records_names() %>% 
+  bind_rows() %>% 
+  rename(scientificName = scientificname)
+
+#Joins the worrms::wm_records_names output with the obistools::taxon_match output so that unaccepted names can be found and traced back to the analysts original name and other issues can be identified. 
+worm_join <- worm_hierarchy %>% 
+  full_join(worm_match_clean, by = "scientificName")
+
+#finds duplicate species names created using wormms::wm_name_records. The worrms::wm_name_records tool reintroduces potential duplicate taxonomic designations that were selected and removed in obistools::taxon_match. This list is used to remove/rename duplicated entries when working with the full data-set in the next chunk.
+worm_join_dup <- worm_join %>% 
+     group_by(scientificName) %>% 
+     mutate(num_dups = n(), 
+            dup_id = row_number()) %>% 
+     ungroup() %>% 
+     mutate(is_duplicated = dup_id > 1) %>% 
+     filter(num_dups > 1)
+
+  #Current duplicates - if there are more than this, code will need to be altered below.
+    #Appendicularia
+    #Dinophysis rotundata
+    #Euglenozoa
+
+#this finds all of the taxonomic designations that are not accepted. After consultation with the analyst, I decided to go forward with the accepted scientificName from the worrms::wm_records_names output. It is suggested that the analyst original name, even if it is a synonym, is retained and used, but I since I cross checked with the analyst,  There is nothing I can do to corrected for uncertain names. 
+worm_join_unaccept <- worm_join %>% 
+  filter(!status == "accepted")
+
+```
+
+```{r}
+#This chunk adds taxonomic information to the full dataset, rather than just a distinct list. The distinct list is still important because the worrms::wm_records_names tool will only run on a small number of records. Therefore, I needed to use the distinct list from above to join to the larger dataset here. I don't really like my naming conventions here.
+
+#Performs obistools::match_taxa on full dataset. When prompted in console, select y, 2, 2. As the output is a single scientificName column, this step also gives an id so that this can be merged back with the metadata in the next step.
+complete <- micro$species %>% 
+  match_taxa() %>% 
+  mutate(id = row_number())
+
+#Gives the full data sheet an id for merging with 
+micro <- micro %>% 
+  mutate(id = row_number())
+
+
+#Removes species names that I decided to remove from the data based on the analysts suggestion. I could also do this earlier before the matching is done.
+complete <- complete %>% 
+  full_join(micro) %>% 
+  rename(orig_name = species) %>% 
+  filter(!(str_detect(orig_name, "Pleurostomum gracile") | 
+           str_detect(orig_name, "Phyllomitus yorkeensis") | 
+           str_detect(orig_name, "Meringosphaerae tenerrima") |
+           str_detect(orig_name, "Polylchaete") | 
+           str_detect(orig_name, "Polylchaete larvae")))  
+
+#This removes the double hierarchy matches (as seen in worm_join_dup data-sheet). Consultation was done to ensure the removal of the incorrect match and to leave the correct match. It might be better to do this in the last chunk where I develop this sheet - would probably flow better, rather than jumping back here.
+worm_hierarchy_clean <- worm_hierarchy %>% 
+  filter(!((scientificName == "Appendicularia" & is.na(authority)) |
+          (scientificName == "Dinophysis rotundata" & authority == "Levander, 1894") |
+          (scientificName == "Euglenozoa" & is.na(authority))))
+
+#Joins the worrms:wm_records_names derived taxonomic hierarchies and accepted ScientificName (and other information) to the full datasheet with all occurrences. 
+complete_join <- complete %>% 
+  left_join(worm_hierarchy_clean, by = "scientificName")
+
+```
+
+```{r}
+#Adding Indet. to all classifications that did not go to species level and do not have sp. or spp. This wasn't done in the previous data_wrangle worksheet as it requires the taxonomic hierarchy from the worms species match.
+complete_join <- complete_join %>% 
+  mutate(identificationQualifier = case_when(!rank == "Species" & 
+                                               is.na(identificationQualifier) ~
+                                               "Indet.",
+                                             TRUE ~ as.character
+                                             (identificationQualifier)))
+```
+
+#Likely worth outputting the data here and then uploading the file for formatting into OBIS format - limits the amount of time I need to run the data through the worms database matching queries.
+
+```{r}
+
+write_csv(complete_join, here("output_worms_matching", "qu39_2021-254.csv"))
+```
+
+```{r}
+#In this chunk I work to get the data into the OBIS-DWC format and split it into the event-core and the occurrence and extended measurement of fact (EMoF) extensions. 
+
+#Setting up a large flat table that I will split the Event, Occurrence and EMoF extensions from afterwards.
+
+#Switched from portal date to collected, which includes hours/minutes/seconds in UTC. The portal format looks to be in the correct format for OBIS-DwC. I kept the date (format Year-month-day) for the creation of the eventID, because I thought it was too complex to add the hours/minutes/seconds to the ID
+format_obis <- complete_join %>% 
+  select(date, eventDate = collected, minimumDepthInMeters = line_out_depth,
+         maximumDepthInMeters = line_out_depth, lat, long,
+         scientificName = valid_name, scientificNameID, valid_AphiaID, 
+         taxonRank = rank, lifeStage, identificationRemark, 
+         identificationQualifier, measurementValue = counts)
+
+#The worrms::wm_records_names tool does not output the correct scientificNameID format (not a url), but it does give the correct aphiaID number. The obistools::match_taxa format is correct, but with the unaccepted species aphiaIDs at the end. In this step, I remove the ID numbers at the end of the obistools scientificNameID url and then concatenate the correct ID number from the worrms tool at the end of the url. 
+format_obis <- format_obis %>% 
+  mutate(scientificNameID_2 = str_replace_all(scientificNameID, "[:digit:]", "")) %>% 
+  unite("ScientificNameID_corr", scientificNameID_2, valid_AphiaID, 
+        sep = "", remove = FALSE) %>% 
+  select(-scientificNameID_2, - scientificNameID, -valid_AphiaID,
+         scientificnameID = ScientificNameID_corr)
+
+#Adding required columns (these pertain to the Occurrence table)
+format_obis <- format_obis %>% 
+  mutate(occuranceStatus = "Present",
+         basisOfRecord = "HumanObservation",
+         identifiedBy = "Louis Hobson",
+         method = "Morphology")
+
+##https://tools.gbif.org/dwca-validator/extension.do?id=dwc:Event
+#Creating eventID - An identifier for the set of information associated with an Event (something that occurs at a place and time). May be a global unique identifier or an identifier specific to the data set.
+format_obis <- format_obis %>% 
+  mutate(eventID = "Hakai_phyto_QU39") %>% 
+  mutate(depth_unit = "m") %>% # creating depth unit to added to depth measurement 
+  unite("depth_unit", minimumDepthInMeters, depth_unit, #merging depth with depth unit
+        sep = "", remove = FALSE) %>%
+  unite("eventID", eventID, date, depth_unit, #merging event event ID prefix, date and depth
+        sep = "_", remove = FALSE) %>% 
+  select(!depth_unit) #removing depth unit column created for ID
+
+#Creating and adding occurrence ID
+format_obis <- format_obis %>% 
+  group_by(eventID) %>% 
+  mutate(occurrence_num = row_number()) %>% #creating sequential # that restarts each new date
+  ungroup() %>% 
+  unite("occurrenceID", eventID, occurrence_num, #merging event ID with new number 
+        sep = "_", remove = FALSE) %>% 
+  relocate(occurrenceID, .after = eventID) %>% 
+  select(!occurrence_num) #removing sequential # used to build occurrenceID
+
+#Removing cyanobacteria because observation/count highly speculative - could do earlier in process, but nice to have for other work.
+format_obis <- format_obis %>% 
+  filter(!scientificName == "Cyanobacteria")
+
+#Creating eventCore - pulling columns from flat format_obis table
+event <- format_obis %>% 
+  select(eventID, eventDate, minimumDepthInMeters,maximumDepthInMeters,
+         decimalLongitude = long, decimalLatitude = lat) %>% 
+  distinct(eventID, .keep_all = TRUE)
+  
+#Creating occurrence table pulling columns from flat format_obis table 
+occurrence <- format_obis %>%
+  select(eventID, occurrenceID, scientificName, 
+         scientificnameID, taxonRank, lifeStage, identificationRemark,
+         identificationQualifier, occuranceStatus, basisOfRecord,
+         identifiedBy, 
+         method)
+
+#Creating extended measurement of fact sheet without lifeStage.
+emof_no_lifeStage <- format_obis %>%
+  select(occurrenceID, measurementValue, lifeStage) %>%
+  mutate(measurementType = "Abundance of phytoplankton",
+         measurementTypeID = "http://vocab.nerc.ac.uk/collection/P01/current/PU00M00Z/",
+         measurementUnit = "cells per litre",
+         measurementUnitID = "http://vocab.nerc.ac.uk/collection/P06/current/UCPL/")
+
+#Creating EMoF with lifestage included in long (tidy) format.
+emof_lifeStage <- format_obis %>% 
+  select(occurrenceID, measurementValue, lifeStage) %>% 
+  mutate(measurementValue = as.character(measurementValue)) %>% 
+  pivot_longer(c(measurementValue:lifeStage),
+               names_to = "measurementType", values_to = "measurementValue")
+
+#Removing rows where there is no lifeStage - Don't need NAs
+emof_lifeStage <- emof_lifeStage %>% 
+  filter(!is.na(measurementValue))
+
+#Creating measurement ID since lifeStage addition creates duplicate occurrenceIDs
+emof_lifeStage <- emof_lifeStage %>% 
+  group_by(occurrenceID) %>% 
+  mutate(meas_num = row_number()) %>% #creating sequential # that restarts each new occID
+  ungroup() %>% 
+  unite("measurementID", occurrenceID, meas_num, #merging  occID with new numbers 
+        sep = "_", remove = FALSE) %>% 
+  relocate(measurementID, .after = occurrenceID) %>% 
+  select(!meas_num) #removing sequential # used to build measID
+
+#Adding measurementType and MeasurementTypeID to emof_lifestage. 
+emof_lifeStage <- emof_lifeStage %>% 
+  mutate(measurementType = str_replace(measurementType,
+                                 "measurementValue", 
+                                 "Abundance of phytoplankton")) %>%
+  mutate(measurementTypeID = 
+           case_when(measurementType == "Abundance of phytoplankton" ~ 
+                       "http://vocab.nerc.ac.uk/collection/P01/current/PU00M00Z/",
+                     measurementType == "lifeStage" ~
+                       "http://vocab.nerc.ac.uk/collection/P01/current/LSTAGE01/")) %>% 
+  mutate(measurementValueID = 
+           case_when(measurementValue == "Auxospores" ~
+                       "http://vocab.nerc.ac.uk/collection/S11/current/S1117/",
+                     measurementValue == "copepodites" ~
+                       "http://vocab.nerc.ac.uk/collection/S11/current/S115/",
+                     measurementValue == "nauplii" ~
+                       "http://vocab.nerc.ac.uk/collection/S11/current/S1130/",
+                     measurementValue == "resting spores" ~ #update to "spores"
+                       "http://vocab.nerc.ac.uk/collection/S11/current/S1134/",
+                     measurementValue == "spores" ~
+                       "http://vocab.nerc.ac.uk/collection/S11/current/S1135/")) %>% 
+  select(occurrenceID, measurementID, measurementType, measurementTypeID,
+         measurementValue, measurementValueID)
+
+#Adding measurement unit for abundance counts and measurementUnitID for measurementUnit
+emof_lifeStage <- emof_lifeStage %>% 
+  mutate(measurementUnit = 
+           case_when(measurementType == "Abundance of phytoplankton" ~
+                       "Number per litre")) %>% 
+  mutate(measurementUnitID = 
+           case_when(measurementType == "Abundance of phytoplankton" ~
+                       "http://vocab.nerc.ac.uk/collection/P06/current/UCPL/"))
+
+```
+
+```{r}
+#Assigning Louis' original classifications to species list.
+
+#Creating final distinct taxonomic list including all original analyst classifications and worms additions to ensure that all classifications/qualifiers are correct and to send to analyst for cross-check.
+
+occurrence_unique <- complete_join %>%
+  select(orig_name, status, unacceptreason, 
+         scientificName_accepted = valid_name, rank, kingdom:genus, 
+         lifeStage, identificationRemark, identificationQualifier) %>% 
+  distinct(orig_name, across(kingdom:identificationQualifier), 
+           .keep_all = TRUE) 
+
+occurrence_unique <- occurrence_unique %>% 
+  mutate(Louis_class = case_when(class == "Bacillariophyceae" ~ "Bacillariophyta",
+                                 phylum == "Chlorophyta" ~ "Chlorophyta",
+                                 phylum == "Choanozoa" ~ "Choanoflagellata",
+                                 class == "Chrysophyceae" |
+                                   class == "Xanthophyceae" ~ "Chrysophyta",
+                                 phylum == "Ciliophora" ~ "Ciliophora",
+                                 class == "Cryptophyceae" ~ "Cryptophyta",
+                                 phylum == "Cyanobacteria" ~ "Cyanobacteria",
+                                 class == "Dictyochophyceae" ~ "Dictyophyta",
+                                 class == "Dinophyceae" ~ "Dinoflagellata",
+                                 class == "Ebriophyceae" ~ "Ebriidea",
+                                 phylum == "Euglenozoa" & 
+                                   (class == "Euglenoidea" | is.na(class)) ~
+                                   "Euglenophyta",
+                                 phylum == "Haptophyta" ~ "Haptophyta",
+                                 class == "Kinetoplastea" | 
+                                   orig_name == "Metromonas simplex" | 
+                                   orig_name == "Pseudobodo tremulans" | 
+                                   orig_name == "Telonema subtilis" ~ 
+                                   "Kinetoplastidea",
+                                 phylum == "Arthropoda" | 
+                                   phylum == "Chordata" ~ "Metazoa",
+                                 class == "Raphidophyceae" ~ "Raphidiophyta",
+                                 kingdom == "Protozoa" & is.na(phylum) &
+                                   is.na(class) ~ "Unknown")) %>% 
+  select(Louis_class, Louis_name = orig_name, status:identificationQualifier) %>% 
+  arrange(Louis_class, Louis_name)
+
+#Testing stringr::stg_trim to remove whitespace following species name. Worked - should probably do this somewhere earlier (maybe after regex work)
+occurrence_unique <- occurrence_unique %>% 
+  mutate(Louis_name = stringr::str_trim(Louis_name, side = "right"))
+```
+
+```{r}
+#Comparison of portal samples with data with current OBIS data - Trying to see what samples we have missed or are awaiting results for.
+data_incorp <- complete_join %>% 
+  select(hakai_id) %>% 
+  distinct() %>% 
+  mutate(obis_status = "uploaded")
+
+
+#This didn't work very well - too many samples that haven't been analyzed and tough to filter them out - would be better to look at my sent sample inventory and cross compare with that.
+# data_assess <- metadata %>% 
+#   left_join(data_incorp) %>% 
+#   distinct(hakai_id, .keep_all = TRUE) %>% 
+#   filter(!is.na(hakai_id) & date > "2016-01-01" & 
+#            (line_out_depth == 0 | line_out_depth == 5) &
+#            is.na(obis_status))
+
+```
+
+```{r}
+#Writing sheets to csv.
+
+#out_path <- "C:\\Users\\justin.belluz\\Documents\\R\\microscopy_OBIS\\output_files"
+
+#Write sheets to file.
+# write_csv(format_obis, here(output_files, "OBIS_format_flat.csv"))
+# write_csv(event, here(output_files, "Hakai_phytoplankton_event.csv"))
+# write_csv(occurrence, here(output_files, "Hakai_phytoplankton_occurrence_idRemark.csv"))
+# write_csv(emof_no_lifeStage, here(output_files, "Hakai_phytoplankton_emof_no_lifeStage.csv"))
+# write_csv(emof_lifeStage, here(output_files, "Hakai_phytoplankton_emof_lifeStage.csv"))
+# write_csv(occurrence_unique, here(output_files, "occurrence_distinct_check_4.csv"))
+# write_csv(data_incorp, here(output_files, "incorp_hakID.csv"))
+```
+
+```{r}
+#things to do
+#fix time (done)
+#add qualifier information (done, but needs cross checks)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

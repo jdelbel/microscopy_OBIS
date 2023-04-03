@@ -1,0 +1,57 @@
+---
+title: "QU39 Timeseries"
+output: html_notebook
+---
+
+
+
+```{r}
+#Load packages
+library(tidyverse)
+library(patchwork)
+library(here)
+library(readr)
+```
+
+```{r}
+#Upload 2021 data
+micro_1 <- read_csv(here("output_research", "qu39-2016_2020_2.csv"))
+
+#2016-2020 data
+micro_2 <- read_csv(here("output_research", "qu39-2021-254.csv"))
+
+#bind datasets
+micro <- rbind(micro_1, micro_2)
+```
+
+```{r}
+distinct_species <- micro %>% 
+  distinct(scientificName)
+
+distinct_species_group <- micro %>% 
+  distinct(scientificName, group)
+
+#I definitely cut out some groups that they may want - look back and see what I could incorporate back in.
+
+#Need to look into this record.
+test <- micro %>% 
+  filter(is.na(scientificName))
+
+distinct_date <- micro %>% 
+  distinct(date)
+```
+
+```{r}
+micro %>%
+  filter(!group == "Protozoa") %>% 
+  filter(group == "Protozoa") %>% 
+  group_by(date) %>% 
+  summarise(sum = sum(count)) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = date, y = sum)) +
+    geom_point()
+```
+
+
+
+

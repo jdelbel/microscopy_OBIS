@@ -1,0 +1,149 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Plot the time-series to check for errors and show results.
+
+```{r}
+#Load packages
+library(tidyverse)
+library(patchwork)
+library(here)
+library(readr)
+```
+
+```{r}
+#Upload output from OBIS taxonomy matching/formatting
+micro <- read_csv(here("output_worms_matching", "qu39_2021-254.csv"))
+
+micro$date <- as.Date(micro$date, "%Y-%m-%d")
+
+#For some reason, Ebria tripartita is included as a photosynthetic dinoflagellate for 5 DFO records. Tried to back track this issue and couldn't find the source.
+ebria_issue <- micro %>% 
+  filter(scientificName == "Ebria tripartita" & group == "Dinoflagellata")
+```
+
+
+```{r}
+#Selecting pertinent columns.
+micro <- micro %>% 
+  select(date, collected, site_id, hakai_id, depth = line_out_depth, group,
+         scientificName, AphiaID, orig_name,
+         scientificName_accepted = valid_name, rank, kingdom:genus,
+         lifeStage:identificationRemark, count = counts)
+```
+
+```{r}
+#Chaetoceros is missing Louis group - adding here but need to go back and fix in original file
+
+micro <- micro %>% 
+  mutate(group = case_when(scientificName == "Chaetoceros" ~
+                             "Bacillariophyta",
+                           TRUE ~ as.character(group)))
+
+micro <- micro %>% 
+  mutate(group = case_when(scientificName == "Apedinella spinifera" ~
+                             "Dictyochophyta",
+                           TRUE ~ as.character(group)))
+
+#Checking distinct group/species
+micro_distinct <- micro %>% 
+  distinct(group, scientificName) %>% 
+  arrange(group)
+
+#Interesting - unknown flagallete bearing and unknown very small flagellate should probably be summed/grouped in original sheets. I wonder if this is a difference between sheets or if both existed, and I didn't account for this. Only the 2020 qu39 data had any counts for this - so they would have been removed from the other sheets, but kept here. I need to fix this - although it might not be an issue, as I class it as protozoa, so wouldn't it just be grouped in the obis matching stage? Hmm need to think about this.
+
+
+#making group for protozoa chlorophyta as unknown
+micro_distinct_fix <- micro_distinct %>%
+  mutate(group = case_when(scientificName == "Protozoa" & 
+                             group == "Unknown flagellae-bearing cells" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Unknown very small flagellated species" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Dinoflagellata" ~
+                             "Unknown_Dinophyceae?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta" ~
+                             "Unknown_Chlorophyta?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta-Prasinophyta" ~
+                             "Unknown_Chlorophyta?",
+                           TRUE ~ as.character(group)))
+
+micro <- micro %>%
+  mutate(group = case_when(scientificName == "Protozoa" & 
+                             group == "Unknown flagellae-bearing cells" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Unknown very small flagellated species" ~
+                             "Unknown_flagellate",
+                           scientificName == "Protozoa" & 
+                             group == "Dinoflagellata" ~
+                             "Unknown_Dinophyceae?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta" ~
+                             "Unknown_Chlorophyta?",
+                           scientificName == "Protozoa" & 
+                             group == "Chlorophyta-Prasinophyta" ~
+                             "Unknown_Chlorophyta?",
+                           TRUE ~ as.character(group)))
+
+micro <- micro %>%
+  mutate(group = case_when(group == "Chlorophyta" ~ "Chlorophyta-Prasinophyta",
+                           group == "Dictyophyta" ~ "Dictyochophyta",
+                           group == "Haptophyta" ~ "Prymnesiophyta-Haptophyta",
+                           TRUE ~ as.character(group)))
+
+
+micro_distinct2 <- micro %>% 
+  distinct(group, scientificName) %>% 
+  arrange(group)
+```
+
+```{r}
+#Designating photosynthetic species - Dictyochophyta was different in one sheet and needed to be added also:
+  #Prymnesiophyta-Haptophyta
+  #Chlorophyta-Prasinophyta
+
+#Actually, need to fix these things earlier as I sum groups and these differences will not let thier counts be summed.
+
+micro <- micro %>% 
+  mutate(trophicStatus = case_when(group == "Bacillariophyta" ~ "auto",
+                                   group == "Chlorophyta" ~ "auto",
+                                   group == "Chlorophyta-Prasinophyta" ~ "auto",
+                                   group == "Choanoflagellata" ~ "hetero",
+                                   group == "Chrysophyta" ~ "auto",
+                                   group == "Ciliophora" ~ "hetero",
+                                   group == "Cryptophyta" ~ "auto",
+                                   group == "Cyanobacteria" ~ "auto",
+                                   group == "Dictyophyta" ~ "auto",
+                                   group == "Dictyochophyta" ~ "auto",
+                                   group == "Dinoflagellata" ~ "auto",
+                                   group == "Ebriidea" ~ "hetero",
+                                   group == "Euglenophyta" ~ "auto",
+                                   group == "Haptophyta" ~ "auto",
+                                   group == "Prymnesiophyta-Haptophyta" ~ "auto",
+                                   group == "Kinetoplastidea" ~ "hetero",
+                                   group == "Metazoa" ~ "hetero",
+                                   group == "Raphidiophyta" ~ "auto",
+                                   group == "Unknown_flagellate" ~ "auto",
+                                   group == "Unknown_Chlorophyta?" ~ "auto",
+                                   group == "Unknown_Dinophyceae?" ~ "auto")) %>% 
+  select(date, collected, site_id, hakai_id, depth, group,
+         scientificName, AphiaID, orig_name,
+         scientificName_accepted, trophicStatus, rank, kingdom:genus,
+         lifeStage:identificationRemark, count)
+
+trophic_check <- micro %>% 
+  distinct(group, trophicStatus) %>% 
+  arrange(trophicStatus)
+```
+
+```{r}
+write_csv(micro, here("output_research", "qu39-2021-254.csv"))
+```
+
